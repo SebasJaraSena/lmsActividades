@@ -69,11 +69,11 @@ try {
 } catch (PDOException $e) {
     // Manejo de errores de base de datos
     error_log("Error en la base de datos: " . $e->getMessage());
-    header("Location: http://localhost/lms/error/error_conexion.php");
+    header("Location: http://localhost/lmsActividades/error/error_conexion.php");
     exit();
 } catch (Exception $e) {
     // Manejo de otros errores
     error_log("Ocurrió un error: " . $e->getMessage());
-    header("Location: http://localhost/lms/error/error_conexion.php");
+    header("Location: http://localhost/lmsActividades/error/error_conexion.php");
     exit();
 }

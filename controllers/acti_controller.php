@@ -86,7 +86,7 @@ try {
 // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DEL APRENDIZ EN MULTIPLES ACTIIDADES
 function obtenerNotas($conn, $id_user, $acti)
 {
-    $errorPage = 'http://localhost/lms/error_acti.php';
+    $errorPage = 'http://localhost/lmsActividades/error_acti.php';
     global $replica;
     try {
         $q_gradess = $conn->prepare("SELECT * FROM obtenerNotasActi(ARRAY[:acti]::BIGINT[], ARRAY[:id_user]::BIGINT[])");
@@ -107,7 +107,7 @@ function obtenerNotas($conn, $id_user, $acti)
 // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION A REVISION DE ACTIVIDADES
 function obtenerParametros($conn, $id_user, $id_curso, $acti)
 {
-    $errorPage = 'http://localhost/lms/error_acti.php';
+    $errorPage = 'http://localhost/lmsActividades/error_acti.php';
     global $replica;
     try {
         $stmt = $conn->prepare("SELECT * FROM obtenerParametros(ARRAY[:id_user]::BIGINT[], :curso, ARRAY[:acti]::BIGINT[])");
@@ -129,7 +129,7 @@ function obtenerParametros($conn, $id_user, $id_curso, $acti)
 // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION A REVISION DE APRENDICES PENDIENTES
 function obtenerParametrosPendientes($conn, $acti)
 {
-    $errorPage = 'http://localhost/lms/error_acti.php';
+    $errorPage = 'http://localhost/lmsActividades/error_acti.php';
     global $replica;
     try {
         $stmt = $conn->prepare("SELECT * FROM obtenerParametrosPend(ARRAY[:acti]::BIGINT[])");

@@ -10,7 +10,7 @@ if (!isset($_SESSION['last_page'])) {
 }
 
 // Define la URL de la página especial que causa el reseteo del historial
-$reset_page_url = 'http://localhost/lms/views/competencias.php?idnumber=Mjk2NjY1Ng=='; // Ajusta esto según tu configuración
+$reset_page_url = 'http://localhost/lmsActividades/views/actividades.php?idnumber=Mjk2NjY1Ng=='; // Ajusta esto según tu configuración
 
 // Resetea el historial si se vuelve a la página especial
 $current_page = $_SERVER['PHP_SELF'];
@@ -38,7 +38,8 @@ if ($current_page === $reset_page_url) {
     // Actualiza la variable de sesión para la siguiente carga
     $_SESSION['last_page'] = $url;
 }
-function mostrar_historial() {
+function mostrar_historial()
+{
     if (isset($_SESSION['history']) && !empty($_SESSION['history'])) {
         // Mostrar el historial en orden inverso para tener el más reciente a la derecha
         $history_count = count($_SESSION['history']);
@@ -60,15 +61,15 @@ function mostrar_historial() {
     <meta name="description" content="" />
     <meta name="author" content="" />
     <!-- Font Awesome Icon -->
-    <link rel="icon" type="image/png" href="http://localhost/lms/public/assets/img/head-sena.svg">
+    <link rel="icon" type="image/png" href="http://localhost/lmsActividades/public/assets/img/head-sena.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="http://localhost/lms/public/css/styles.css" rel="stylesheet" />
-    <link href="http://localhost/lms/public/css/style.min.css" rel="stylesheet" />
+    <link href="http://localhost/lmsActividades/public/css/styles.css" rel="stylesheet" />
+    <link href="http://localhost/lmsActividades/public/css/style.min.css" rel="stylesheet" />
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="http://localhost/lms/public/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="http://localhost/lmsActividades/public/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.1/css/colReorder.dataTables.css">
 
@@ -80,8 +81,8 @@ function mostrar_historial() {
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
-    <script src="http://localhost/lms/public/js/all.js" crossorigin="anonymous"></script>
-   
+    <script src="http://localhost/lmsActividades/public/js/all.js" crossorigin="anonymous"></script>
+
     <!-- Buttons for DataTables -->
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -102,7 +103,7 @@ function mostrar_historial() {
 
     <nav class="d-flex flex justify-content-between flex-wrap flex-md-nowrap sticky-top px-4 py-2 navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a id="zajuna-link" class="navbar-brand ps-5 fs-5" href="http://localhost/zajuna/"><img class="my-2" src="http://localhost/lms/public/assets/img/zajuna.svg" alt=""></a>
+        <a id="zajuna-link" class="navbar-brand ps-5 fs-5" href="http://localhost/zajuna/"><img class="my-2" src="http://localhost/lmsActividades/public/assets/img/zajuna.svg" alt=""></a>
         <div class="d-inline-flex justify-content-center justify-content-md-start text-white w-100 order-3 order-md-0">
             <a class="nav-link ps-4 fs-6" href="http://localhost/zajuna/my/">Área personal</a>
             <a class="nav-link ps-4 fs-6" href="http://localhost/zajuna/my/courses.php">Mis cursos</a>
@@ -110,10 +111,10 @@ function mostrar_historial() {
         </div>
         <div class="d-flex">
             <nav class="logo-sena">
-                <img src="http://localhost/lms/public/assets/img/head-sena.svg" alt="Ícono de sena" id="logo-sena-img">
+                <img src="http://localhost/lmsActividades/public/assets/img/head-sena.svg" alt="Ícono de sena" id="logo-sena-img">
             </nav>
-    
-            <!-- Navbar / Rutas de navegacion o acciones rapidas del Boque lms a Zajuna -->
+
+            <!-- Navbar / Rutas de navegacion o acciones rapidas del Boque lmsActividades a Zajuna -->
             <ul class=" navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>

@@ -1,3 +1,3 @@
 <?php
 
-$errorPage="http://localhost/lms/error/error_acti.php";
+$errorPage = "http://localhost/lmsActividades/error/error_acti.php";
