@@ -10,8 +10,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $user = $_SESSION['user'];
     $user_id = $user->userid;
     $rol_user = $user->tipo_user;
-
-    // Decodificar parámetros recibidos por GET
     $id_curso = $_GET['id'];
 
     // LLAMAR AL HEADER 
@@ -25,11 +23,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         $id_esca = $esc->id;
     }
 
-    foreach ($categorias as $categoria) {
+    /*     foreach ($categorias as $categoria) {
         $id_categoria = $categoria->id;
         $nombre_categoria = $categoria->fullname;
     }
-
+ */
 ?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
@@ -164,8 +162,32 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                 <div class="card-body" id="actividades-card">
 
+                    <nav class="tertiary-navigation-selector">
+                        <div class="dropdown">
+                            <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
+                            <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
+                                &nbsp;Categorías
+                            </button>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($categorias as $categoria) {
+                                    $id_categoria =  $categoria->id;
+                                    $id_rea = $categoria->fullname;
+                                ?>
+                                    <li>
+                                        <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
+                                            <?php echo $categoria->fullname; ?>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </nav>
+
                     <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
                         <div class="table-responsive">
+
+
+
                             <?php
 
                             //INICION SESION ROL INSTRUCTOR (ROL 3)

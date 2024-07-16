@@ -10,28 +10,13 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $user_id = $user->userid;
     $rol_user = $user->tipo_user;
 
-    // Se valida que los datos de la url sean los correctos
-    if (isset($_GET['params'])) {
-        $encodedParams = $_GET['params'];
-        $decodedParams = base64_decode($encodedParams);
+    $id_curso = $_GET['id'];
+    $id_rea = $_GET['cat'];
 
-        parse_str($decodedParams, $params);
-        // Decodificar parámetros recibidos por GET
-        $id_curso = base64_decode($params['id_ficha']);
-        $id_competencia = base64_decode($params['id_competencia']);
-        $id_rea = base64_decode($params['rea_id']);
-
-        // Codificar parámetros para su posterior uso en URLs
-        $encoded_rea = base64_encode($id_rea);
-        $encoded_curso = base64_encode($id_curso);
-        $encoded_competencia = base64_encode($id_competencia);
-    }
     // LLAMAR AL HEADER 
     require_once '../../header.php';
     // LLAMAR A LA BASE DE DATOS ZAJUNA 
     require_once '../../config/db_config.php';
-    // LLAMAR A LA BASE DE DATOS INTEGRACIÓN
-    require_once '../../config/sofia_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/forap_controller.php';
 
@@ -86,7 +71,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="dropdown">
                                 <!--BOTON PARA REDIRECCIONAR AL APARTADO DE LETRAS DE CALIFICACION DE ZAJUNA -->
                                 <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="http://localhost/lms/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs">
+                                    <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs">
                                     Informe Calificador
                                 </button>
                                 <ul class="dropdown-menu">
@@ -96,20 +81,20 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </div>
                         </nav>
                         <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE ACTIVIDADES -->
-                        <button class="icono-con-texto" onclick="redirectToActividadAp('<?= $encoded_curso; ?>','<?= $encoded_competencia; ?>', '<?= $encoded_rea; ?>')">
-                            <img src="http://localhost/lms/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
+                        <button class="icono-con-texto" onclick="redirectToActividadAp('<?= $id_curso; ?>', '<?= $id_rea; ?>')">
+                            <img src="http://localhost/lmsActividades/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
                             <p>Actividades</p>
                         </button>
-                        <button class="icono-con-texto" onclick="redirectToEvidenciasAp('<?= $encoded_curso; ?>','<?= $encoded_competencia; ?>', '<?= $encoded_rea; ?>')">
-                            <img src="http://localhost/lms/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
+                        <button class="icono-con-texto" onclick="redirectToEvidenciasAp('<?= $id_curso; ?>','<?= $id_rea; ?>')">
+                            <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
                             <p>Evidencias</p>
                         </button>
                         <button class="icono-con-texto" onclick="miFuncion()">
-                            <img src="http://localhost/lms/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
+                            <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
                             <p>Blogs</p>
                         </button>
                         <button class="icono-con-texto" onclick="miFuncion()">
-                            <img src="http://localhost/lms/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
+                            <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
                             <p>Wikis</p>
                         </button>
                     </div>
@@ -282,7 +267,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
                                                                     <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/view.php?id=' . $id . '">Analisis del Foro</a>
                                                                     <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=' . $courseid . '&item=grade&itemid=' . $itemid . '&gpr_type=report&gpr_plugin=grader&gpr_courseid=' . $courseid . '">Retroalimentación</a>
-                                                                    <form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lms/controllers/enviarEmail.php">
+                                                                    <form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lmsActividades/controllers/enviarEmail.php">
                                                                         <input type="hidden" name="correo[]" class="CheckedAK " value="' . $email . '">
                                                                         <input type="hidden" name="id_ficha" value="' . $encoded_curso . '">
                                                                         <input type="hidden" name="id_competencia" value="' . $encoded_competencia . '">
@@ -325,9 +310,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/view.php?id=' . $id . '">Analisis del Foro</a>
                                                                 <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=' . $courseid . '&item=grade&itemid=' . $itemid . '&gpr_type=report&gpr_plugin=grader&gpr_courseid=' . $courseid . '">Retroalimentación</a>                                                                <form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lms/controllers/enviarEmail.php">
                                                                     <input type="hidden" name="correo[]" class="CheckedAK " value="' . $email . '">
-                                                                    <input type="hidden" name="id_ficha" value="' . $encoded_curso . '">
-                                                                    <input type="hidden" name="id_competencia" value="' . $encoded_competencia . '">
-                                                                    <input type="hidden" name="rea_id" value="' . $encoded_rea . '">
+                                                                    <input type="hidden" name="id_ficha" value="' . $id_curso . '">
+                                                                    <input type="hidden" name="rea_id" value="' . $id_rea . '">
                                                                     <input type="hidden" name="actividades" value="' . $redireccion . '">
                                                                     <button type="submit" class="btn" >Enviar Recordatorio</button>
                                                                 </form>
@@ -343,7 +327,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </tbody>
                             </table>
                             <?php
-                            echo '<form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lms/controllers/enviarEmail.php">
+                            echo '<form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lmsActividades/controllers/enviarEmail.php">
                                     ';
                             $correos[] = $email;
                             $correosNoRegistrados[] = $email;
@@ -357,9 +341,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                        ';
                             }
                             echo '
-                                       <input type="hidden" name="rea_id" value="' . $encoded_rea . '">
-                                       <input type="hidden" name="id_ficha" value="' . $encoded_curso . '">
-                                       <input type="hidden" name="id_competencia" value="' . $encoded_competencia . '">
+                                       <input type="hidden" name="rea_id" value="' . $id_rea . '">
+                                       <input type="hidden" name="id_ficha" value="' . $id_curso . '">
                                        <input type="hidden" name="actividades" value="' . $redireccion . '">
                                        <button type="submit" class="btn icono-con-texto  my-3">Enviar Recordatorio a todos</button>
                                    </form>
@@ -380,7 +363,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     // ALERTA DE SESION VENCIDA 
     $mensaje = "Ha caducado su sesión. Por favor ingrese nuevamente ";
     echo "<script>
-    window.location.href = 'http://localhost/lms/error/error.php';
+    window.location.href = 'http://localhost/lmsActividades/error/error.php';
     </script>";
 }
 ?>

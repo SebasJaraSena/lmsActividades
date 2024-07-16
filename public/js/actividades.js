@@ -11,23 +11,16 @@ function redirectToEvidencias(id_curso) {
   window.location.href = `http://localhost/lmsActividades/views/actividades/evidencias.php?id=${encodeURIComponent(id_curso)}`;
 }
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE FOROS_AP 
-function redirectToForosAp(encoded_curso, encoded_rea) {
-  const urlParams = `id_ficha=${encoded_curso}&rea_id=${encoded_rea}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/for_ap.php?params=${encodedParams}`;
+function redirectToForosAp(id_curso, id_rea) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/for_ap.php?id=${encodeURIComponent(id_curso)}&cat=${encodeURIComponent(id_rea)}`;
 }
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE EVIDENCIAS_AP
-function redirectToEvidenciasAp(encoded_curso, encoded_rea) {
-  const urlParams = `id_ficha=${encoded_curso}&rea_id=${encoded_rea}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/evi_ap.php?params=${encodedParams}`;
+function redirectToEvidenciasAp(id_curso, id_rea) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/evi_ap.php?id=${encodeURIComponent(id_curso)}&cat=${encodeURIComponent(id_rea)}`;
 }
-
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE ACTIVIDADES_AP
-function redirectToActividadAp(encoded_curso, encoded_rea) {
-  const urlParams = `id_ficha=${encoded_curso}&rea_id=${encoded_rea}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/acti_ap.php?params=${encodedParams}`;
+function redirectToActividadAp(id_curso, id_rea) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/acti_ap.php?id=${encodeURIComponent(id_curso)}&cat=${encodeURIComponent(id_rea)}`;
 }
 
 // FUNCION PARA MOSTRAR EL SPINNER Y OCULTAR LA TABLA 
