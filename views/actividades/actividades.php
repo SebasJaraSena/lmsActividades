@@ -22,12 +22,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     foreach ($esca as $esc) {
         $id_esca = $esc->id;
     }
-
-    /*     foreach ($categorias as $categoria) {
-        $id_categoria = $categoria->id;
-        $nombre_categoria = $categoria->fullname;
-    }
- */
 ?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->

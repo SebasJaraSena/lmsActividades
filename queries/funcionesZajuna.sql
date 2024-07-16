@@ -232,7 +232,6 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-
 WHERE c.id = course AND i.itemmodule = 'quiz' and g.fullname = idrea;
 
 -- Crear la vista a partir de la tabla temporal
