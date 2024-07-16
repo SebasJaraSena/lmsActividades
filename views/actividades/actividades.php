@@ -11,27 +11,16 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $user_id = $user->userid;
     $rol_user = $user->tipo_user;
 
-    // Se valida que los datos de la url sean los correctos
-    if (isset($_GET['params'])) {
-        $encodedParams = $_GET['params'];
-        $decodedParams = base64_decode($encodedParams);
+    // Decodificar parámetros recibidos por GET
+    $id_curso = base64_decode($_GET['idnumber']);
 
-        parse_str($decodedParams, $params);
-        // Decodificar parámetros recibidos por GET
-        $id_curso = base64_decode($params['id_ficha']);
-        $id_competencia = base64_decode($params['id_competencia']);
-
-        // Codificar parámetros para su posterior uso en URLs
-        $encoded_curso = $params['id_ficha'];
-        $encoded_competencia = $params['id_competencia'];
-    }
+    // Codificar parámetros para su posterior uso en URLs
+    $encoded_curso = $_GET['idnumber'];
 
     // LLAMAR AL HEADER 
     require_once '../../header.php';
     // LLAMAR A LA BASE DE DATOS ZAJUNA 
     require '../../config/db_config.php';
-    // LLAMAR A LA BASE DE DATOS INTEGRACION 
-    require '../../config/sofia_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/acti_controller.php';
 
@@ -75,10 +64,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-2">
-                        <!-- BOTON PARA REGRESAR A LA VISTA DE RESULTSADOSAP  -->
-                        <img src="http://localhost/lms/public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" onclick="redirectToResultadosAp('<?= $encoded_curso; ?>','<?= $encoded_competencia; ?>')">
-                        <p>Regresar</p>
-
+                        <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" id="back-button-zajuna">
+                        <p>Regresar a ZAJUNA</p>
                     </div>
                     <div class="col-sm-8 d-flex justify-content-center">
                         <h3><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">PRUEBAS DE
@@ -99,6 +86,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="d-flex flex-wrap gap-3">
 
                         <?php
+                        // SI EL USUARIO QUE INGRESA TIENE ROL 3 (INSTRUCTOR) PODRA VISUALIZAR ESTE BOTON
                         if ($rol_user == 3) {
                         ?>
                             <nav class="tertiary-navigation-selector">
@@ -120,11 +108,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         ?>
 
                         <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE FOROS Y EVIDENCIAS -->
-                        <button class="icono-con-texto" onclick="redirectToForos('<?= $encoded_curso; ?>', '<?= $encoded_competencia; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToForos('<?= $encoded_curso; ?>')">
                             <img src="http://localhost/lms/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
                             <p>Foros</p>
                         </button>
-                        <button class="icono-con-texto" onclick="redirectToEvidencias('<?= $encoded_curso; ?>', '<?= $encoded_competencia; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToEvidencias('<?= $encoded_curso; ?>')">
                             <img src="http://localhost/lms/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
                             <p>Evidencias</p>
                         </button>

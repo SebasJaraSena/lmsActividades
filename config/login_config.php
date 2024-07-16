@@ -59,7 +59,7 @@ try {
         $_SESSION['user'] = $user;
         $user_tipo = $user->tipo_user;
 
-        header("Location: ../views/competencias.php?idnumber=$encrypted_curso_id");
+        header("Location: ../views/actividades/actividades.php?idnumber=$encrypted_curso_id");
         exit();
     } else {
         // Si la consulta no encuentra información o la conexión falla en la BD, redireccionar al usuario
