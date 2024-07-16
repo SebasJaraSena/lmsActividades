@@ -73,7 +73,7 @@ if ($navoptions->grades) {
 
         $new_url = new moodle_url('http://localhost/lmsActividades/config/login_config.php', array(
             'user' => base64_encode($USER->id),
-            'idnumber' => base64_encode($course->idnumber),
+            'idnumber' => base64_encode($course->id),
             'redirect' => 'actividades' // Indica que se redirigirá a actividades.php después de login_config.php
         ));
         $new_node = $coursenode->add(
@@ -508,6 +508,37 @@ JOIN mdl_forum f ON f.id = gi.iteminstance
 JOIN mdl_course c ON f.course = c.id
 where c.id = id_curso AND f.id = id_for[i] AND g.userid = id_user[i] AND (gi.itemname LIKE '%rating%' OR gi.itemname LIKE '%calificación%') ;
 END LOOP;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--
+----------------------FUNCION PARA OBTENER LA PARTICIPACION DE UN APRENDIZ EN UN FORO
+
+CREATE OR REPLACE FUNCTION obtenerParticipacionFor(id_for BIGINT[], id_user BIGINT[])
+RETURNS TABLE(
+    id BIGINT,
+    userid BIGINT,
+    mensaje TEXT
+)
+AS $$
+DECLARE
+    i INT;
+BEGIN
+    -- Verifica que ambos arrays tengan la misma longitud
+    IF array_length(id_user, 1) != array_length(id_for, 1) THEN
+        RAISE EXCEPTION 'Los arrays deben tener la misma longitud';
+    END IF;
+
+    -- Itera sobre los arrays y ejecuta la consulta para cada par de elementos
+    FOR i IN 1..array_length(id_user, 1) LOOP
+        RETURN QUERY
+        SELECT fp.id, fp.userid, fp.message
+        FROM public.mdl_forum_posts fp
+        JOIN mdl_forum_discussions fd ON fp.discussion = fd.id
+        JOIN mdl_forum f ON fd.forum = f.id
+        WHERE f.id = id_for[i] AND fp.userid = id_user[i];
+    END LOOP;
 END;
 $$
 LANGUAGE 'plpgsql';

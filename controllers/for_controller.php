@@ -99,6 +99,27 @@ try {
     exit();
 }
 
+
+function obtenerParticipacion($conn, $id_for, $id_user)
+{
+    global $replica, $errorPage;;
+    try {
+        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionFor(ARRAY[:id_for]::BIGINT[]), ARRAY[:id_user]::BIGINT[]");
+        $participa->bindParam(':id_for',  $id_for, PDO::PARAM_INT);
+        $participa->bindParam(':id_user',  $id_user, PDO::PARAM_STR);
+        $participa->execute();
+        $parti = $participa->fetchAll(PDO::FETCH_ASSOC);
+        return $parti;
+    } catch (PDOException $e) {
+        echo 'Error al obtener las notas de las actividades: ' . $e->getMessage() . "\n";
+        log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
+        echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+        exit();
+        return [];
+    }
+}
+
+
 function obtenerNotas($conn, $id_user, $id_curso, $id_for)
 {
     global $replica, $errorPage;;

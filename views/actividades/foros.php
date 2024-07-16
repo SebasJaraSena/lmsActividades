@@ -219,9 +219,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     $id = $param['id'];
                                                 }
 
+                                                // LLAMADA A LA FUNCION PARA OBTENER LA PARTICIPACION DE LOS APRENDICES 
+                                                /* $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                                foreach ($parti as $part) {
+                                                    $participacion = $part['mensaje'];
+                                                } */
+
                                                 // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                                 $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
-
                                                 foreach ($q_grades as $q_grade) {
                                                     $grad = $q_grade['rawgrade'];
                                                     $id_for = $actividad->idacti;
