@@ -205,27 +205,29 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             echo '<tr>
                                                   <td id="text-align-document">' . $doc_user . '</td>
                                                   <td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
-                                        
+
                                             foreach ($actividades as $actividad) {
                                                 echo '<td>';
                                                 $id_for = $actividad->idacti;
-                                        
-                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
-                                                                                        $params = obtenerParametros($conn, $id_for);
-                                                                                        foreach ($params as $param) {
-                                                                                            $id = $param['id'];
-                                                                                        }
-                                        
-                                                // Obtener participación
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER PARTICIPACION
                                                 $parti = obtenerParticipacion($conn, $id_for, $id_user);
-                                                $participacion = !empty($parti) ? $parti[0]['mensaje'] : '';
-                                        
+                                                foreach ($parti as $part) {
+                                                    $participacion = $part['mensaje'];
+                                                }
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
+                                                $params = obtenerParametros($conn, $id_for);
+                                                foreach ($params as $param) {
+                                                    $id = $param['id'];
+                                                }
+
                                                 // Obtener notas
                                                 $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
                                                 foreach ($q_grades as $q_grade) {
                                                     $grad = $q_grade['rawgrade'];
                                                     $id_for = $actividad->idacti;
-                                        
+
                                                     if (!empty($grad)) {
                                                         if ($grad >= 70.00000) {
                                                             echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
@@ -264,6 +266,23 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     </div>
                                                                   </div>';
                                                         }
+                                                    } else if (!empty($participacion)) {
+                                                        echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
+                                                                <div class="d-gitd gap-2 col-8 mx-auto">
+                                                                    <h6>P</h6>
+                                                                </div>
+                                                                <div class="action-manu" data-collapse="menu">
+                                                                    <div class="dropdown show">
+                                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                            <span class="" tittle ="Acciones de la celda" aria-hidden="true"></span>
+                                                                            <span class="sr-only">Acciones de la celda</span>
+                                                                        </button>
+                                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              </div>';
                                                     } else {
                                                         $id_for = $actividad->idacti;
                                                         $paramsPen = obtenerParametrosPendientes($conn, $id_for);
@@ -316,7 +335,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             echo '</tr>';
                                         }
                                         ?>
-                                        
                                     </tbody>
                                 </table>
                         </div>

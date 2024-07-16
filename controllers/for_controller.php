@@ -119,8 +119,6 @@ function obtenerParticipacion($conn, $id_for, $id_user)
     }
 }
 
-
-
 function obtenerNotas($conn, $id_user, $id_curso, $id_for)
 {
     global $replica, $errorPage;;
