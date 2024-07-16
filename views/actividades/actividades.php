@@ -156,34 +156,36 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                 <div class="card-body" id="actividades-card">
 
-                    <nav class="tertiary-navigation-selector">
-                        <div class="dropdown">
-                            <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
-                            <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                &nbsp;Categorías
-                            </button>
-                            <ul class="dropdown-menu">
-                                <?php foreach ($categorias as $categoria) {
-                                    $id_categoria =  $categoria->id;
-                                    $id_rea = $categoria->fullname;
-                                ?>
-                                    <li>
-                                        <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
-                                            <?php echo $categoria->fullname; ?>
-                                        </a>
-                                    </li>
-                                <?php } ?>
-                            </ul>
-                        </div>
-                    </nav>
+                    <?php
+                    if ($rol_user == 3) {
+                    ?>
+                        <nav class="tertiary-navigation-selector">
+                            <div class="dropdown">
+                                <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
+                                <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    &nbsp;Categorías
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <?php foreach ($categorias as $categoria) {
+                                        $id_categoria =  $categoria->id;
+                                        $id_rea = $categoria->fullname;
+                                    ?>
+                                        <li>
+                                            <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
+                                                <?php echo $categoria->fullname; ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </nav>
+                    <?php
+                    }
+                    ?>
 
                     <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
                         <div class="table-responsive">
-
-
-
                             <?php
-
                             //INICION SESION ROL INSTRUCTOR (ROL 3)
                             if ($rol_user == 3) { ?>
                                 <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
