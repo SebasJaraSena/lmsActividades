@@ -124,9 +124,9 @@ hr {
   margin: 0rem 0;
   color: #00324D;
   border: 0;
-    border-top-width: 0px;
-    border-top-style: none;
-    border-top-color: currentcolor;
+  border-top-width: 0px;
+  border-top-style: none;
+  border-top-color: currentcolor;
   border-top: 2.5px solid;
   opacity: 0.50;
 }
@@ -5018,7 +5018,7 @@ fieldset:disabled .btn {
   margin-left: 1em;
   width: 30px;
   height: 24px;
-  background-image: url('http://localhost/lms/public/assets/img/ojito.webp');
+  background-image: url('http://localhost/lmsActividades/public/assets/img/ojito.webp');
   background-size: contain;
   /* Ajusta la imagen para que se contenga dentro del elemento */
   background-repeat: no-repeat;
@@ -5040,7 +5040,7 @@ fieldset:disabled .btn {
   margin-left: 1em;
   width: 30px;
   height: 24px;
-  background-image: url('http://localhost/lms/public/assets/img/ojitocerrado.svg');
+  background-image: url('http://localhost/lmsActividades/public/assets/img/ojitocerrado.svg');
   /* Reemplaza con la URL de la imagen para el hover */
 }
 
@@ -6352,21 +6352,26 @@ fieldset:disabled .btn {
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: #00324D; /* Azul oscuro para el texto */
+  color: #00324D;
+  /* Azul oscuro para el texto */
   pointer-events: auto;
-  background-color: #E2E2E2; /* Gris suave para el fondo */
+  background-color: #E2E2E2;
+  /* Gris suave para el fondo */
   background-clip: padding-box;
   border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
   border-radius: var(--bs-modal-border-radius);
   outline: 0;
-  align-items: center; /* Centrar el contenido del modal */
-  justify-content: center; /* Centrar el contenido del modal */
+  align-items: center;
+  /* Centrar el contenido del modal */
+  justify-content: center;
+  /* Centrar el contenido del modal */
   font-weight: bolder;
   padding: 2em;
 }
 
 .modal-header .modal-title {
-  color: #39a900; /* Color del título en formato hexadecimal */
+  color: #39a900;
+  /* Color del título en formato hexadecimal */
   font-weight: bolder;
 
 }

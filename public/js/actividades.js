@@ -16,7 +16,6 @@ function redirectToEvidencias(encoded_curso) {
   const encodedParams = encodeBase64(urlParams);
   window.location.href = `http://localhost/lmsActividades/views/actividades/evidencias.php?params=${encodedParams}`;
 }
-
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE FOROS_AP 
 function redirectToForosAp(encoded_curso, encoded_rea) {
   const urlParams = `id_ficha=${encoded_curso}&rea_id=${encoded_rea}`;
@@ -35,7 +34,6 @@ function redirectToActividadAp(encoded_curso, encoded_rea) {
   const urlParams = `id_ficha=${encoded_curso}&rea_id=${encoded_rea}`;
   const encodedParams = encodeBase64(urlParams);
   window.location.href = `http://localhost/lmsActividades/views/actividades/acti_ap.php?params=${encodedParams}`;
-
 }
 
 // FUNCION PARA MOSTRAR EL SPINNER Y OCULTAR LA TABLA 

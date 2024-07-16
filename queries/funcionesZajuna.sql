@@ -70,6 +70,20 @@ if ($navoptions->grades) {
         $gradenode->make_active();
     }
 }
+
+        $new_url = new moodle_url('http://localhost/lmsActividades/config/login_config.php', array(
+            'user' => base64_encode($USER->id),
+            'idnumber' => base64_encode($course->idnumber),
+            'redirect' => 'actividades' // Indica que se redirigirá a actividades.php después de login_config.php
+        ));
+        $new_node = $coursenode->add(
+            'Centro de Calificaciones',
+            $new_url,
+            self::TYPE_SETTING,
+            null,
+            'newpage',
+            new pix_icon('i/grades', 'Centro de Calificaciones')
+        );
 -------------------NO MODICIAR NADA MAS EN ESTA FUNCION--------------------------------------
 
 /*   // Add link for configuring communication.
