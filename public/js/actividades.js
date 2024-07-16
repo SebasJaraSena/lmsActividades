@@ -1,20 +1,14 @@
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE ACTIVIDADES
-function redirectToActividad(encoded_curso) {
-  const urlParams = `id_ficha=${encoded_curso}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/actividades.php?params=${encodedParams}`;
+function redirectToActividad(id_curso) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/actividades.php?id=${encodeURIComponent(id_curso)}`;
 }
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE FOROS 
-function redirectToForos(encoded_curso) {
-  const urlParams = `id_ficha=${encoded_curso}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/foros.php?params=${encodedParams}`;
+function redirectToForos(id_curso) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/foros.php?id=${encodeURIComponent(id_curso)}`;
 }
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE EVIDENCIAS
-function redirectToEvidencias(encoded_curso) {
-  const urlParams = `id_ficha=${encoded_curso}`;
-  const encodedParams = encodeBase64(urlParams);
-  window.location.href = `http://localhost/lmsActividades/views/actividades/evidencias.php?params=${encodedParams}`;
+function redirectToEvidencias(id_curso) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/evidencias.php?id=${encodeURIComponent(id_curso)}`;
 }
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE FOROS_AP 
 function redirectToForosAp(encoded_curso, encoded_rea) {

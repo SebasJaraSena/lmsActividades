@@ -5,14 +5,13 @@ require_once '../controllers/session_controller.php';
 
 try {
     // Obtener los datos del usuario y el código del curso desde el bloque de calificaciones de Zajuna
-    $user_id = base64_decode($_GET['user']);
-    $id_url_curso = base64_decode($_GET['idnumber']);
-    $encrypted_curso_id = base64_encode($id_url_curso);
+    $user_id = ($_GET['user']);
+    $id_url_curso = ($_GET['idnumber']);
 
     // Preparar la consulta para enviar los parámetros a la base de datos y filtrar la información
-    $query = $conn->prepare("SELECT obtenerSession(:id_url_curso, :user_id)");
-    $query->bindParam(':id_url_curso', $id_url_curso, PDO::PARAM_INT);
-    $query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $query = $conn->prepare("SELECT obtenerSession(:curso, :iduser)");
+    $query->bindParam(':curso', $id_url_curso, PDO::PARAM_INT);
+    $query->bindParam(':iduser', $user_id, PDO::PARAM_INT);
     $query->execute();
     $sesion_query = "SELECT * FROM vista_ses";
     $query = $conn->prepare($sesion_query);
@@ -59,7 +58,7 @@ try {
         $_SESSION['user'] = $user;
         $user_tipo = $user->tipo_user;
 
-        header("Location: ../views/actividades/actividades.php?idnumber=$encrypted_curso_id");
+        header("Location: ../views/actividades/actividades.php?id=$id_url_curso");
         exit();
     } else {
         // Si la consulta no encuentra información o la conexión falla en la BD, redireccionar al usuario

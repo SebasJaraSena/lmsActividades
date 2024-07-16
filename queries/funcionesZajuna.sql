@@ -104,7 +104,7 @@ if ($navoptions->grades) {
 --
 ----------------------FUNCION PARA OBTENER LA SESSION DEL USUARIO LOGUEADO----------------
 
-CREATE OR REPLACE FUNCTION obtenerSession(curso VARCHAR, iduser BIGINT)
+CREATE OR REPLACE FUNCTION obtenerSession(curso BIGINT, iduser BIGINT)
 RETURNS VOID AS
 $$
 begin
@@ -138,7 +138,7 @@ begin
     JOIN mdl_role_assignments ra ON ra.userid = u.id
     JOIN mdl_course mc ON mc.id = e.courseid
     JOIN mdl_role r ON r.id = ra.roleid
-    WHERE u.id = iduser AND mc.idnumber = curso;
+    WHERE u.id = iduser AND mc.id = curso;
 
     -- Crear la vista a partir de la tabla temporal
     CREATE OR REPLACE VIEW vista_ses AS 
@@ -149,9 +149,36 @@ $$
 LANGUAGE 'plpgsql';
 
 --
+------------FUNCION PARA OBTENER LAS CATEGORIAS DE EVALUACION DE ZAJUNA
+
+CREATE OR REPLACE FUNCTION obtenerCategorias(curso BIGINT)
+RETURNS VOID AS
+$$
+BEGIN
+-- Crear la tabla temporal
+CREATE TEMPORARY TABLE tablaTempCat(
+id BIGINT,
+fullname VARCHAR
+);
+
+-- Insertar los datos en la tabla temporal
+INSERT INTO tablaTempCat(id, fullname)
+
+SELECT id, fullname 
+FROM public.mdl_grade_categories
+WHERE courseid = curso;
+
+-- Crear la vista a partir de la tabla temporal
+CREATE OR REPLACE VIEW vista_cat AS
+SELECT * FROM tablaTempCat;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--
 --------------FUNCION PARA OBTENER LAS ACTIVIDADES REALIZADAS EN ZAJUNA----------------------------
 
-CREATE OR REPLACE FUNCTION obtenerActividades(course VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerActividades(course BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -172,7 +199,7 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-WHERE c.idnumber = course AND i.itemmodule = 'quiz';
+WHERE c.id = course AND i.itemmodule = 'quiz';
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_actividades AS
@@ -184,7 +211,7 @@ LANGUAGE 'plpgsql';
 --
 ---------------FUNCION PARA OBTENER LAS ACTIVIDADES FILTRADAS POR CATEGORIA--------------------------
 
-CREATE OR REPLACE FUNCTION obtenerActividadesAp(course VARCHAR, idrea VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerActividadesAp(course BIGINT, idrea VARCHAR)
 RETURNS VOID AS
 $$
 BEGIN
@@ -206,7 +233,7 @@ FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
 
-WHERE c.idnumber = course AND i.itemmodule = 'quiz' and g.fullname = idrea;
+WHERE c.id = course AND i.itemmodule = 'quiz' and g.fullname = idrea;
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_actividadesAp AS
@@ -218,7 +245,7 @@ LANGUAGE 'plpgsql';
 --
 ---------------FUNCION PARA OBTENER LAS EVIDENCIAS REALIZADAS EN UN CURSO------------------------------
 
-CREATE OR REPLACE FUNCTION obtenerEvidencias(course VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerEvidencias(course BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -239,7 +266,7 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-WHERE c.idnumber = course AND i.itemmodule = 'assign';
+WHERE c.id = course AND i.itemmodule = 'assign';
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_evidencias AS
@@ -251,7 +278,7 @@ LANGUAGE 'plpgsql';
 --
 -------------------FUNCION PARA OBTENER LAS EVIDENCIAS FILTRADAS POR CATEGORIA----------------------------
 
-CREATE OR REPLACE FUNCTION obtenerEvidenciasAp(course VARCHAR, idrea VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerEvidenciasAp(course BIGINT, idrea VARCHAR)
 RETURNS VOID AS
 $$
 BEGIN
@@ -272,7 +299,7 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-WHERE c.idnumber = course AND i.itemmodule = 'assign' and g.fullname = idrea;
+WHERE c.id = course AND i.itemmodule = 'assign' and g.fullname = idrea;
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_evidenciasAp AS
@@ -284,7 +311,7 @@ LANGUAGE 'plpgsql';
 --
 -------------------FUNCION PARA OBTENER LOS FOROS REALIZADOS EN UN CURSO-----------------------------
 
-CREATE OR REPLACE FUNCTION obtenerForos(course VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerForos(course BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -307,7 +334,7 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-WHERE c.idnumber = '2963261' AND (i.itemname LIKE '%rating%' OR i.itemname LIKE '%calificación%');
+WHERE c.id = course AND (i.itemname LIKE '%rating%' OR i.itemname LIKE '%calificación%');
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_foros AS
@@ -319,7 +346,7 @@ LANGUAGE 'plpgsql';
 --
 -------------------FUNCION PARA OBTENER LOS FOROS FILTRADOS POR CATEGORIA----------------
 
-CREATE OR REPLACE FUNCTION obtenerForosAp(course VARCHAR, idrea VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerForosAp(course BIGINT, idrea VARCHAR)
 RETURNS VOID AS
 $$
 BEGIN
@@ -340,7 +367,7 @@ SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fulln
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
-WHERE c.idnumber = course AND i.itemmodule = 'forum' and g.fullname = idrea AND (i.itemname LIKE '%rating%' OR i.itemname LIKE '%calificación%');
+WHERE c.id = course AND i.itemmodule = 'forum' and g.fullname = idrea AND (i.itemname LIKE '%rating%' OR i.itemname LIKE '%calificación%');
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_forosAp AS
@@ -353,7 +380,7 @@ LANGUAGE 'plpgsql';
 --
 -----------------FUNCION PARA OBTENER LOS USUARIOS MATRICULADOS EN UN CURSO---------------------
 
-CREATE OR REPLACE FUNCTION obtenerUsuarios(course VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerUsuarios(course BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -378,7 +405,7 @@ JOIN mdl_enrol e ON e.id = ue.enrolid
 JOIN mdl_role_assignments ra ON ra.userid = u.id
 JOIN mdl_course mc ON mc.id = e.courseid
 JOIN mdl_role r ON r.id = ra.roleid
-WHERE mc.idnumber = course and r.shortname = 'student';
+WHERE mc.id = course and r.shortname = 'student';
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_usuarios AS
@@ -390,7 +417,7 @@ LANGUAGE 'plpgsql';
 --
 ------------------FUNCION PARA OBTENER SOLO EL APRENDIZ LOGUEADO DE UN CURSO--------------------------
 
-CREATE OR REPLACE FUNCTION obtenerUsuariosApren(course VARCHAR, iduser BIGINT)
+CREATE OR REPLACE FUNCTION obtenerUsuariosApren(course BIGINT, iduser BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -415,7 +442,7 @@ JOIN mdl_enrol e ON e.id = ue.enrolid
 JOIN mdl_role_assignments ra ON ra.userid = u.id
 JOIN mdl_course mc ON mc.id = e.courseid
 JOIN mdl_role r ON r.id = ra.roleid
-WHERE mc.idnumber = course and r.shortname = 'student' and u.id = iduser;
+WHERE mc.id = course and r.shortname = 'student' and u.id = iduser;
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_usuarios_apren AS
@@ -454,7 +481,7 @@ LANGUAGE 'plpgsql';
 --
 ----------------------FUNCION PARA OBTENER LAS NOTAS DE LOS FOROS----------------------------
 
-CREATE OR REPLACE FUNCTION obtenerNotasFor(id_curso VARCHAR, id_user BIGINT[], id_for BIGINT[])
+CREATE OR REPLACE FUNCTION obtenerNotasFor(id_curso BIGINT, id_user BIGINT[], id_for BIGINT[])
 RETURNS TABLE (
 userid BIGINT,
 rawgrade NUMERIC,
@@ -480,7 +507,7 @@ FROM mdl_grade_items gi
 JOIN mdl_grade_grades g ON g.itemid = gi.id
 JOIN mdl_forum f ON f.id = gi.iteminstance
 JOIN mdl_course c ON f.course = c.id
-where c.idnumber = id_curso AND f.id = id_for[i] AND g.userid = id_user[i] AND (gi.itemname LIKE '%rating%' OR gi.itemname LIKE '%calificación%') ;
+where c.id = id_curso AND f.id = id_for[i] AND g.userid = id_user[i] AND (gi.itemname LIKE '%rating%' OR gi.itemname LIKE '%calificación%') ;
 END LOOP;
 END;
 $$
@@ -517,7 +544,7 @@ LANGUAGE 'plpgsql';
 --
 ----------------FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION DE A REVISIONES DE ZAJUNA-------------------
 
-CREATE OR REPLACE FUNCTION obtenerParametros(id_user BIGINT[], curso VARCHAR, acti BIGINT[])
+CREATE OR REPLACE FUNCTION obtenerParametros(id_user BIGINT[], curso BIGINT, acti BIGINT[])
 RETURNS TABLE (
 gradeid BIGINT,
 itemid BIGINT,
@@ -545,7 +572,7 @@ JOIN mdl_enrol e ON e.id = ue.enrolid
 JOIN mdl_course mc ON mc.id = e.courseid
 JOIN mdl_course_modules c ON c.course = mc.id
 JOIN mdl_quiz_attempts a on c.instance = a.quiz
-WHERE a.userid = temp.userid AND mc.idnumber = curso AND c.instance = temp.acti AND c.module = 17;
+WHERE a.userid = temp.userid AND mc.id = curso AND c.instance = temp.acti AND c.module = 17;
 END;
 $$
 LANGUAGE plpgsql;
@@ -618,7 +645,7 @@ LANGUAGE plpgsql;
 --
 ------------------------FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION DE REVISION DE EVIDENCIAS--------------------------
 
-CREATE OR REPLACE FUNCTION obtenerParametrosEvi(id_curso VARCHAR, id_evi BIGINT[])
+CREATE OR REPLACE FUNCTION obtenerParametrosEvi(id_curso BIGINT, id_evi BIGINT[])
 RETURNS TABLE (
 id BIGINT,
 instance BIGINT,
@@ -639,7 +666,7 @@ c.idnumber
 FROM temp
 JOIN mdl_course_modules cm ON cm.instance = temp.id_evi
 JOIN mdl_course c ON c.id = cm.course
-WHERE cm.instance = temp.id_evi AND c.idnumber = id_curso AND cm.module = 1;
+WHERE cm.instance = temp.id_evi AND c.id = id_curso AND cm.module = 1;
 END;
 $$
 LANGUAGE plpgsql;
@@ -648,7 +675,7 @@ LANGUAGE plpgsql;
 --------------------FUNCION PARA OBTENER EL ID DE REDIRECCION A LA ESCALA DE CALIFICACIONES----------------
 
 
-CREATE OR REPLACE FUNCTION obtenerEscala(curso VARCHAR)
+CREATE OR REPLACE FUNCTION obtenerEscala(curso BIGINT)
 RETURNS VOID AS
 $$
 BEGIN
@@ -662,7 +689,7 @@ INSERT INTO tablaTempEsca(id)
 SELECT t.id
 FROM mdl_context t
 JOIN mdl_course c ON c.id = t.instanceid
-WHERE c.idnumber = curso;
+WHERE c.id = curso;
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_esca AS

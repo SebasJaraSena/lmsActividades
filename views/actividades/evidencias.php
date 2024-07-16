@@ -10,17 +10,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $user_id = $user->userid;
     $rol_user = $user->tipo_user;
 
-    // Se valida que los datos de la url sean los correctos
-    if (isset($_GET['params'])) {
-        $encodedParams = $_GET['params'];
-        $decodedParams = base64_decode($encodedParams);
-
-        parse_str($decodedParams, $params);
-        // Decodificar parámetros recibidos por GET
-        $id_curso = base64_decode($params['id_ficha']);
-        // Codificar parámetros para su posterior uso en URLs
-        $encoded_curso = $params['id_ficha'];
-    }
+    $id_curso = ($_GET['id']);
 
     // LLAMAR AL HEADER 
     require_once '../../header.php';
@@ -96,12 +86,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         ?>
 
                         <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE ACTIVIDADES -->
-                        <button class="icono-con-texto" onclick="redirectToActividad('<?= $encoded_curso; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToActividad('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
 
                             <p>Actividades</p>
                         </button>
-                        <button class="icono-con-texto" onclick="redirectToForos('<?= $encoded_curso; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToForos('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
 
                             <p>Foros</p>

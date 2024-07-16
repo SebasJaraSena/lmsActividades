@@ -12,9 +12,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $rol_user = $user->tipo_user;
 
     // Decodificar parámetros recibidos por GET
-    $id_curso = base64_decode($_GET['idnumber']);
-    // Codificar parámetros para su posterior uso en URLs
-    $encoded_curso = $_GET['idnumber'];
+    $id_curso = $_GET['id'];
 
     // LLAMAR AL HEADER 
     require_once '../../header.php';
@@ -26,6 +24,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     foreach ($esca as $esc) {
         $id_esca = $esc->id;
     }
+
+    foreach ($categorias as $categoria) {
+        $id_categoria = $categoria->id;
+        $nombre_categoria = $categoria->fullname;
+    }
+
 ?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
@@ -107,11 +111,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         ?>
 
                         <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE FOROS Y EVIDENCIAS -->
-                        <button class="icono-con-texto" onclick="redirectToForos('<?= $encoded_curso; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToForos('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
                             <p>Foros</p>
                         </button>
-                        <button class="icono-con-texto" onclick="redirectToEvidencias('<?= $encoded_curso; ?>')">
+                        <button class="icono-con-texto" onclick="redirectToEvidencias('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
                             <p>Evidencias</p>
                         </button>
