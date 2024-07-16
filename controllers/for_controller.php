@@ -102,11 +102,11 @@ try {
 
 function obtenerParticipacion($conn, $id_for, $id_user)
 {
-    global $replica, $errorPage;;
+    global $replica, $errorPage;
     try {
-        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionFor(ARRAY[:id_for]::BIGINT[]), ARRAY[:id_user]::BIGINT[]");
-        $participa->bindParam(':id_for',  $id_for, PDO::PARAM_INT);
-        $participa->bindParam(':id_user',  $id_user, PDO::PARAM_STR);
+        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionFor(ARRAY[:id_for]::BIGINT[], ARRAY[:id_user]::BIGINT[])");
+        $participa->bindParam(':id_for', $id_for, PDO::PARAM_INT);
+        $participa->bindParam(':id_user', $id_user, PDO::PARAM_INT);
         $participa->execute();
         $parti = $participa->fetchAll(PDO::FETCH_ASSOC);
         return $parti;
@@ -118,6 +118,7 @@ function obtenerParticipacion($conn, $id_for, $id_user)
         return [];
     }
 }
+
 
 
 function obtenerNotas($conn, $id_user, $id_curso, $id_for)
