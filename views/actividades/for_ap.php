@@ -119,6 +119,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <br>
                                 <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
                                 </br>
+                                <span class="color-box" style="background-color: #EEEEEE;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -190,16 +191,30 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $id = $param['id'];
                                             }
 
+                                            // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
+                                            $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                            $participacion = null;
+                                            foreach ($parti as $part) {
+                                                if (!empty($part['mensaje'])) {
+                                                    $participacion = $part['mensaje'];
+                                                    break;
+                                                }
+                                            }
+
                                             // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                             $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
+                                            $grad = null;
                                             foreach ($q_grades as $q_grade) {
                                                 $grad = $q_grade['rawgrade'];
-                                                // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA Q_GRADES TIENE VALORES EN LA BD.
-                                                if (!empty($grad)) {
-                                                    // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
-                                                    if ($grad >= 70.00000) {
-                                                        echo
-                                                        '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
+                                                $id_for = $actividad->idacti;
+                                            }
+
+                                            // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA Q_GRADES TIENE VALORES EN LA BD.
+                                            if (!empty($grad)) {
+                                                // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
+                                                if ($grad >= 70.00000) {
+                                                    echo
+                                                    '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                             <div class="d-gitd gap-2 col-8 mx-auto">
                                                                 <h6>A</h6>
                                                             </div>
@@ -219,10 +234,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 </div>
                                                             </div>
                                                         </div>';
-                                                        // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
-                                                    } else {
-                                                        echo
-                                                        '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
+                                                    // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
+                                                } else {
+                                                    echo
+                                                    '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                             <div class="d-gitd gap-2 col-8 mx-auto">
                                                                 <h6>D</h6>
                                                             </div>
@@ -239,22 +254,40 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 </div>
                                                             </div>
                                                         </div>';
-                                                    }
-                                                    //ESTUDIANTE SIN NOTA / PENDIENTE
-                                                    // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
-                                                } else {
-                                                    $id_for = $actividad->idacti;
-                                                    $courseid = $actividad->courseid;
-                                                    $itemid = $actividad->id;
-                                                    $correos[] = $email;
+                                                }
+                                                //ESTUDIANTE CON NOTA / PENDIENTE
+                                            } elseif (!empty($participacion)) {
+                                                echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
+                                                            <div class="d-gitd gap-2 col-8 mx-auto">
+                                                                <h6>P</h6>
+                                                            </div>
+                                                            <div class="action-manu" data-collapse="menu">
+                                                                <div class="dropdown show">
+                                                                    <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                        <span class="" title="Acciones de la celda" aria-hidden="true"></span>
+                                                                        <span class="sr-only">Acciones de la celda</span>
+                                                                    </button>
+                                                                    <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>';
+                                                //ESTUDIANTE SIN NOTA / PENDIENTE
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                            } else {
+                                                $id_for = $actividad->idacti;
+                                                $courseid = $actividad->courseid;
+                                                $itemid = $actividad->id;
+                                                $correos[] = $email;
 
-                                                    $paramsPen = obtenerParametrosPendientes($conn, $id_for);
-                                                    foreach ($paramsPen as $param) {
-                                                        $id = $param['id'];
-                                                    }
+                                                $paramsPen = obtenerParametrosPendientes($conn, $id_for);
+                                                foreach ($paramsPen as $param) {
+                                                    $id = $param['id'];
+                                                }
 
-                                                    echo
-                                                    '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                echo
+                                                '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>
@@ -269,9 +302,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=' . $courseid . '&item=grade&itemid=' . $itemid . '&gpr_type=report&gpr_plugin=grader&gpr_courseid=' . $courseid . '">Retroalimentación</a>
                                                                     <form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lmsActividades/controllers/enviarEmail.php">
                                                                         <input type="hidden" name="correo[]" class="CheckedAK " value="' . $email . '">
-                                                                        <input type="hidden" name="id_ficha" value="' . $encoded_curso . '">
-                                                                        <input type="hidden" name="id_competencia" value="' . $encoded_competencia . '">
-                                                                        <input type="hidden" name="rea_id" value="' . $encoded_rea . '">
+                                                                        <input type="hidden" name="id_ficha" value="' . $id_curso . '">
+                                                                        <input type="hidden" name="rea_id" value="' . $id_rea . '">
                                                                         <input type="hidden" name="actividades" value="' . $redireccion . '">
                                                                         <button type="submit" class="btn" >Enviar Recordatorio</button>
                                                                     </form>
@@ -279,46 +311,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>
                                                     </div>';
-                                                }
-                                            }
-                                            // ESTUDIANTE NO REGISTRADO EN NINGUNA ACTIVIDAD
-                                            // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
-                                            if (empty($q_grades)) {
-                                                $correosNoRegistrados[] = $email;
-                                                $id_for = $actividad->idacti;
-                                                $courseid = $actividad->courseid;
-                                                $itemid = $actividad->id;
-
-                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN DE LAS ACTIVIDADES PENDIENTES POR LOS APRENDICES 
-                                                $paramsPen = obtenerParametrosPendientes($conn, $id_for);
-                                                foreach ($paramsPen as $param) {
-                                                    $id = $param['id'];
-                                                }
-                                                echo
-                                                '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
-                                                    <div class="d-gitd gap-2 col-8 mx-auto">
-                                                        <h6>X</h6>
-                                                    </div>
-
-                                                    <div class="action-manu" data-collapse="menu">
-                                                        <div class="dropdown show">
-                                                            <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                <span class="" tittle ="Acciones de la celda" aria-hidden="true"></span>
-                                                                <span class="sr-only">Acciones de la celda</span>
-                                                            </button>
-                                                            <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/view.php?id=' . $id . '">Analisis del Foro</a>
-                                                                <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=' . $courseid . '&item=grade&itemid=' . $itemid . '&gpr_type=report&gpr_plugin=grader&gpr_courseid=' . $courseid . '">Retroalimentación</a>                                                                <form method="POST" name="emailForm" id="emailForm"  action="http://localhost/lms/controllers/enviarEmail.php">
-                                                                    <input type="hidden" name="correo[]" class="CheckedAK " value="' . $email . '">
-                                                                    <input type="hidden" name="id_ficha" value="' . $id_curso . '">
-                                                                    <input type="hidden" name="rea_id" value="' . $id_rea . '">
-                                                                    <input type="hidden" name="actividades" value="' . $redireccion . '">
-                                                                    <button type="submit" class="btn" >Enviar Recordatorio</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>';
                                             }
                                             echo '</td>';
                                         }

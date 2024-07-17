@@ -257,6 +257,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     </div>
                                                                 </div>';
                                                         }
+                                                        //ESTUDIANTE CON NOTA / PENDIENTE
                                                     } elseif (!empty($participacion)) {
                                                         echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
                                                                 <div class="d-gitd gap-2 col-8 mx-auto">
@@ -422,8 +423,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>
                                                     </div>';
-                                                //ESTUDIANTE SIN NOTA / PENDIENTE
-                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                                //ESTUDIANTE CON NOTA / PENDIENTE
                                             } else {
                                                 $id_for = $actividad->idacti;
                                                 $params = obtenerParametros($conn, $id_for);
