@@ -414,7 +414,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>';
                                                     // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
-                                                } else if ($grad <= 70.00000) {
+                                                } else {
                                                     echo
                                                     '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
@@ -435,7 +435,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </div>';
                                                 }
                                                 // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
-                                            } else if (empty($grad)) {
+                                            } else {
                                                 echo
                                                 '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                     <div class="d-gitd gap-2 col-8 mx-auto">
@@ -455,11 +455,30 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </div>
                                                 </div>';
                                             }
-                                            echo '</td>';
-
                                             echo
                                             '<td>' . $retro . '</td>';
                                         }
+                                        if (empty($q_grades)) {
+                                            echo
+                                            '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                <div class="d-gitd gap-2 col-8 mx-auto">
+                                                    <h6>X</h6>
+                                                </div>
+                                                <div class="action-manu" data-collapse="menu">
+                                                    <div class="dropdown show">
+                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                            <span class="" tittle ="Acciones de la celda" aria-hidden="true">
+                                                            </span>
+                                                            <span class="sr-only">Acciones de la celda</span>
+                                                        </button>
+                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Realizar Evidencia</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>';
+                                        }
+                                        echo '</td>';
                                     }
                                     echo '</tr>';
                                 } ?>
