@@ -77,22 +77,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <p>Código de colores</p>
                         </button>
                     </div>
-
-                    <div class="d-flex flex-wrap gap-3">
-                        <nav class="tertiary-navigation-selector">
-                            <div class="dropdown">
-                                <!--BOTON PARA REDIRECCIONAR AL APARTADO DE LETRAS DE CALIFICACION DE ZAJUNA -->
-                                <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs" class="mr-1">
-                                    Informe Calificador
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">Letras
-                                            calificación</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
                 </div>
 
 

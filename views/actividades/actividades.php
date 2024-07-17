@@ -94,7 +94,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">
                                                 Letras
-                                                calificación</a></li>
+                                                de Calificación</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
+                                                Categorias</a></li>
                                     </ul>
                                 </div>
                             </nav>

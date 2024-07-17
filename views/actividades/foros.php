@@ -74,7 +74,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         &nbsp; Informe Calificador
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">Letras calificación</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">Letras de Calificación</a></li>
+                                        <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
+                                                Categorias</a></li>
                                     </ul>
                                 </div>
                             </nav>
