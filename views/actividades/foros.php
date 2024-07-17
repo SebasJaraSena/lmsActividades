@@ -310,7 +310,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </table>
                         </div>
                     </form>
-                <?php //INICIO SESION DE APRENDIZ (rol 5)
+                <?php 
+                //INICIO SESION DE APRENDIZ (rol 5)
                             } else if ($rol_user == 5) { ?>
                     <table id="tabla_ap" class="display" style="width:100%">
                         <thead>
@@ -330,14 +331,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 <td id="text-align-document">' . $id_for . '</td>
                                                 <td id="text-align-name">' . $name_for . '</td>';
 
+                                    // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO                                                
                                     foreach ($userApr as $user) {
                                         $id_user = $user->id;
 
-                                        // Obtener parámetros
+                                         // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                         $params = obtenerParametros($conn, $id_for);
                                         $id = $params[0]['id'] ?? null;
 
-                                        // Obtener participación
+                                        // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
                                         $parti = obtenerParticipacion($conn, $id_for, $id_user);
                                         $participacion = null;
                                         foreach ($parti as $part) {
@@ -347,7 +349,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             }
                                         }
 
-                                        // Obtener notas
+                                        // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                         $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
                                         $grad = $q_grades[0]['rawgrade'] ?? null;
                                         $retro = $q_grades[0]['feedback'] ?? '';
@@ -368,7 +370,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $nota_class = 'X';
                                             $nota_color = '#FCE059';
                                         }
-
+                                        //ACCIONES DE LAS CELDAS PARA CADA NOTA
                                         echo '<td>
                                                     <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
