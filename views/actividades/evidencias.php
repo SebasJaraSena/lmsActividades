@@ -132,10 +132,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
                     </div>
                 </div>
-
-
                 <div class="card-body" id="actividades-card">
-
                     <?php
                     if ($rol_user == 3) {
                     ?>

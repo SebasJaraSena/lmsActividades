@@ -60,7 +60,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 <div class="col-sm-2">
                     <!-- BOTON PARA REGRESAR A LA VISTA DE RESULTSADOS  -->
                     <img src="http://localhost/lmsActividades/public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" onclick="redirectToEvidencias('<?= $id_curso; ?>')">
-                    <p>Regresar</p>
+                    <p>Regresar a Evidencias Generales</p>
                 </div>
                 <div class="col-sm-8 d-flex justify-content-center">
                     <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
