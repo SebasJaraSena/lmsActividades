@@ -119,7 +119,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <br>
                                 <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
                                 </br>
-                                <span class="color-box" style="background-color: #EEEEEE;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -257,7 +257,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 }
                                                 //ESTUDIANTE CON NOTA / PENDIENTE
                                             } elseif (!empty($participacion)) {
-                                                echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
+                                                echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                             <div class="d-gitd gap-2 col-8 mx-auto">
                                                                 <h6>P</h6>
                                                             </div>
