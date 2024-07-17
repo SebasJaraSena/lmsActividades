@@ -134,7 +134,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         $id_categoria =  $categoria->id;
                                         $id_rea = $categoria->fullname; ?>
                                         <li>
-                                            <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
+                                            <a class="dropdown-item" onclick="redirectToForosAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
                                                 <?php echo $categoria->fullname; ?>
                                             </a>
                                         </li>
@@ -310,8 +310,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </table>
                         </div>
                     </form>
-                <?php 
-                //INICIO SESION DE APRENDIZ (rol 5)
+                <?php
+                                //INICIO SESION DE APRENDIZ (rol 5)
                             } else if ($rol_user == 5) { ?>
                     <table id="tabla_ap" class="display" style="width:100%">
                         <thead>
@@ -335,7 +335,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     foreach ($userApr as $user) {
                                         $id_user = $user->id;
 
-                                         // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
+                                        // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                         $params = obtenerParametros($conn, $id_for);
                                         $id = $params[0]['id'] ?? null;
 

@@ -66,7 +66,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="col-sm-8 d-flex justify-content-center">
                         <h3><img class="ml-2" src="../../public/assets/img/documento.svg" alt="">PRUEBAS DE CONOCIMIENTO /
                             CATEGORIA:&nbsp;<span id="color-titulo"><?php echo ($id_rea); ?></span></h3>
-
                     </div>
                 </div>
             </div>
@@ -93,23 +92,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </ul>
                             </div>
                         </nav>
-                        <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE FOROS Y EVIDENCIAS -->
-                        <button class="icono-con-texto" onclick="redirectToForosAp('<?= $id_curso; ?>', '<?= $id_rea; ?>')">
-                            <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
-                            <p>Foros</p>
-                        </button>
-                        <button class="icono-con-texto" onclick="redirectToEvidenciasAp('<?= $id_curso; ?>', '<?= $id_rea; ?>')">
-                            <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
-                            <p>Evidencias</p>
-                        </button>
-                        <button class="icono-con-texto" onclick="miFuncion()">
-                            <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs" class="mr-2">
-                            <p>Blogs</p>
-                        </button>
-                        <button class="icono-con-texto" onclick="miFuncion()">
-                            <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
-                            <p>Wikis</p>
-                        </button>
                     </div>
                 </div>
 

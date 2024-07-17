@@ -55,9 +55,21 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
             mostrar_historial();
             ?>
         </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <!-- BOTON PARA REGRESAR A LA VISTA DE RESULTSADOS  -->
+                    <img src="http://localhost/lmsActividades/public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" onclick="redirectToEvidencias('<?= $id_curso; ?>')">
+                    <p>Regresar</p>
+                </div>
+                <div class="col-sm-8 d-flex justify-content-center">
+                    <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
+                        EVIDENCIAS / RESULTADO DE APRENDIZAJE: <span id="color-titulo"><?php echo ($id_rea); ?></span></h3>
+                </div>
+            </div>
+        </div>
 
-        <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
-            EVIDENCIAS / RESULTADO DE APRENDIZAJE: <span id="color-titulo"><?php echo ($id_rea); ?></span></h3>
+
 
         <div class="card p-3 p-md-5">
             <div class="d-flex justify-content-between flex-wrap gap-3">
@@ -82,23 +94,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </ul>
                         </div>
                     </nav>
-                    <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE ACTIVIDADES -->
-                    <button class="icono-con-texto" onclick="redirectToActividadAp('<?= $id_curso; ?>','<?= $id_rea; ?>')">
-                        <img src="http://localhost/lmsActividades/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
-                        <p>Actividades</p>
-                    </button>
-                    <button class="icono-con-texto" onclick="redirectToForosAp('<?= $id_curso; ?>','<?= $id_rea; ?>')">
-                        <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
-                        <p>Foros</p>
-                    </button>
-                    <button class="icono-con-texto" onclick="miFuncion()">
-                        <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
-                        <p>Blogs</p>
-                    </button>
-                    <button class="icono-con-texto" onclick="miFuncion()">
-                        <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
-                        <p>Wikis</p>
-                    </button>
                 </div>
 
             </div>

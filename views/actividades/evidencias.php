@@ -151,7 +151,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         $id_rea = $categoria->fullname;
                                     ?>
                                         <li>
-                                            <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
+                                            <a class="dropdown-item" onclick="redirectToEvidenciasAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
                                                 <?php echo $categoria->fullname; ?>
                                             </a>
                                         </li>
