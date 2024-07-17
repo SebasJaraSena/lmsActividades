@@ -126,6 +126,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO
                                 <br>
                                 <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
+                                <br>
+                                <span class="color-box" style="background-color: #EEEEEE;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
                                 </br>
                                 </p>
                             </div>
@@ -202,6 +204,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $doc_user = $user->username;
                                             $firstname = $user->firstname;
                                             $lastname = $user->lastname;
+
                                             echo '<tr>
                                                   <td id="text-align-document">' . $doc_user . '</td>
                                                   <td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
@@ -210,17 +213,23 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 echo '<td>';
                                                 $id_for = $actividad->idacti;
 
-                                                // LLAMADA A LA FUNCION PARA OBTENER PARTICIPACION
-                                                $parti = obtenerParticipacion($conn, $id_for, $id_user);
-                                                foreach ($parti as $part) {
-                                                    $participacion = $part['mensaje'];
-                                                }
-
                                                 // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                                 $params = obtenerParametros($conn, $id_for);
                                                 foreach ($params as $param) {
                                                     $id = $param['id'];
                                                 }
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER PARTICIPACION
+                                                $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                                $participacion = null;
+                                                foreach ($parti as $part) {
+                                                    if (!empty($part['mensaje'])) {
+                                                        $participacion = $part['mensaje'];
+                                                        break;
+                                                    }
+                                                }
+
+                                                print_r($parti);
 
                                                 // Obtener notas
                                                 $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
@@ -266,7 +275,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     </div>
                                                                   </div>';
                                                         }
-                                                    } else if (!empty($participacion)) {
+                                                    } elseif (!empty($participacion)) {
                                                         echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
                                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                                     <h6>P</h6>
@@ -274,7 +283,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 <div class="action-manu" data-collapse="menu">
                                                                     <div class="dropdown show">
                                                                         <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                            <span class="" tittle ="Acciones de la celda" aria-hidden="true"></span>
+                                                                            <span class="" title="Acciones de la celda" aria-hidden="true"></span>
                                                                             <span class="sr-only">Acciones de la celda</span>
                                                                         </button>
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">

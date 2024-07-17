@@ -534,10 +534,12 @@ BEGIN
     FOR i IN 1..array_length(id_user, 1) LOOP
         RETURN QUERY
         SELECT fp.id, fp.userid, fp.message
-        FROM public.mdl_forum_posts fp
+
+        FROM mdl_forum_posts fp
         JOIN mdl_forum_discussions fd ON fp.discussion = fd.id
         JOIN mdl_forum f ON fd.forum = f.id
         WHERE f.id = id_for[i] AND fp.userid = id_user[i];
+
     END LOOP;
 END;
 $$
