@@ -18,6 +18,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     require_once '../../config/db_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/for_controller.php';
+
+    foreach ($esca as $esc) {
+        $id_esca = $esc->id;
+    }
 ?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
@@ -167,6 +171,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr>
                                                 <td id="text-align-document"><?php echo $doc_user; ?></td>
                                                 <td id="text-align-name"><?php echo $firstname . ' ' . $lastname; ?></td>
+
                                                 <?php foreach ($actividades as $actividad) {
                                                     $id_for = $actividad->idacti;
                                                     echo '<td>';
@@ -174,6 +179,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     foreach ($params as $param) {
                                                         $id = $param['id'];
                                                     }
+
                                                     $parti = obtenerParticipacion($conn, $id_for, $id_user);
                                                     $participacion = null;
                                                     foreach ($parti as $part) {
@@ -202,7 +208,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                                     <span class="sr-only">Acciones de la celda</span>
                                                                                 </button>
                                                                                 <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Analisis del Foro</a>
+                                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -220,7 +226,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                                 <span class="sr-only">Acciones de la celda</span>
                                                                             </button>
                                                                             <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Analisis del Foro</a>
+                                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -238,7 +244,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                             <span class="sr-only">Acciones de la celda</span>
                                                                         </button>
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Analisis del Foro</a>
+                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -260,7 +266,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                             <span class="sr-only">Acciones de la celda</span>
                                                                         </button>
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/view.php?id='. $id.'">Analisis del Foro</a>
+                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/view.php?id=' . $id . '">Analisis del Foro</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -286,27 +292,27 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </thead>
                         <tbody>
                             <?php foreach ($actividades as $actividad) {
-                                $id_for = $actividad->idacti;
-                                $name_for = $actividad->itemname;
-                                echo '<tr>
+                                    $id_for = $actividad->idacti;
+                                    $name_for = $actividad->itemname;
+                                    echo '<tr>
                                         <td id="text-align-document">' . $id_for . '</td>
                                         <td id="text-align-name">' . $name_for . '</td>';
-                                foreach ($userApr as $user) {
-                                    echo '<td>';
-                                    $id_user = $user->id;
-                                    $itemnumber = 0;
-                                    $id_for = $actividad->idacti;
-                                    $params = obtenerParametros($conn, $id_for);
-                                    foreach ($params as $param) {
-                                        $id = $param['id'];
-                                    }
-                                    $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
-                                    foreach ($q_grades as $q_grade) {
-                                        $grad = $q_grade['rawgrade'];
-                                        $retro = $q_grade['feedback'];
-                                        if (!empty($grad)) {
-                                            if ($grad >= 70.00000) {
-                                                echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
+                                    foreach ($userApr as $user) {
+                                        echo '<td>';
+                                        $id_user = $user->id;
+                                        $itemnumber = 0;
+                                        $id_for = $actividad->idacti;
+                                        $params = obtenerParametros($conn, $id_for);
+                                        foreach ($params as $param) {
+                                            $id = $param['id'];
+                                        }
+                                        $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
+                                        foreach ($q_grades as $q_grade) {
+                                            $grad = $q_grade['rawgrade'];
+                                            $retro = $q_grade['feedback'];
+                                            if (!empty($grad)) {
+                                                if ($grad >= 70.00000) {
+                                                    echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
                                                             <h6>A</h6>
                                                         </div>
@@ -318,14 +324,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                         <span class="sr-only">Acciones de la celda</span>
                                                                     </button>
                                                                     <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Revisión del Foro</a>
+                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Revisión del Foro</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>';
-                                            } else {
-                                                echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
+                                                } else {
+                                                    echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>D</h6>
                                                         </div>
@@ -336,19 +342,19 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     <span class="sr-only">Acciones de la celda</span>
                                                                 </button>
                                                                 <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Revisión del Foro</a>
+                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Revisión del Foro</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>';
-                                            }
-                                        } else {
-                                            $id_for = $actividad->idacti;
-                                            $params = obtenerParametros($conn, $id_for);
-                                            foreach ($params as $param) {
-                                                $id = $param['id'];
-                                            }
-                                            echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                }
+                                            } else {
+                                                $id_for = $actividad->idacti;
+                                                $params = obtenerParametros($conn, $id_for);
+                                                foreach ($params as $param) {
+                                                    $id = $param['id'];
+                                                }
+                                                echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                     <div class="d-gitd gap-2 col-8 mx-auto">
                                                         <h6>X</h6>
                                                     </div>
@@ -359,21 +365,21 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 <span class="sr-only">Acciones de la celda</span>
                                                             </button>
                                                             <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Realizar Foro</a>
+                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Realizar Foro</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>';
+                                            }
+                                            echo '<td>' . $retro . '</td>';
                                         }
-                                        echo '<td>' . $retro . '</td>';
-                                    }
-                                    if (empty($q_grades)) {
-                                        $id_for = $actividad->idacti;
-                                        $params = obtenerParametros($conn, $id_for);
-                                        foreach ($params as $param) {
-                                            $id = $param['id'];
-                                        }
-                                        echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                        if (empty($q_grades)) {
+                                            $id_for = $actividad->idacti;
+                                            $params = obtenerParametros($conn, $id_for);
+                                            foreach ($params as $param) {
+                                                $id = $param['id'];
+                                            }
+                                            echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                     <h6>X</h6>
                                                 </div>
@@ -384,17 +390,16 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             <span class="sr-only">Acciones de la celda</span>
                                                         </button>
                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d='. $id.'">Analisis del Foro</a>
+                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>';
+                                        }
+                                        echo '</td>';
                                     }
-                                    echo '</td>';
-                              
-                                }
-                                echo '</tr>';
-                            } ?>
+                                    echo '</tr>';
+                                } ?>
                         </tbody>
                     </table>
                 <?php } ?>
