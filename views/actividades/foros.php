@@ -311,65 +311,65 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
                     </form>
                 <?php //INICIO SESION DE APRENDIZ (rol 5)
-                         } else if ($rol_user == 5) { ?>
-                            <table id="tabla_ap" class="display" style="width:100%">
-                                <thead>
-                                    <tr id="actividades-thead">
-                                        <th>ID</th>
-                                        <th>FOROS</th>
-                                        <th>NOTA</th>
-                                        <th>RETROALIMENTACIÓN</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        foreach ($actividades as $actividad) {
-                                            $id_for = $actividad->idacti;
-                                            $name_for = $actividad->itemname;
-                                            echo '<tr>
+                            } else if ($rol_user == 5) { ?>
+                    <table id="tabla_ap" class="display" style="width:100%">
+                        <thead>
+                            <tr id="actividades-thead">
+                                <th>ID</th>
+                                <th>FOROS</th>
+                                <th>NOTA</th>
+                                <th>RETROALIMENTACIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach ($actividades as $actividad) {
+                                    $id_for = $actividad->idacti;
+                                    $name_for = $actividad->itemname;
+                                    echo '<tr>
                                                 <td id="text-align-document">' . $id_for . '</td>
                                                 <td id="text-align-name">' . $name_for . '</td>';
-                        
-                                            foreach ($userApr as $user) {
-                                                $id_user = $user->id;
-                        
-                                                // Obtener parámetros
-                                                $params = obtenerParametros($conn, $id_for);
-                                                $id = $params[0]['id'] ?? null;
-                        
-                                                // Obtener participación
-                                                $parti = obtenerParticipacion($conn, $id_for, $id_user);
-                                                $participacion = null;
-                                                foreach ($parti as $part) {
-                                                    if (!empty($part['mensaje'])) {
-                                                        $participacion = $part['mensaje'];
-                                                        break;
-                                                    }
-                                                }
-                        
-                                                // Obtener notas
-                                                $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
-                                                $grad = $q_grades[0]['rawgrade'] ?? null;
-                                                $retro = $q_grades[0]['feedback'] ?? '';
-                        
-                                                // Determinar clase y color de la nota
-                                                if (!empty($grad)) {
-                                                    if ($grad >= 70.00000) {
-                                                        $nota_class = 'A';
-                                                        $nota_color = '#BCE2A8';
-                                                    } else {
-                                                        $nota_class = 'D';
-                                                        $nota_color = '#DF5C73';
-                                                    }
-                                                } elseif (!empty($participacion)) {
-                                                    $nota_class = 'P';
-                                                    $nota_color = '#b9b9b9';
-                                                } else {
-                                                    $nota_class = 'X';
-                                                    $nota_color = '#FCE059';
-                                                }
-                        
-                                                echo '<td>
+
+                                    foreach ($userApr as $user) {
+                                        $id_user = $user->id;
+
+                                        // Obtener parámetros
+                                        $params = obtenerParametros($conn, $id_for);
+                                        $id = $params[0]['id'] ?? null;
+
+                                        // Obtener participación
+                                        $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                        $participacion = null;
+                                        foreach ($parti as $part) {
+                                            if (!empty($part['mensaje'])) {
+                                                $participacion = $part['mensaje'];
+                                                break;
+                                            }
+                                        }
+
+                                        // Obtener notas
+                                        $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
+                                        $grad = $q_grades[0]['rawgrade'] ?? null;
+                                        $retro = $q_grades[0]['feedback'] ?? '';
+
+                                        // Determinar clase y color de la nota
+                                        if (!empty($grad)) {
+                                            if ($grad >= 70.00000) {
+                                                $nota_class = 'A';
+                                                $nota_color = '#BCE2A8';
+                                            } else {
+                                                $nota_class = 'D';
+                                                $nota_color = '#DF5C73';
+                                            }
+                                        } elseif (!empty($participacion)) {
+                                            $nota_class = 'P';
+                                            $nota_color = '#b9b9b9';
+                                        } else {
+                                            $nota_class = 'X';
+                                            $nota_color = '#FCE059';
+                                        }
+
+                                        echo '<td>
                                                     <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
                                                             <h6>' . $nota_class . '</h6>
@@ -389,14 +389,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 </td>
                                                 <td>' . $retro . '</td>
                                             </tr>';
-                                            }
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
-                                        
-                        
-                        
+                                    }
+                                }
+                            ?>
+                        </tbody>
+                    </table>
                 <?php } ?>
                 </div>
             </div>

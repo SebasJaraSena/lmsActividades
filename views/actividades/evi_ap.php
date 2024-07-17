@@ -116,7 +116,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </p>
                             <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO <br>
                             <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO <br>
-                            <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
+                            <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE <br>
+                            <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
                             </br>
                             </p>
                         </div>
