@@ -185,11 +185,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $itemname = $actividad->itemname;
                                                 $id_evi = $actividad->idacti;
                                                 // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
-
-                                                //OJO ID EVI POR ITEMNAME//////////////////////////////
                                                 echo
                                                 '<th>
-                                                <div class="text-center">' . $id_evi . '</div>
+                                                <div class="text-center">' . $itemname . '</div>
                                             </th>';
                                             }
                                             ?>
@@ -204,10 +202,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $firstname = $user->firstname;
                                             $lastname = $user->lastname;
 
-                                            //OJO ID USER POR DOC USER///////////////////////////////////////
                                             echo
                                             '<tr>
-                                            <td id="text-align-document">' . $id_user . '</td>
+                                            <td id="text-align-document">' . $doc_user . '</td>
                                             <td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
 
                                             // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
@@ -230,8 +227,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         break;
                                                     }
                                                 }
-
-                                                print_r($parti);
 
                                                 // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                                 $q_grades = obtenerNotas($conn, $id_user, $id_evi);
@@ -477,7 +472,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>';
                                                 }
-                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                                //ESTUDIANTE CON NOTA / PENDIENTE
                                             } elseif (!empty($participacion)) {
                                                 echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">

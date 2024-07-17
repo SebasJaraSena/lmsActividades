@@ -67,6 +67,25 @@ try {
     exit();
 }
 
+function obtenerParticipacionEvi($conn, $id_evi, $id_user)
+{
+    global $replica, $errorPage;
+    try {
+        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionEvi(ARRAY[:id_evi]::BIGINT[], ARRAY[:id_user]::BIGINT[])");
+        $participa->bindParam(':id_evi', $id_evi, PDO::PARAM_INT);
+        $participa->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+        $participa->execute();
+        $parti = $participa->fetchAll(PDO::FETCH_ASSOC);
+        return $parti;
+    } catch (PDOException $e) {
+        echo 'Error al obtener los participantes de las evidencias: ' . $e->getMessage() . "\n";
+        log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
+        echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+        exit();
+        return [];
+    }
+}
+
 function obtenerNotas($conn, $id_user, $id_evi)
 {
     global $replica, $errorPage;;

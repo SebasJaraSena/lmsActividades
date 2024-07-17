@@ -329,7 +329,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 foreach ($actividades as $actividad) {
                                     $id_for = $actividad->idacti;
                                     $name_for = $actividad->itemname;
-
                                     // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
                                     echo '<tr>
                                         <td id="text-align-document">' . $id_for . '</td>

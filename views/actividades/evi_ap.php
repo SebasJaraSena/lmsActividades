@@ -191,6 +191,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $id = $param['id'];
                                         }
 
+                                        $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
+                                        $participacion = null;
+                                        foreach ($parti as $part) {
+                                            if (!empty($part['status'])) {
+                                                $participacion = $part['status'];
+                                                break;
+                                            }
+                                        }
+
                                         // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                         $q_grades = obtenerNotas($conn, $id_user, $id_evi);
                                         foreach ($q_grades as $q_grade) {
@@ -245,6 +254,26 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>';
                                                 }
+                                                //ESTUDIANTE CON NOTA / PENDIENTE
+                                            } elseif (!empty($participacion)) {
+                                                echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                        <div class="d-gitd gap-2 col-8 mx-auto">
+                                                            <h6>P</h6>
+                                                        </div>
+                                                        <div class="action-manu" data-collapse="menu">
+                                                            <div class="dropdown show">
+                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                    <span class="" title="Acciones de la celda" aria-hidden="true"></span>
+                                                                    <span class="sr-only">Acciones de la celda</span>
+                                                                </button>
+                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '&rownum=0&action=grader&userid=' . $id_user . '">Calificar Evidencia</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                                //ESTUDIANTE SIN NOTA / PENDIENTE
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                             } else {
                                                 $id_evi = $actividad->idacti;
                                                 $courseid = $actividad->courseid;
