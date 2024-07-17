@@ -68,6 +68,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <?php if ($rol_user == 3) { ?>
                             <nav class="tertiary-navigation-selector">
                                 <div class="dropdown">
+                                    <!--BOTON PARA REDIRECCIONAR AL APARTADO DE LETRAS DE CALIFICACION DE ZAJUNA -->
                                     <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
                                         <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs">
                                         &nbsp; Informe Calificador
@@ -79,6 +80,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </nav>
                         <?php } ?>
 
+                        <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE ACTIVIDADES -->
                         <button class="icono-con-texto" onclick="redirectToActividad('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
                             <p>Actividades</p>
@@ -123,6 +125,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <?php if ($rol_user == 3) { ?>
                         <nav class="tertiary-navigation-selector">
                             <div class="dropdown">
+                                <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
                                 <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
                                     &nbsp;Categorías
                                 </button>
@@ -143,19 +146,27 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                     <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
                         <div class="table-responsive">
-                            <?php if ($rol_user == 3) { ?>
+                            <?php
+                            //INICIO SESION DE APRENDIZ (ROL 3) 
+                            if ($rol_user == 3) { ?>
+                                <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
                                 <div id="spinner" class="loader" role="status" style="display: none; margin: 0 auto;">
                                     <span class="visually-hidden">Cargando...</span>
                                 </div>
 
                                 <table id="tabla-act" class="display" style="width:100%; display: none;">
+                                    <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
                                     <thead>
                                         <tr id="actividades-thead">
                                             <th>Documento</th>
                                             <th>Nombre Completo</th>
-                                            <?php foreach ($actividades as $actividad) {
+                                            <?php
+                                            // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                            foreach ($actividades as $actividad) {
                                                 $id_for = $actividad->idacti;
-                                                $name_for = $actividad->itemname; ?>
+                                                $name_for = $actividad->itemname;
+                                                // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
+                                            ?>
                                                 <th>
                                                     <div class="text-justify"><?php echo $name_for; ?></div>
                                                 </th>
@@ -163,23 +174,31 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($users as $user) {
+                                        <?php
+                                        // SE RECORRE LA CONSULTA DE USERS PARA ALMACENAR EN VARIABLES EL ID, EL DOCUMENTO, EL NOMBRE Y APELLIDO DE LOS APRENDICES MATRRICULADOS EN LA FICHA EN CUESTION.
+                                        foreach ($users as $user) {
                                             $id_user = $user->id;
                                             $doc_user = $user->username;
                                             $firstname = $user->firstname;
-                                            $lastname = $user->lastname; ?>
+                                            $lastname = $user->lastname;
+                                        ?>
                                             <tr>
                                                 <td id="text-align-document"><?php echo $doc_user; ?></td>
                                                 <td id="text-align-name"><?php echo $firstname . ' ' . $lastname; ?></td>
 
-                                                <?php foreach ($actividades as $actividad) {
+                                                <?php
+                                                // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
+                                                foreach ($actividades as $actividad) {
                                                     $id_for = $actividad->idacti;
                                                     echo '<td>';
+
+                                                    // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                                     $params = obtenerParametros($conn, $id_for);
                                                     foreach ($params as $param) {
                                                         $id = $param['id'];
                                                     }
 
+                                                    // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
                                                     $parti = obtenerParticipacion($conn, $id_for, $id_user);
                                                     $participacion = null;
                                                     foreach ($parti as $part) {
@@ -188,13 +207,18 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             break;
                                                         }
                                                     }
+
+                                                    // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                                     $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
                                                     $grad = null;
                                                     foreach ($q_grades as $q_grade) {
                                                         $grad = $q_grade['rawgrade'];
                                                         $id_for = $actividad->idacti;
                                                     }
+
+                                                    // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA Q_GRADES TIENE VALORES EN LA BD.
                                                     if (!empty($grad)) {
+                                                        // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
                                                         if ($grad >= 70.00000) {
                                                             echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                                     <div class="d-gitd gap-2 col-8 mx-auto">
@@ -214,6 +238,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                         </div>
                                                                     </div>
                                                                 </div>';
+                                                            // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
                                                         } else {
                                                             echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                                     <div class="d-gitd gap-2 col-8 mx-auto">
@@ -249,8 +274,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     </div>
                                                                 </div>
                                                             </div>';
+                                                        //ESTUDIANTE SIN NOTA / PENDIENTE
+                                                        // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                                     } else {
                                                         $id_for = $actividad->idacti;
+                                                        // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN DE LAS ACTIVIDADES PENDIENTES POR LOS APRENDICES 
                                                         $paramsPen = obtenerParametrosPendientes($conn, $id_for);
                                                         foreach ($paramsPen as $param) {
                                                             $id = $param['id'];
@@ -273,14 +301,17 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>';
                                                     }
                                                     echo '</td>';
-                                                } ?>
+                                                }
+                                                ?>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
                                 </table>
                         </div>
                     </form>
-                <?php } else if ($rol_user == 5) { ?>
+                <?php //INICIO SESION DE APRENDIZ (rol 5)
+                            } else if ($rol_user == 5) { ?>
+                    <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
                     <table id="tabla_ap" class="display" style="width:100%">
                         <thead>
                             <tr id="actividades-thead">
@@ -291,26 +322,50 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($actividades as $actividad) {
+                            <?php
+                                // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+
+                                foreach ($actividades as $actividad) {
                                     $id_for = $actividad->idacti;
                                     $name_for = $actividad->itemname;
+
+                                    // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
                                     echo '<tr>
                                         <td id="text-align-document">' . $id_for . '</td>
                                         <td id="text-align-name">' . $name_for . '</td>';
+
+                                    // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
                                     foreach ($userApr as $user) {
                                         echo '<td>';
                                         $id_user = $user->id;
                                         $itemnumber = 0;
                                         $id_for = $actividad->idacti;
+
+                                        // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                         $params = obtenerParametros($conn, $id_for);
                                         foreach ($params as $param) {
                                             $id = $param['id'];
                                         }
+
+                                        // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
+                                        $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                        $participacion = null;
+                                        foreach ($parti as $part) {
+                                            if (!empty($part['mensaje'])) {
+                                                $participacion = $part['mensaje'];
+                                                break;
+                                            }
+                                        }
+
+                                        // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                         $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
                                         foreach ($q_grades as $q_grade) {
                                             $grad = $q_grade['rawgrade'];
                                             $retro = $q_grade['feedback'];
+
+                                            // SE REALIZA UNA CONDICION QUE VALIDE SI $GRAD TIENE VALORES EN LA BD.
                                             if (!empty($grad)) {
+                                                // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
                                                 if ($grad >= 70.00000) {
                                                     echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
@@ -330,6 +385,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>
                                                     </div>';
+                                                    // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
                                                 } else {
                                                     echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
@@ -348,6 +404,26 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>';
                                                 }
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                            } elseif (!empty($participacion)) {
+                                                echo '<div class="d-flex" style="background-color: #EEEEEE; padding: 10px; border-radius: 10px;">
+                                                        <div class="d-gitd gap-2 col-8 mx-auto">
+                                                            <h6>P</h6>
+                                                        </div>
+                                                        <div class="action-manu" data-collapse="menu">
+                                                            <div class="dropdown show">
+                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                    <span class="" title="Acciones de la celda" aria-hidden="true"></span>
+                                                                    <span class="sr-only">Acciones de la celda</span>
+                                                                </button>
+                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                                //ESTUDIANTE SIN NOTA / PENDIENTE
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                             } else {
                                                 $id_for = $actividad->idacti;
                                                 $params = obtenerParametros($conn, $id_for);
@@ -408,8 +484,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         </div>
     </main>
 <?php
+    // LLAMADA AL FOOTER 
     include '../../footer.php';
+    // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 
 } else {
+    // ALERTA DE SESION VENCIDA  
     $mensaje = "Ha caducado su sesión. Por favor ingrese nuevamente ";
     echo "<script>window.location.href = 'http://localhost/lmsActividades/error/error.php';</script>";
 }
