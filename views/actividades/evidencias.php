@@ -123,6 +123,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO <br>
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO <br>
                                 <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE </br>
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -184,9 +185,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $itemname = $actividad->itemname;
                                                 $id_evi = $actividad->idacti;
                                                 // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
+
+                                                //OJO ID EVI POR ITEMNAME//////////////////////////////
                                                 echo
                                                 '<th>
-                                                <div class="text-center">' . $itemname . '</div>
+                                                <div class="text-center">' . $id_evi . '</div>
                                             </th>';
                                             }
                                             ?>
@@ -200,9 +203,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $doc_user = $user->username;
                                             $firstname = $user->firstname;
                                             $lastname = $user->lastname;
+
+                                            //OJO ID USER POR DOC USER///////////////////////////////////////
                                             echo
                                             '<tr>
-                                            <td id="text-align-document">' . $doc_user . '</td>
+                                            <td id="text-align-document">' . $id_user . '</td>
                                             <td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
 
                                             // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
@@ -216,6 +221,17 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 foreach ($params as $param) {
                                                     $id = $param['id'];
                                                 }
+
+                                                $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
+                                                $participacion = null;
+                                                foreach ($parti as $part) {
+                                                    if (!empty($part['status'])) {
+                                                        $participacion = $part['status'];
+                                                        break;
+                                                    }
+                                                }
+
+                                                print_r($parti);
 
                                                 // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                                 $q_grades = obtenerNotas($conn, $id_user, $id_evi);
@@ -270,6 +286,24 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 </div>
                                                             </div>';
                                                         }
+                                                        //ESTUDIANTE CON NOTA / PENDIENTE
+                                                    } elseif (!empty($participacion)) {
+                                                        echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                                <div class="d-gitd gap-2 col-8 mx-auto">
+                                                                    <h6>P</h6>
+                                                                </div>
+                                                                <div class="action-manu" data-collapse="menu">
+                                                                    <div class="dropdown show">
+                                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                            <span class="" title="Acciones de la celda" aria-hidden="true"></span>
+                                                                            <span class="sr-only">Acciones de la celda</span>
+                                                                        </button>
+                                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '&rownum=0&action=grader&userid=' . $id_user . '">Calificar Evidencia</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
                                                         //ESTUDIANTE SIN NOTA / PENDIENTE
                                                         // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                                     } else {
@@ -383,6 +417,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             $id = $param['id'];
                                         }
 
+                                        $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
+                                        $participacion = null;
+                                        foreach ($parti as $part) {
+                                            if (!empty($part['status'])) {
+                                                $participacion = $part['status'];
+                                                break;
+                                            }
+                                        }
+
                                         // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                         $q_grades = obtenerNotas($conn, $id_user, $id_evi);
                                         foreach ($q_grades as $q_grade) {
@@ -434,6 +477,25 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>';
                                                 }
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                            } elseif (!empty($participacion)) {
+                                                echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                        <div class="d-gitd gap-2 col-8 mx-auto">
+                                                            <h6>P</h6>
+                                                        </div>
+                                                        <div class="action-manu" data-collapse="menu">
+                                                            <div class="dropdown show">
+                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                    <span class="" title="Acciones de la celda" aria-hidden="true"></span>
+                                                                    <span class="sr-only">Acciones de la celda</span>
+                                                                </button>
+                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Revisión de Evidencia</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>';
+                                                //ESTUDIANTE SIN NOTA / PENDIENTE
                                                 // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                             } else {
                                                 echo

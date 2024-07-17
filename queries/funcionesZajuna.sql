@@ -574,6 +574,37 @@ $$
 LANGUAGE 'plpgsql';
 
 --
+--------------------FUNCION PARA OBTENER LAS PARTICIPACIONES DE LAS EVIDENCIAS
+
+CREATE OR REPLACE FUNCTION obtenerParticipacionEvi(id_evi BIGINT[], id_user BIGINT[])
+RETURNS TABLE(
+    id BIGINT,
+    userid BIGINT,
+    status VARCHAR
+)
+AS $$
+DECLARE
+    i INT;
+BEGIN
+    -- Verifica que ambos arrays tengan la misma longitud
+    IF array_length(id_user, 1) != array_length(id_evi, 1) THEN
+        RAISE EXCEPTION 'Los arrays deben tener la misma longitud';
+    END IF;
+
+    -- Itera sobre los arrays y ejecuta la consulta para cada par de elementos
+    FOR i IN 1..array_length(id_user, 1) LOOP
+        RETURN QUERY
+        
+        SELECT assignment, userid, status
+		FROM mdl_assign_submission
+		WHERE assignment = id_evi[i] and userid = id_user[i] and status = 'submitted'; 
+       
+    END LOOP;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--
 ----------------FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION DE A REVISIONES DE ZAJUNA-------------------
 
 CREATE OR REPLACE FUNCTION obtenerParametros(id_user BIGINT[], curso BIGINT, acti BIGINT[])

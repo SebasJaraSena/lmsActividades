@@ -270,7 +270,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                             <span class="sr-only">Acciones de la celda</span>
                                                                         </button>
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Analisis del Foro</a>
+                                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/forum/discuss.php?d=' . $id . '">Calificar del Foro</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>

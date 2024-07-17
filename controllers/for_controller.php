@@ -111,7 +111,7 @@ function obtenerParticipacion($conn, $id_for, $id_user)
         $parti = $participa->fetchAll(PDO::FETCH_ASSOC);
         return $parti;
     } catch (PDOException $e) {
-        echo 'Error al obtener las notas de las actividades: ' . $e->getMessage() . "\n";
+        echo 'Error al obtener los participantes de los foros: ' . $e->getMessage() . "\n";
         log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
         echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
         exit();
