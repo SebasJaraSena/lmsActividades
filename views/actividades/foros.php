@@ -53,7 +53,17 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 <?php mostrar_historial(); ?>
             </div>
 
-            <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">FOROS</h3>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-8 d-flex justify-content-center">
+                        <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">FOROS</h3>
+                    </div>
+                </div>
+                <ol class="breadcrumb m-2">
+                    <!-- Se accede al arreglo y se imprime el dato requerido, en este caso hacemos el llamado del campo apellido  -->
+                    <li class="m-2"><strong>Bienvenido/a</strong> <?php echo $user->firstname . ' ' . $user->lastname; ?></li>
+                </ol>
+            </div>
             <div class="card p-3 p-md-5">
                 <div class="d-flex justify-content-between flex-wrap gap-3">
 

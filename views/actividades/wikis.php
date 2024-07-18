@@ -62,6 +62,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <h3><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">WIKIS</h3>
                     </div>
                 </div>
+                <ol class="breadcrumb m-2">
+                    <!-- Se accede al arreglo y se imprime el dato requerido, en este caso hacemos el llamado del campo apellido  -->
+                    <li class="m-2"><strong>Bienvenido/a</strong> <?php echo $user->firstname . ' ' . $user->lastname; ?></li>
+                </ol>
             </div>
             <div class="card p-3 p-md-5">
                 <div class="d-flex justify-content-between flex-wrap gap-3">
