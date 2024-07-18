@@ -17,6 +17,21 @@ function log_error($replica, $type, $code, $description)
         echo "Error al insertar el registro: " . $e->getMessage();
     }
 }
+function nombre_ficha($id_curso)
+{
+    global $conn, $errorPage;
+    try {
+        $query = $conn->prepare("SELECT fullname FROM mdl_course WHERE id = :curso");
+        $query->execute(['curso' => $id_curso]);
+        $name = $query->fetchAll(PDO::FETCH_OBJ);
+        return $name;
+    } catch (PDOException $e) {
+        echo "Error al obtener el nombre de la ficha: " . $e->getMessage() . "\n";
+        log_error($conn, get_class($e), $e->getCode(), $e->getMessage());
+        echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+        exit();
+    }
+}
 
 try {
     // Llamada a la función para obtener los parámetros de redirección a letras de calificación de la ficha en cuestión

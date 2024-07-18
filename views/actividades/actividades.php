@@ -22,6 +22,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     foreach ($esca as $esc) {
         $id_esca = $esc->id;
     }
+
+    $name = nombre_ficha($id_curso);
+    foreach ($name as $nam) {
+        $nombre_ficha = $nam->fullname;
+    }
 ?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
@@ -55,16 +60,18 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 mostrar_historial();
                 ?>
             </div>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-2">
                         <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" id="back-button-zajuna">
                         <p>Regresar a ZAJUNA</p>
                     </div>
-                    <div class="col-sm-8 d-flex justify-content-center">
-                        <h3><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">PRUEBAS DE
-                            CONOCIMIENTO</h3>
+                    <div class="col-sm-8 d-flex justify-content-center flex-column align-items-center">
+                        <h3><?php echo $nombre_ficha; ?></h3>
+                        <h3>
+                            <img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
+                            PRUEBAS DE CONOCIMIENTO
+                        </h3>
                     </div>
                 </div>
                 <ol class="breadcrumb m-2">
