@@ -47,7 +47,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
             }
         </style>
 
-        <h5 class="p-2 text-center bg-primary text-white">Centro de Calificaciones: Actividades</h5>
+        <h5 class="p-2 text-center bg-primary text-white">Centro de Calificaciones: Wikis</h5>
         <div class="container-fluid px-4">
             <!-- HISTORIAL DE NAVEGACIÓN -->
             <div class="history-container my-2 " style="display: flex; justify-content: center;">
@@ -135,7 +135,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
                                     colores:
                                 </p>
-                                <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: PARTICIPO
+                                <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: PARTICIPÓ
                                 <br>
                                 <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE DE PARTICIPAR
                                 </br>
@@ -201,7 +201,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 }
 
                                                 // LLAMADA A LA FUNCION PARA OBTENER LA PARTICIPACION DE LOS APRENDICES EN LAS WIKIS
-                                                $parti = obtenerParticipacion($conn, $id_user, $acti);
+                                                $parti = obtenerParticipacion($conn, $id_user, $acti, $id_curso);
 
                                                 // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA PARTI TIENE VALORES EN LA BD.
                                                 if (!empty($parti)) {
@@ -299,7 +299,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         }
 
                                         // LLAMADA A LA FUNCION PARA OBTENER LA PARTICIPACION DE LOS APRENDICES EN LAS WIKIS
-                                        $parti = obtenerParticipacion($conn, $id_user, $acti);
+                                        $parti = obtenerParticipacion($conn, $id_user, $acti, $id_curso);
 
                                         // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA PARTI TIENE VALORES EN LA BD.
                                         if (!empty($parti)) {
