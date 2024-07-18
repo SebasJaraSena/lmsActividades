@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             var d = new Date();
             var date =
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            return 'Centro de Actividades'+ date;
+            return 'Centro de Actividades '+ date;
           },
           exportOptions: {
             columns: ":visible",
@@ -90,16 +90,11 @@ document.addEventListener('DOMContentLoaded', async () => {
               (date.getMonth() + 1) +
               "-" +
               date.getDate();
-            var additionalData = "Calificaciones Centro de Actividades:";
+            var additionalData = "Calificaciones Centro de Actividades";
   
             // Crear una nueva fila con la fecha y el dato adicional
             var row =
-              '<row r="1"><c t="inlineStr" r="A1"><is><t>' +
-              formattedDate +
-              "</t></is></c></row>" +
-              '<row r="2"><c t="inlineStr" r="A2"><is><t>' +
-              additionalData +
-              "</t></is></c></row>";
+              '<row r="1"><c t="inlineStr" r="A1"><is><t>' + formattedDate+' '+additionalData + "</t></is></c></row>";
   
             // Insertar la nueva fila al principio del archivo Excel
             sheet.childNodes[0].childNodes[1].innerHTML =
@@ -114,7 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             var d = new Date();
             var date =
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            return 'Centro de Actividades'+ date;
+            return 'Centro de Actividades '+ date;
           },
           exportOptions: {
             columns: ":visible",
@@ -133,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               (date.getMonth() + 1) +
               "-" +
               date.getDate();
-            var additionalData = "Calificaciones Centro de Actividades:";
+            var additionalData = "Calificaciones Centro de Actividades";
   
             // Agregar la fecha y el dato adicional como filas en el contenido CSV
             var newCsv = formattedDate + "\n" + additionalData + "\n" + csv;
@@ -167,7 +162,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               (date.getMonth() + 1) +
               "-" +
               date.getDate();
-              var additionalData = "Calificaciones Centro de Actividades:";
+              var additionalData = "Calificaciones Centro de Actividades";
   
             // Agregar la fecha y el dato adicional como una fila en el contenido del PDF
             doc.content.splice(1, 0, {
