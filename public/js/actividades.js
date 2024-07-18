@@ -10,6 +10,10 @@ function redirectToForos(id_curso) {
 function redirectToEvidencias(id_curso) {
   window.location.href = `http://localhost/lmsActividades/views/actividades/evidencias.php?id=${encodeURIComponent(id_curso)}`;
 }
+//FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE WIKIS
+function redirectToWikis(id_curso) {
+  window.location.href = `http://localhost/lmsActividades/views/actividades/wikis.php?id=${encodeURIComponent(id_curso)}`;
+}
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE FOROS_AP 
 function redirectToForosAp(id_curso, id_rea) {
   window.location.href = `http://localhost/lmsActividades/views/actividades/for_ap.php?id=${encodeURIComponent(id_curso)}&cat=${encodeURIComponent(id_rea)}`;

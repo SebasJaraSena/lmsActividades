@@ -117,7 +117,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs" class="mr-2">
                             <p>Blogs</p>
                         </button>
-                        <button class="icono-con-texto" onclick="miFuncion()">
+                        <button class="icono-con-texto" onclick="redirectToWikis('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
                             <p>Wikis</p>
                         </button>

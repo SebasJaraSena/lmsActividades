@@ -90,7 +90,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE ACTIVIDADES -->
                         <button class="icono-con-texto" onclick="redirectToActividad('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/evaluaciones.svg" alt="Ícono de evaluación" id="icono-evaluacion" class="mr-2">
-
                             <p>Actividades</p>
                         </button>
                         <button class="icono-con-texto" onclick="redirectToForos('<?= $id_curso; ?>')">
@@ -103,9 +102,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                             <p>Blogs</p>
                         </button>
-                        <button class="icono-con-texto" onclick="miFuncion()">
+                        <button class="icono-con-texto" onclick="redirectToWikis('<?= $id_curso; ?>')">
                             <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
-
                             <p>Wikis</p>
                         </button>
                     </div>

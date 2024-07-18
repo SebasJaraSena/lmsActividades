@@ -375,6 +375,62 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
+--
+----------------------FUNCION PARA OBTENER LAS WKIS DE UN CURSO---------------------------------
+
+CREATE OR REPLACE FUNCTION obtenerWikis(curso BIGINT)
+RETURNS VOID AS
+$$
+BEGIN
+-- Crear la tabla temporal
+CREATE TEMPORARY TABLE tablaTempWik(
+id BIGINT,
+course BIGINT,
+nombre VARCHAR
+
+);
+-- Insertar los datos en la tabla temporal
+INSERT INTO tablaTempWik(id, course, nombre)
+
+SELECT w.id, w.course, w.name as nombre
+
+FROM mdl_wiki w
+WHERE w.course = curso;
+
+-- Crear la vista a partir de la tabla temporal
+CREATE OR REPLACE VIEW vista_wik AS
+SELECT * FROM tablaTempWik;
+
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--
+-----------------------FUNCION PARA OBTENER LA PARTICIPACION DE LAS WIKIS DE UN CURSO--------------------------------
+
+CREATE OR REPLACE FUNCTION obtenerParticipacionWiki(id_user BIGINT[])
+RETURNS TABLE(
+    userid BIGINT,
+    content TEXT
+)
+AS $$
+DECLARE
+    i INT;
+BEGIN
+
+    -- Itera sobre los arrays y ejecuta la consulta para cada par de elementos
+    FOR i IN 1..array_length(id_user, 1) LOOP
+        RETURN QUERY
+        
+        SELECT w.userid, w.content
+        
+        FROM mdl_wiki_versions w
+        WHERE w.userid = id_user[i];
+       
+    END LOOP;
+END;
+$$
+LANGUAGE 'plpgsql';
 
 --
 -----------------FUNCION PARA OBTENER LOS USUARIOS MATRICULADOS EN UN CURSO---------------------
@@ -735,8 +791,29 @@ $$
 LANGUAGE plpgsql;
 
 --
---------------------FUNCION PARA OBTENER EL ID DE REDIRECCION A LA ESCALA DE CALIFICACIONES----------------
+-----------------FUNCION PARA OBTENER EL ID DE REDIRECCION A LA REVISION DE WIKIS
 
+CREATE OR REPLACE FUNCTION obtenerParametrosWiki(curso BIGINT, acti BIGINT[])
+RETURNS TABLE (
+    id BIGINT
+) AS
+$$
+BEGIN
+    RETURN QUERY
+    WITH temp AS (
+        SELECT unnest(acti) as acti, generate_series(1, array_length(acti, 1)) as idx
+    )
+    SELECT
+        c.id
+    FROM temp
+    JOIN mdl_course_modules c ON c.instance = temp.acti
+    WHERE c.course = curso;
+END;
+$$
+LANGUAGE plpgsql;
+
+--
+--------------------FUNCION PARA OBTENER EL ID DE REDIRECCION A LA ESCALA DE CALIFICACIONES----------------
 
 CREATE OR REPLACE FUNCTION obtenerEscala(curso BIGINT)
 RETURNS VOID AS
