@@ -64,7 +64,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 </div>
                 <div class="col-sm-8 d-flex justify-content-center">
                     <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
-                        EVIDENCIAS / RESULTADO DE APRENDIZAJE: <span id="color-titulo"><?php echo ($id_rea); ?></span></h3>
+                        EVIDENCIAS / CATEGORIA: <span id="color-titulo"><?php echo ($id_rea); ?></span></h3>
                 </div>
             </div>
         </div>

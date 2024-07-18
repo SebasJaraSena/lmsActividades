@@ -58,10 +58,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-2">
-                        <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" id="back-button-zajuna">
-                        <p>Regresar a ZAJUNA</p>
-                    </div>
                     <div class="col-sm-8 d-flex justify-content-center">
                         <h3><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">WIKIS</h3>
                     </div>
