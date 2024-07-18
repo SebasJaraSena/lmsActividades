@@ -13401,10 +13401,6 @@ body {
   border-collapse: collapse;
 }
 
-/* Oculta el select para seleccionar el número de datos a mostrar */
-.dt-length {
-  display: none;
-}
 
 .datatable-table>tbody>tr>td,
 .datatable-table>tbody>tr>th,
