@@ -77,7 +77,7 @@ $(document).ready(function () {
     },
     colReorder: true,
     scrollX: true,
-    dom: "Bfrtip",
+    dom: '<"row"<"col-md-4"B><"col-md-4"f><"col-md-4"l>rtip',
     buttons: [
 
       {
@@ -93,16 +93,8 @@ $(document).ready(function () {
           columns: ":visible",
           format: {
             body: function (data, row, column, node) {
-              var selectElement = $(node).find("select");
-              if (selectElement.length > 0) {
-                return $(node).find(".selected-resultado").val();
-              }
-              var checkboxElement = $(node).find('input[type="checkbox"]');
-              if (checkboxElement.length > 0) {
-                return "";
-              }
-              return data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
-            },
+              return extractTextFromNode(node);
+            }
           },
         },
         customize: function (doc) {
@@ -128,7 +120,8 @@ $(document).ready(function () {
     ordering: false,
     paging: true,
     pageLength: 10, // # de datos por pagina
-    select: true, // Habilita la selección de filas
+    lengthMenu: [ [ 10, 15, 25, 50, -1 ],
+    [ '10','15','25', '50', 'Mostrar todo' ]],// Opciones de número de filas a mostrar
 
     initComplete: function () {
       var api = this.api();
