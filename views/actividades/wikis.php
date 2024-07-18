@@ -205,7 +205,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 }
 
                                                 // LLAMADA A LA FUNCION PARA OBTENER LA PARTICIPACION DE LOS APRENDICES EN LAS WIKIS
-                                                $parti = obtenerParticipacion($conn, $id_user);
+                                                $parti = obtenerParticipacion($conn, $id_user, $acti);
 
                                                 // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA PARTI TIENE VALORES EN LA BD.
                                                 if (!empty($parti)) {
@@ -303,7 +303,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         }
 
                                         // LLAMADA A LA FUNCION PARA OBTENER LA PARTICIPACION DE LOS APRENDICES EN LAS WIKIS
-                                        $parti = obtenerParticipacion($conn, $id_user);
+                                        $parti = obtenerParticipacion($conn, $id_user, $acti);
 
                                         // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA PARTI TIENE VALORES EN LA BD.
                                         if (!empty($parti)) {
@@ -348,7 +348,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                     <span class="sr-only">Acciones de la celda</span>
                                                                 </button>
                                                                 <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/wiki/view.php?id=' . $id . '">Analisis del Wiki</a>
+                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/wiki/view.php?id=' . $id . '">Realizar Wiki</a>
                                                                 </div>
                                                             </div>
                                                         </div>

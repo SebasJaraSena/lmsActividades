@@ -84,12 +84,13 @@ try {
 }
 
 
-function obtenerParticipacion($conn, $id_user)
+function obtenerParticipacion($conn, $id_user, $acti)
 {
     global $replica, $errorPage;
     try {
-        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionWiki(ARRAY[:id_user]::BIGINT[])");
+        $participa = $conn->prepare("SELECT * FROM obtenerParticipacionWiki(ARRAY[:id_user]::BIGINT[], ARRAY[:acti]::BIGINT[])");
         $participa->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+        $participa->bindParam(':acti', $acti, PDO::PARAM_INT);
         $participa->execute();
         $parti = $participa->fetchAll(PDO::FETCH_ASSOC);
         return $parti;

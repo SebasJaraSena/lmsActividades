@@ -408,10 +408,12 @@ LANGUAGE 'plpgsql';
 --
 -----------------------FUNCION PARA OBTENER LA PARTICIPACION DE LAS WIKIS DE UN CURSO--------------------------------
 
-CREATE OR REPLACE FUNCTION obtenerParticipacionWiki(id_user BIGINT[])
+CREATE OR REPLACE FUNCTION obtenerParticipacionWiki(id_user BIGINT[], acti BIGINT[])
 RETURNS TABLE(
     userid BIGINT,
-    content TEXT
+    content text,
+    id BIGINT,
+    name VARCHAR
 )
 AS $$
 DECLARE
@@ -422,10 +424,11 @@ BEGIN
     FOR i IN 1..array_length(id_user, 1) LOOP
         RETURN QUERY
         
-        SELECT w.userid, w.content
-        
-        FROM mdl_wiki_versions w
-        WHERE w.userid = id_user[i];
+        SELECT wv.userid, wv.content, w.id, w.name
+		FROM mdl_wiki_versions wv
+		JOIN mdl_wiki_subwikis ws ON ws.id = wv.pageid
+		JOIN mdl_wiki w ON w.id = ws.wikiid
+        WHERE w.userid = id_user[i] and w.id = acti;
        
     END LOOP;
 END;
