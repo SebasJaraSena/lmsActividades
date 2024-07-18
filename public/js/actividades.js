@@ -62,46 +62,144 @@ document.addEventListener('DOMContentLoaded', async () => {
       scrollX: true,
       dom: "Bfrtip",
       buttons: [
+        //  Boton para exportar archivos en formato Excel
         {
           extend: "excelHtml5",
           text: '<i class="fas fa-file-excel"></i> &nbsp;Exportar Excel',
-
+          filename: function () {
+            var d = new Date();
+            var date =
+              d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            return 'Centro de Actividades'+ date;
+          },
           exportOptions: {
-            columns: ':visible',
+            columns: ":visible",
             format: {
               body: function (data, row, column, node) {
-                return extractTextFromNode(node);
-              }
-            }
-          }
+                var selectElement = $(node).find("select");
+                if (selectElement.length > 0) {
+                  return $(node).find(".selected-resultado").val();
+                }
+                var checkboxElement = $(node).find('input[type="checkbox"]');
+                if (checkboxElement.length > 0) {
+                  return "";
+                }
+                return data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
+              },
+            },
+          },
+          customize: function (xlsx) {
+            var sheet = xlsx.xl.worksheets["sheet1.xml"];
+            var date = new Date();
+            var formattedDate =
+              "Documento Generado: " +
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate();
+            var additionalData = "Calificaciones Centro de Actividades:";
+  
+            // Crear una nueva fila con la fecha y el dato adicional
+            var row =
+              '<row r="1"><c t="inlineStr" r="A1"><is><t>' +
+              formattedDate +
+              "</t></is></c></row>" +
+              '<row r="2"><c t="inlineStr" r="A2"><is><t>' +
+              additionalData +
+              "</t></is></c></row>";
+  
+            // Insertar la nueva fila al principio del archivo Excel
+            sheet.childNodes[0].childNodes[1].innerHTML =
+              row + sheet.childNodes[0].childNodes[1].innerHTML;
+          },
         },
+        //  Boton para exportar archivos en formato CSV
         {
           extend: "csvHtml5",
-          text: '<i class="fas fa-file-csv"></i> &nbsp;Exportar CSV',
-
+          text: '<i class="fas fa-file-csv"></i> &nbsp;Exportar Csv',
+          filename: function () {
+            var d = new Date();
+            var date =
+              d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            return 'Centro de Actividades'+ date;
+          },
           exportOptions: {
-            columns: ':visible',
+            columns: ":visible",
             format: {
               body: function (data, row, column, node) {
-                return extractTextFromNode(node);
-              }
-            }
-          }
+                var selectElement = $(node).find("select");
+                if (selectElement.length > 0) {
+                  return $(node).find(".selected-resultado").val();
+                }
+                var checkboxElement = $(node).find('input[type="checkbox"]');
+                if (checkboxElement.length > 0) {
+                  return "";
+                }
+                return data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
+              },
+            },
+          },
+          customize: function (csv) {
+            var date = new Date();
+            var formattedDate =
+              "Documento Generado: " +
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate();
+            var additionalData = "Calificaciones Centro de Actividades:";
+  
+            // Agregar la fecha y el dato adicional como filas en el contenido CSV
+            var newCsv = formattedDate + "\n" + additionalData + "\n" + csv;
+            return newCsv;
+          },
         },
+        //  Boton para exportar archivos en formato PDF
         {
           extend: "pdfHtml5",
-          text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar PDF',
-
-          orientation: 'landscape',
-          pageSize: 'A4',
+          text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar Pdf',
+          filename: function () {
+            var d = new Date();
+            var date =
+              d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            return 'Centro de Actividades'+ date;
+          },
           exportOptions: {
-            columns: ':visible',
+            columns: ":visible",
             format: {
               body: function (data, row, column, node) {
-                return extractTextFromNode(node);
-              }
-            }
-          }
+                var selectElement = $(node).find("select");
+                if (selectElement.length > 0) {
+                  return $(node).find(".selected-resultado").val();
+                }
+                var checkboxElement = $(node).find('input[type="checkbox"]');
+                if (checkboxElement.length > 0) {
+                  return "";
+                }
+                return data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
+              },
+            },
+          },
+          customize: function (doc) {
+            var date = new Date();
+            var formattedDate =
+              "Documento Generado: " +
+              date.getFullYear() +
+              "-" +
+              (date.getMonth() + 1) +
+              "-" +
+              date.getDate();
+              var additionalData = "Calificaciones Centro de Actividades:";
+  
+            // Agregar la fecha y el dato adicional como una fila en el contenido del PDF
+            doc.content.splice(1, 0, {
+              text: formattedDate + "\n" + additionalData,
+              margin: [0, 0, 0, 12],
+              bold: true
+            });
+          },
         },
       ],
 

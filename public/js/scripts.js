@@ -82,8 +82,47 @@ $(document).ready(function () {
 
       {
         extend: "pdfHtml5",
-        text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar PDF',
+        text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar Pdf',
+        filename: function () {
+          var d = new Date();
+          var date =
+            d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+          return 'Calificaciones Actividades'+ date;
+        },
+        exportOptions: {
+          columns: ":visible",
+          format: {
+            body: function (data, row, column, node) {
+              var selectElement = $(node).find("select");
+              if (selectElement.length > 0) {
+                return $(node).find(".selected-resultado").val();
+              }
+              var checkboxElement = $(node).find('input[type="checkbox"]');
+              if (checkboxElement.length > 0) {
+                return "";
+              }
+              return data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
+            },
+          },
+        },
+        customize: function (doc) {
+          var date = new Date();
+          var formattedDate =
+            "Documento Generado: " +
+            date.getFullYear() +
+            "-" +
+            (date.getMonth() + 1) +
+            "-" +
+            date.getDate();
+            var additionalData = "Centro de Actividades"
 
+          // Agregar la fecha y el dato adicional como una fila en el contenido del PDF
+          doc.content.splice(1, 0, {
+            text: formattedDate + "\n" + additionalData,
+            margin: [0, 0, 0, 12],
+            bold: true
+          });
+        },
       },
     ],
     ordering: false,
