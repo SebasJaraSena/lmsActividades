@@ -328,7 +328,7 @@ itemmodule VARCHAR
 -- Insertar los datos en la tabla temporal
 INSERT INTO tablaTempFor(id, itemname, idacti, idnumber, courseid, categoryid, fullname, itemmodule)
 
-SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fullname, i.itemmodule
+SELECT i.id,  TRIM(REPLACE(REPLACE(i.itemname, 'rating', ''), 'calificación', '')) AS itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fullname, i.itemmodule
 
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
@@ -362,7 +362,9 @@ itemmodule VARCHAR
 );
 -- Insertar los datos en la tabla temporal
 INSERT INTO tablaTempForAp(id, itemname, idacti, idnumber, courseid, categoryid, fullname, itemmodule)
-SELECT i.id, i.itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fullname, i.itemmodule
+
+SELECT i.id, TRIM(REPLACE(REPLACE(i.itemname, 'rating', ''), 'calificación', '')) AS itemname, i.iteminstance, c.idnumber, c.id, i.categoryid, g.fullname, i.itemmodule
+
 FROM mdl_course c
 JOIN mdl_grade_items i ON c.id = i.courseid
 JOIN mdl_grade_categories g ON i.categoryid = g.id
