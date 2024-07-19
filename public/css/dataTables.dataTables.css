@@ -667,7 +667,7 @@ div.dt-container .dt-search,
 div.dt-container .dt-processing,
 div.dt-container .dt-paging {
   color: inherit;
-  text-align: right;
+  text-align: center;
 }
 div.dt-container .dt-info {
   color: inherit;
