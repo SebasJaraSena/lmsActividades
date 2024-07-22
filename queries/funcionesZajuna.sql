@@ -166,7 +166,7 @@ INSERT INTO tablaTempCat(id, fullname)
 
 SELECT id, fullname 
 FROM public.mdl_grade_categories
-WHERE courseid = curso;
+WHERE courseid = 79 AND fullname <> '?';
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_cat AS
