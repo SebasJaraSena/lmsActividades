@@ -56,7 +56,7 @@
 
 ---------------FUNCION REDIRECCIONAMIENTO AL NUEVO CENTRO DE CALIFICACIONES LMS--------------------- 
 if ($navoptions->grades) {
-    $external_url = 'http://localhost/lms/config/login_config.php?user=' . $USER->id . '&idnumber=' . urlencode($course->idnumber);
+    $external_url = 'http://localhost/lms-califica/config/login_config.php?user=' . $USER->id . '&idnumber=' . urlencode($course->idnumber);
     $url = new moodle_url($external_url);
     $gradenode = $coursenode->add(
         get_string('grades'),

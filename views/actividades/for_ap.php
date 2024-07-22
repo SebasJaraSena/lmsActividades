@@ -96,9 +96,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <br>
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO
                                 <br>
-                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
+                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE DE CALIFICACIÓN
                                 </br>
-                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE REALIZAR FORO
                                 </p>
                             </div>
                             <div class="modal-footer">
@@ -236,7 +236,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 }
                                                 //ESTUDIANTE CON NOTA / PENDIENTE
                                             } elseif (!empty($participacion)) {
-                                                echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                             <div class="d-gitd gap-2 col-8 mx-auto">
                                                                 <h6>P</h6>
                                                             </div>
@@ -264,9 +264,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 foreach ($paramsPen as $param) {
                                                     $id = $param['id'];
                                                 }
-
+                                                
                                                 echo
-                                                '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>
