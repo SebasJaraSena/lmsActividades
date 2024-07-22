@@ -149,7 +149,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </p>
                                 <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: PARTICIPÓ
                                 <br>
-                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE DE PARTICIPAR
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Amarillo: PENDIENTE DE PARTICIPAR
                                 </br>
                                 </p>
                             </div>
@@ -245,7 +245,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     }
                                                 } else {
                                                     echo '
-                                                    <div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                    <div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>

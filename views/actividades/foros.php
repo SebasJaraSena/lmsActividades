@@ -130,8 +130,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <p>Este Código de colores esta establecido para la facilidad de lectura de las calificaciones del centro de calificaciones, por favor tenga en cuenta los siguientes códigos de colores:</p>
                                 <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO<br>
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO<br>
-                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE<br>
-                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE CALIFICACIÓN
+                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE DE CALIFICACIÓN<br>
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE REALIZAR FORO
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Cerrar</button>
@@ -278,7 +278,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         }
                                                         //ESTUDIANTE CON NOTA / PENDIENTE
                                                     } elseif (!empty($participacion)) {
-                                                        echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                        echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                                     <h6>P</h6>
                                                                 </div>
@@ -303,7 +303,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         foreach ($paramsPen as $param) {
                                                             $id = $param['id'];
                                                         }
-                                                        echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                        echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                                     <h6>X</h6>
                                                                 </div>

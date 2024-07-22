@@ -135,7 +135,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     </div>
                 </div>
 
-
                 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
 
@@ -155,7 +154,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <br>
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO
                                 <br>
-                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
+                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Amarillo: PENDIENTE
                                 </br>
                                 </p>
                             </div>
@@ -315,7 +314,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         $id = $param['id'];
                                                     }
                                                     echo '
-                                                    <div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                    <div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>
