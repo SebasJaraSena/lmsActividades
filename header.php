@@ -73,10 +73,8 @@ function mostrar_historial()
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.1/css/responsive.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/2.0.1/css/colReorder.dataTables.css">
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.0/js/dataTables.select.js">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
     <!-- DataTables JS -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
