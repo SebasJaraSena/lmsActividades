@@ -82,7 +82,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 </div>
                 <!-- Imagen referencia banner inicio de vista centro de calificaciones -->
                 <div class="my-4">
-                    <img src="../../public/assets/banners/actividades.svg" id="img-banner">
+                    <img src="../../public/assets/banners/acti_ap.svg" id="img-banner">
                 </div>
 
                 <ol class="breadcrumb m-2">
