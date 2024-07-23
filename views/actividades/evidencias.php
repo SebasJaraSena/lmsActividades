@@ -119,11 +119,11 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                                 <p>Foros</p>
                             </button>
-                            <button class="icono-con-texto" onclick="miFuncion()">
+                            <!-- <button class="icono-con-texto" onclick="miFuncion()">
                                 <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
 
                                 <p>Blogs</p>
-                            </button>
+                            </button> -->
                             <button class="icono-con-texto" onclick="redirectToWikis('<?= $id_curso; ?>')">
                                 <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
                                 <p>Wikis</p>

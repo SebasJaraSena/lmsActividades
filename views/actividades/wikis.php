@@ -128,10 +128,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
                                 <p>Evidencias</p>
                             </button>
-                            <button class="icono-con-texto" onclick="miFuncion()">
+                            <!-- <button class="icono-con-texto" onclick="miFuncion()">
                                 <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs" class="mr-2">
                                 <p>Blogs</p>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
 
