@@ -19,6 +19,7 @@
 
 <!-- Custom JS -->
 <script src="http://localhost/lmsActividades/public/js/actividades.js"></script>
+<script src="http://localhost/lmsActividades/public/js/actividades-check.js"></script>
 <script src="http://localhost/lmsActividades/public/js/scripts.js"></script>
 
 <!-- Bootstrap -->
@@ -29,6 +30,7 @@
 
 <!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <!-- DataTables -->
 <script src="http://localhost/lmsActividades/public/js/simple-datatables.min.js"></script>

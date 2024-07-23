@@ -8,33 +8,34 @@ require_once '../config/db_config.php';
 require '../vendor/autoload.php';
 
 // Recibe la información del formulario
-$encoded_ficha = $_POST['id_ficha'] ?? '';
-$encoded_competencia = $_POST['id_competencia'] ?? '';
-$encoded_rea = $_POST['rea_id'] ?? '';
-$actividades = $_POST['actividades'] ?? '';
-$infoCorreos = $_POST['correo'] ?? [];
+/* $encoded_ficha = $_POST['id_ficha'] ?? '';*/
+$id_curso = $_POST['id_curso'] ?? '';
+$id_rea = $_POST['id_rea'] ?? '';
+$redireccion = $_POST['redireccion'] ?? ''; 
+$infoCorreos = $_POST['correosSeleccionados'] ?? [];
+$correosSeleccionados = json_decode($infoCorreos, true); 
 
-/* var_dump($encoded_ficha);
-var_dump($encoded_competencia);
-var_dump($encoded_rea);
-var_dump($infoCorreos);
+/*var_dump($id_curso);
+var_dump($id_rea);
+var_dump($redireccion);
+var_dump($infoCorreos.'<br>');
+var_dump($correosSeleccionados);
+exit();
  */
-
-
 // Crea una instancia de PHPMailer
 $mail = new PHPMailer(true);
 $mail->isSMTP();
 $mail->Host       = 'smtp-mail.outlook.com';
 $mail->SMTPAuth   = true;
 $mail->Username   = 'senacorreoprueba@outlook.es';
-$mail->Password   = ' ';
+$mail->Password   = 'Sena12345@';
 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 $mail->Port       = 587;
 $mail->setFrom('senacorreoprueba@outlook.es', 'Recordatorio');
 $mail->isHTML(true);
 
 // Construye el cuerpo del correo con todos los destinatarios
-$destinatarios = implode(', ', $infoCorreos);
+$destinatarios = implode(', ', $correosSeleccionados);
 $asunto = "Zajuna recordatorio";
 $cuerpo = '
     <!DOCTYPE html>
@@ -59,7 +60,7 @@ $cuerpo = '
     </html>';
 
 // Agrega todos los destinatarios al correo
-foreach ($infoCorreos as $infocorreo) {
+foreach ($correosSeleccionados as $infocorreo) {
     $mail->addAddress(trim($infocorreo));
 }
 
@@ -89,9 +90,7 @@ echo "<script>
  function decodeBase64(str) {
      return atob(str);
  }
- const urlParams = 'id_ficha=$encoded_ficha&id_competencia=$encoded_competencia&rea_id=$encoded_rea';
- const encodedParams = encodeBase64(urlParams);
- window.location.href = 'http://localhost/lms/views/actividades/$actividades?params=' + encodedParams;
+ window.location.href = 'http://localhost/lmsActividades/views/actividades/$redireccion?id=$id_curso&cat=$id_rea';
 </script>";
 
 exit();
