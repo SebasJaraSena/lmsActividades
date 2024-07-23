@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       colReorder: false,
       scrollX: true,
-      dom: "Bfrtip",
+      dom: '<"row"<"col-md-7"B><"col-md-3"f><"col-md-2"l>rtip',
       colReorder: true,
       ordering: false,
       paging: true,
