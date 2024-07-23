@@ -147,7 +147,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="card-body" id="actividades-card">
 
                         <?php if ($rol_user == 3) { ?>
-                            <nav class="tertiary-navigation-selector">
+                            <nav class="tertiary-navigation-selector mb-4">
                                 <div class="dropdown">
                                     <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
                                     <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
