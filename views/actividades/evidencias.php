@@ -493,7 +493,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     }
                                                     //ESTUDIANTE CON NOTA / PENDIENTE
                                                 } elseif (!empty($participacion)) {
-                                                    echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                    echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>P</h6>
                                                         </div>
@@ -512,8 +512,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     //ESTUDIANTE SIN NOTA / PENDIENTE
                                                     // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                                 } else {
+
                                                     echo
-                                                    '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                    '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                     <div class="d-gitd gap-2 col-8 mx-auto">
                                                         <h6>X</h6>
                                                     </div>
@@ -536,7 +537,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             }
                                             if (empty($q_grades)) {
                                                 echo
-                                                '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                     <h6>X</h6>
                                                 </div>

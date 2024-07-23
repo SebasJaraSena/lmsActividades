@@ -389,10 +389,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 }
                                             } elseif (!empty($participacion)) {
                                                 $nota_class = 'P';
-                                                $nota_color = '#b9b9b9';
+                                                $nota_color = '#FCE059';
                                             } else {
                                                 $nota_class = 'X';
-                                                $nota_color = '#FCE059';
+                                                $nota_color = '#b9b9b9';
                                             }
                                             //ACCIONES DE LAS CELDAS PARA CADA NOTA
                                             echo '<td>

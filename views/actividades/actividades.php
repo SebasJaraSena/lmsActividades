@@ -64,8 +64,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <div class="col-sm-2">
                             <!-- boton regresar  -->
                             <h6>
-                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button-zajuna" alt="Ícono de regresar" style="margin-right: 5px;">
-                                <u id="titulo-regresar">Regresar a ZAJUNA</u>
+                                <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" style="margin-right: 5px;" onclick="redirectToZajuna('<?= $id_curso; ?>')">
+                                <u id="titulo-regresar" onclick="redirectToZajuna('<?= $id_curso; ?>')">Regresar al Curso</u>
                             </h6>
                         </div>
                         <div class="col-sm-8 d-flex justify-content-center">
@@ -156,7 +156,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     <br>
                                     <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO
                                     <br>
-                                    <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
+                                    <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE
                                     </br>
                                     </p>
                                 </div>
@@ -315,7 +315,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             $id = $param['id'];
                                                         }
                                                         echo '
-                                                    <div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                    <div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>
@@ -435,7 +435,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
                                             } else {
                                                 echo
-                                                '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
+                                                '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                     <h6>X</h6>
                                                 </div>

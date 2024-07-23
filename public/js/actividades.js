@@ -1,3 +1,7 @@
+//FUNCION PARA REGRESAR A ZAJUNA
+function redirectToZajuna(id_curso) {
+  window.location.href = `http://localhost/zajuna/course/view.php?id=${encodeURIComponent(id_curso)}`;
+}
 //FUNCION PARA ENVIAR PARAMETROS POR URL A LA VISTA DE ACTIVIDADES
 function redirectToActividad(id_curso) {
   window.location.href = `http://localhost/lmsActividades/views/actividades/actividades.php?id=${encodeURIComponent(id_curso)}`;
