@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         {
           extend: "excelHtml5",
           text: '<i class="fas fa-file-excel"></i> &nbsp;Exportar Excel',
+          title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
             var date =
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
           },
           customize: function (xlsx) {
+            var sheet = xlsx.xl.worksheets["sheet1.xml"];
             var d = new Date();
             var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             var time = d.toLocaleString('es-CO', {
@@ -94,18 +96,37 @@ document.addEventListener('DOMContentLoaded', async () => {
             var additionalData = "Calificaciones Centro de Actividades";
 
             // Crear una nueva fila con la fecha y el dato adicional
-            var row =
-              '<row r="1"><c t="inlineStr" r="A1"><is><t>' + formattedDate + ' ' + additionalData + "</t></is></c></row>";
+            var newRow = '<row r="1"><c t="inlineStr" r="A1"><is><t>' + formattedDate + ' - ' + additionalData + '</t></is></c></row>';
+
+
+            // Ajustar los índices de las filas existentes
+            $('row', sheet).each(function () {
+              var r = parseInt($(this).attr('r'));
+              $(this).attr('r', r + 1);
+              $('c', this).each(function () {
+                var ref = $(this).attr('r');
+                var col = ref.substring(0, 1);
+                var row = parseInt(ref.substring(1)) + 1;
+                $(this).attr('r', col + row);
+              });
+            });
 
             // Insertar la nueva fila al principio del archivo Excel
-            sheet.childNodes[0].childNodes[1].innerHTML =
-              row + sheet.childNodes[0].childNodes[1].innerHTML;
+            sheet.childNodes[0].childNodes[1].innerHTML = newRow + sheet.childNodes[0].childNodes[1].innerHTML;
+
+            // Añadir estilo (negrilla) a las celdas (s="1" referencia al estilo en la hoja de estilos)
+            var styleSheet = xlsx.xl['styles.xml'];
+            var cellXfs = $('cellXfs', styleSheet);
+            cellXfs.append('<xf xfId="0" applyFont="1" fontId="1"/>');
+            var fonts = $('fonts', styleSheet);
+            fonts.append('<font><b/><sz val="11"/><color rgb="000000"/><name val="Calibri"/></font>');
           },
         },
         //  Boton para exportar archivos en formato CSV
         {
           extend: "csvHtml5",
           text: '<i class="fas fa-file-csv"></i> &nbsp;Exportar Csv',
+          title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
             var date =
@@ -142,6 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar Pdf',
+          title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
             var date =
