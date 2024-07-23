@@ -94,3 +94,8 @@ echo "<script>
 </script>";
 
 exit();
+
+/*  const urlParams = 'id=$id_curso&cat=$encoded_rea';
+ const encodedParams = encodeBase64(urlParams);
+ window.location.href = 'http://localhost/lmsActividades/views/actividades/$redireccion?id=$id_curso&cat=$id_rea';
+  */
