@@ -29,7 +29,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     foreach ($name as $nam) {
         $nombre_ficha = $nam->fullname;
     }
-    ?>
+?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
         <style>
@@ -65,18 +65,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <div class="col-sm-2">
                             <!-- boton regresar  -->
                             <h6>
-                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button"
-                                    alt="Ícono de regresar" style="margin-right: 5px;"
-                                    onclick="redirectToEvidencias('<?= $id_curso; ?>')">
+                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button" alt="Ícono de regresar" style="margin-right: 5px;" onclick="redirectToEvidencias('<?= $id_curso; ?>')">
                                 <u id="titulo-regresar" onclick="redirectToEvidencias('<?= $id_curso; ?>')">Regresar a
                                     Evidencias Generales</u>
                             </h6>
                         </div>
                         <div class="col-sm-8 d-flex justify-content-center">
                             <!-- Mostrar ID de la competencia -->
-                            <h3 style="color: white;" class="my-2"><img id="titulo-img"
-                                    src="../../public/assets/img/documento.svg" alt="icono"> Categoria:&nbsp;<span
-                                    id="color-titulo"> <?php echo ($id_rea); ?>
+                            <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"> Categoria:&nbsp;<span id="color-titulo"> <?php echo ($id_rea); ?>
                                 </span>
                                 Ficha:
                                 <span id="color-titulo"> <?php echo ($nombre_ficha); ?></span>
@@ -99,17 +95,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="d-flex justify-content-between flex-wrap gap-3">
 
                         <div>
-                            <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                <img src="../../public/assets/img/codigoColor.svg" class="mr-2" alt="Ícono de evaluación"
-                                    width="52" height="52" id="icono-evaluacion">
+                            <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <img src="../../public/assets/img/codigoColor.svg" class="mr-2" alt="Ícono de evaluación" width="52" height="52" id="icono-evaluacion">
                                 <p>Código de colores</p>
                             </button>
                         </div>
 
                     </div>
-                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -149,7 +142,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             //INICIO SESION DE APRENDIZ (ROL 3)
                             if ($rol_user == 3) {
                                 $redireccion = "evi_ap.php";
-                                ?>
+                            ?>
                                 <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
                                 <div id="spinner-check" class="loader" role="status" style="display: none; margin: 0 auto;">
                                     <span class="visually-hidden">Cargando...</span>
@@ -162,7 +155,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         <!-- CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
                                         <thead>
                                             <tr id="actividades-thead">
-                                            <th>
+                                                <th>
                                                     <input type="hidden" name="redireccion" value="<?php echo $redireccion; ?>">
                                                     <input type="hidden" name="id_curso" value="<?php echo $id_curso; ?>">
                                                     <input type="hidden" name="id_rea" value="<?php echo $id_rea; ?>">
@@ -170,7 +163,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 </th>
                                                 <th>Documento</th>
                                                 <th>Nombre Completo</th>
-                                                <?php foreach ($actividades as $actividad): ?>
+                                                <?php foreach ($actividades as $actividad) : ?>
                                                     <th>
                                                         <div class="text-center"><?= $actividad->itemname ?></div>
                                                     </th>
@@ -178,13 +171,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($users as $user): ?>
+                                            <?php foreach ($users as $user) : ?>
                                                 <tr>
-                                                <td><input type="checkbox" name="correo[]" class="CheckedAK"
-                                                value="<?= htmlspecialchars($user->email) ?>" /></td>
+                                                    <td><input type="checkbox" name="correo[]" class="CheckedAK" value="<?= htmlspecialchars($user->email) ?>" /></td>
                                                     <td id="text-align-document"><?= $user->id ?></td>
                                                     <td id="text-align-name"><?= $user->firstname . ' ' . $user->lastname ?></td>
-                                                    <?php foreach ($actividades as $actividad): ?>
+                                                    <?php foreach ($actividades as $actividad) : ?>
                                                         <td>
                                                             <?php
                                                             $id_evi = $actividad->idacti;
@@ -208,8 +200,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                                                             // Obtener las notas de los aprendices
                                                             $q_grades = obtenerNotas($conn, $user->id, $id_evi);
-                                                            if (!empty($q_grades)) {
-                                                                $grade = reset($q_grades)['rawgrade'];
+                                                            $grade = null;
+
+                                                            if (!empty($q_grades) && isset($q_grades[0]['rawgrade'])) {
+                                                                $grade = $q_grades[0]['rawgrade'];
                                                                 $gradeLetter = $grade >= 70.00000 ? 'A' : 'D';
                                                                 $bgColor = $grade >= 70.00000 ? '#BCE2A8' : '#DF5C73';
                                                                 $activityLink = "http://localhost/zajuna/mod/assign/view.php?id={$id}&rownum=0&action=grader&userid={$user->id}";
@@ -223,28 +217,20 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 $activityLink = "http://localhost/zajuna/mod/assign/view.php?id={$id}";
                                                             }
                                                             ?>
-                                                            <div class="d-flex"
-                                                                style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
+                                                            <div class="d-flex" style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
                                                                 <div class="col-8 mx-auto">
                                                                     <h6><?= $gradeLetter ?></h6>
                                                                 </div>
                                                                 <div class="action-menu" data-collapse="menu">
                                                                     <div class="dropdown show">
-                                                                        <button
-                                                                            class="btn btn-link btn-icon icon-size-3 dropdown-toggle"
-                                                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="true" data-type="grade" data-id="">
+                                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
                                                                             <span class="" aria-hidden="true"></span>
                                                                         </button>
-                                                                        <div role="menu" class="dropdown-menu collapse"
-                                                                            id="calificaciones-menu"
-                                                                            style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                            <a class="dropdown-item"
-                                                                                href="<?= $activityLink ?>">Análisis de
+                                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                            <a class="dropdown-item" href="<?= $activityLink ?>">Análisis de
                                                                                 la Evidencia</a>
-                                                                            <?php if ($gradeLetter === 'X'|| $gradeLetter === 'A'|| $gradeLetter === 'P'|| $gradeLetter === 'D'): ?>
-                                                                                <a class="dropdown-item"
-                                                                                    href="http://localhost/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
+                                                                            <?php if ($gradeLetter === 'X' || $gradeLetter === 'A' || $gradeLetter === 'P' || $gradeLetter === 'D') : ?>
+                                                                                <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
                                                                             <?php endif; ?>
                                                                         </div>
                                                                     </div>
@@ -256,15 +242,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <?php endforeach; ?>
                                         </tbody>
                                     </table>
-                            </div>
-                            </form>
-                        <?php } ?>
+                        </div>
+                        </form>
+                    <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-    <?php
+<?php
     // LLAMADA AL FOOTER 
     include '../../footer.php';
     // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 
