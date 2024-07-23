@@ -51,8 +51,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 }
             }
         </style>
-
-        <h5 class="p-2 text-center bg-primary text-white">Centro de Calificaciones: Actividades</h5>
         <div class="container-fluid px-4">
             <!-- HISTORIAL DE NAVEGACIÓN -->
             <div class="history-container my-2 " style="display: flex; justify-content: center;">
@@ -61,19 +59,26 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 ?>
             </div>
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" id="back-button-zajuna">
-                        <p>Regresar a ZAJUNA</p>
-                    </div>
-                    <div class="col-sm-8 d-flex justify-content-center flex-column align-items-center">
-                        <h3><?php echo $nombre_ficha; ?></h3>
-                        <h3>
-                            <img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">
-                            PRUEBAS DE CONOCIMIENTO
-                        </h3>
+                <div class="container-fluid container-hearder">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <!-- boton regresar  -->
+                            <h6>
+                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button-zajuna" alt="Ícono de regresar" style="margin-right: 5px;">
+                                <u id="titulo-regresar">Regresar a ZAJUNA</u>
+                            </h6>
+                        </div>
+                        <div class="col-sm-8 d-flex justify-content-center">
+                            <!-- Mostrar ID de la competencia -->
+                            <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span> Ficha:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
+                        </div>
                     </div>
                 </div>
+                <!-- Imagen referencia banner inicio de vista centro de calificaciones -->
+                <div class="my-4">
+                    <img src="../../public/assets/banners/actividades.svg" id="img-banner">
+                </div>
+
                 <ol class="breadcrumb m-2">
                     <!-- Se accede al arreglo y se imprime el dato requerido, en este caso hacemos el llamado del campo apellido  -->
                     <li class="m-2"><strong>Bienvenido/a</strong> <?php echo $user->firstname . ' ' . $user->lastname; ?></li>
@@ -134,7 +139,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </button>
                     </div>
                 </div>
-
                 <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
 
@@ -154,7 +158,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <br>
                                 <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO
                                 <br>
-                                <span class="color-box" style="background-color: #b9b9b9;"></span> Color Amarillo: PENDIENTE
+                                <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE
                                 </br>
                                 </p>
                             </div>
@@ -314,7 +318,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         $id = $param['id'];
                                                     }
                                                     echo '
-                                                    <div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                    <div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>X</h6>
                                                         </div>

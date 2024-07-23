@@ -51,21 +51,27 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 }
             }
         </style>
-
-        <h5 class="p-2 text-center bg-primary text-white">Centro de Calificaciones: Foros</h5>
         <div class="container-fluid px-4">
             <div class="history-container" style="display: flex; justify-content: center;">
                 <?php mostrar_historial(); ?>
             </div>
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-2">
-                    </div>
-                    <div class="col-sm-8 d-flex justify-content-center flex-column align-items-center">
-                        <h3><?php echo $nombre_ficha; ?></h3>
-                        <h3 style="text-align: center;"><img class="ml-2" src="../../public/assets/img/documento.svg" alt="icono">FOROS</h3>
+
+                <div class="container-fluid container-hearder">
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8 d-flex justify-content-center">
+                            <!-- Mostrar ID de la competencia -->
+                            <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span> Ficha:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
+                        </div>
                     </div>
                 </div>
+                <!-- Imagen referencia banner inicio de vista centro de calificaciones -->
+                <div class="my-4">
+                    <img src="../../public/assets/banners/foros.svg" id="img-banner">
+                </div>
+
                 <ol class="breadcrumb m-2">
                     <!-- Se accede al arreglo y se imprime el dato requerido, en este caso hacemos el llamado del campo apellido  -->
                     <li class="m-2"><strong>Bienvenido/a</strong> <?php echo $user->firstname . ' ' . $user->lastname; ?></li>
