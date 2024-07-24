@@ -129,7 +129,7 @@ JOIN mdl_enrol e ON e.id = ue.enrolid
 JOIN mdl_role_assignments ra ON ra.userid = u.id
 JOIN mdl_course mc ON mc.id = e.courseid
 JOIN mdl_role r ON r.id = ra.roleid
-WHERE mc.id = 79;
+WHERE mc.id = course;
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_ing AS
@@ -203,7 +203,7 @@ INSERT INTO tablaTempCat(id, fullname)
 
 SELECT id, fullname 
 FROM public.mdl_grade_categories
-WHERE courseid = 79 AND fullname <> '?';
+WHERE courseid = curso AND fullname <> '?';
 
 -- Crear la vista a partir de la tabla temporal
 CREATE OR REPLACE VIEW vista_cat AS
