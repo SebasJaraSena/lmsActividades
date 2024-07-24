@@ -17,6 +17,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     require_once '../../header.php';
     // LLAMAR A LA BASE DE DATOS ZAJUNA 
     require_once '../../config/db_config.php';
+    // LLAMAR A LA BASE DE DATOS INTEGRACION 
+    require '../../config/sofia_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/eviap_controller.php';
 

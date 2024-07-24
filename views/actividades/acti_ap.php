@@ -17,6 +17,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     require_once '../../header.php';
     // LLAMAR A LA BASE DE DATOS ZAJUNA 
     require_once '../../config/db_config.php';
+    // LLAMAR A LA BASE DE DATOS INTEGRACION 
+    require '../../config/sofia_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/actiap_controller.php';
 
@@ -28,7 +30,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     foreach ($name as $nam) {
         $nombre_ficha = $nam->fullname;
     }
-    ?>
+?>
     <main>
         <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
         <style>
@@ -66,18 +68,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <div class="col-sm-2">
                             <!-- boton regresar  -->
                             <h6>
-                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button"
-                                    alt="Ícono de regresar" style="margin-right: 5px;"
-                                    onclick="redirectToActividad('<?= $id_curso; ?>')">
+                                <img src="../../public/assets/img/icno-de-regresar.svg" id="back-button" alt="Ícono de regresar" style="margin-right: 5px;" onclick="redirectToActividad('<?= $id_curso; ?>')">
                                 <u id="titulo-regresar" onclick="redirectToActividad('<?= $id_curso; ?>')">Regresar a
                                     Actividades Generales</u>
                             </h6>
                         </div>
                         <div class="col-sm-8 d-flex justify-content-center">
                             <!-- Mostrar ID de la competencia -->
-                            <h3 style="color: white;" class="my-2"><img id="titulo-img"
-                                    src="../../public/assets/img/documento.svg" alt="icono"> Categoria:&nbsp;<span
-                                    id="color-titulo"> <?php echo ($id_rea); ?>
+                            <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"> Categoria:&nbsp;<span id="color-titulo"> <?php echo ($id_rea); ?>
                                 </span>
                                 Ficha:
                                 <span id="color-titulo"> <?php echo ($nombre_ficha); ?></span>
@@ -99,18 +97,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 <div class="card p-3 p-md-5">
                     <div class="d-flex justify-content-between flex-wrap gap-3">
                         <div>
-                            <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
-                                <img src="../../public/assets/img/codigoColor.svg" class="mr-2" alt="Ícono de evaluación"
-                                    width="52" height="52" id="icono-evaluacion">
+                            <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <img src="../../public/assets/img/codigoColor.svg" class="mr-2" alt="Ícono de evaluación" width="52" height="52" id="icono-evaluacion">
                                 <p>Código de colores</p>
                             </button>
                         </div>
                     </div>
 
 
-                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -129,7 +124,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo:
                                     DESAPROBADO
                                     <br>
-                                    <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo:
+                                    <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris:
                                     PENDIENTE
                                     </br>
                                     </p>
@@ -148,7 +143,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             //INICION SESION ROL INSTRUCTOR (ROL)
                             if ($rol_user == 3) {
                                 $redireccion = "acti_ap.php";
-                                ?>
+                            ?>
                                 <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
                                 <div id="spinner-check" class="loader" role="status" style="display: none; margin: 0 auto;">
                                     <span class="visually-hidden">Cargando...</span>
@@ -171,7 +166,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 </th>
                                                 <th>Documento</th>
                                                 <th>Nombre Completo</th>
-                                                <?php foreach ($actividades as $actividad): ?>
+                                                <?php foreach ($actividades as $actividad) : ?>
                                                     <th>
                                                         <div class="text-center"><?= htmlspecialchars($actividad->itemname) ?></div>
                                                     </th>
@@ -179,15 +174,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($users as $index => $user): ?>
+                                            <?php foreach ($users as $index => $user) : ?>
                                                 <tr>
-                                                    <td><input type="checkbox" name="correo[]" class="CheckedAK"
-                                                            value="<?= htmlspecialchars($user->email) ?>" /></td>
+                                                    <td><input type="checkbox" name="correo[]" class="CheckedAK" value="<?= htmlspecialchars($user->email) ?>" /></td>
                                                     <td id="text-align-document"><?= htmlspecialchars($user->username) ?></td>
                                                     <td id="text-align-name">
                                                         <?= htmlspecialchars($user->firstname . ' ' . $user->lastname) ?>
                                                     </td>
-                                                    <?php foreach ($actividades as $actividad): ?>
+                                                    <?php foreach ($actividades as $actividad) : ?>
                                                         <td>
                                                             <?php
                                                             $params = obtenerParametros($conn, $user->id, $id_curso, $actividad->idacti);
@@ -200,30 +194,23 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 $activityLink = "http://localhost/zajuna/mod/quiz/review.php?attempt={$param['idattemp']}&cmid={$param['id']}";
                                                             } else {
                                                                 $gradeLetter = 'X';
-                                                                $bgColor = '#FCE059';
+                                                                $bgColor = '#b9b9b9';
                                                                 $paramsPen = obtenerParametrosPendientes($conn, $actividad->idacti);
                                                                 $paramPen = reset($paramsPen);
                                                                 $activityLink = "http://localhost/zajuna/mod/quiz/grade.php?id={$paramPen['id']}&itemid&itemnumber&gradeid&userid";
                                                             }
                                                             ?>
-                                                            <div class="d-flex"
-                                                                style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
+                                                            <div class="d-flex" style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
                                                                 <div class="col-8 mx-auto">
                                                                     <h6><?= $gradeLetter ?></h6>
                                                                 </div>
                                                                 <div class="action-menu" data-collapse="menu">
                                                                     <div class="dropdown show">
-                                                                        <button
-                                                                            class="btn btn-link btn-icon icon-size-3 dropdown-toggle"
-                                                                            type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="true" data-type="grade" data-id="">
+                                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
                                                                             <span class="" aria-hidden="true"></span>
                                                                         </button>
-                                                                        <div role="menu" class="dropdown-menu collapse"
-                                                                            id="calificaciones-menu"
-                                                                            style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                            <a class="dropdown-item"
-                                                                                href="<?= $activityLink ?>">Análisis de
+                                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                            <a class="dropdown-item" href="<?= $activityLink ?>">Análisis de
                                                                                 Actividad</a>
                                                                         </div>
                                                                     </div>
@@ -235,16 +222,16 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <?php endforeach; ?>
                                         </tbody>
                                     </table>
-                                 </div>
-                            </form>
-                        <?php } ?>
+                        </div>
+                        </form>
+                    <?php } ?>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <?php
+<?php
     // LLAMADA AL FOOTER 
     include '../../footer.php';
     // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 

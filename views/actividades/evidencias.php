@@ -16,6 +16,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     require_once '../../header.php';
     // LLAMAR A LA BASE DE DATOS ZAJUNA 
     require_once '../../config/db_config.php';
+    // LLAMAR A LA BASE DE DATOS INTEGRACION 
+    require '../../config/sofia_config.php';
     // LLAMAR AL CONTROLADOR DE CONSULTAS 
     require_once '../../controllers/evi_controller.php';
 
@@ -460,23 +462,23 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             }
                                             //ACCIONES DE LAS CELDAS PARA CADA NOTA
                                             echo '<td>
-                                            <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
-                                                <div class="d-gitd gap-2 col-8 mx-auto">
-                                                    <h6>' . $nota_class . '</h6>
-                                                </div>
-                                                <div class="action-manu" data-collapse="menu">
-                                                    <div class="dropdown show">
-                                                        <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                            <span class="" tittle ="Acciones de la celda" aria-hidden="true">
-                                                            </span>
-                                                            <span class="sr-only">Acciones de la celda</span>
-                                                        </button>
-                                                        <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Analisis de Evidencia</a>
+                                                <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
+                                                    <div class="d-gitd gap-2 col-8 mx-auto">
+                                                        <h6>' . $nota_class . '</h6>
+                                                    </div>
+                                                    <div class="action-manu" data-collapse="menu">
+                                                        <div class="dropdown show">
+                                                            <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                <span class="" tittle ="Acciones de la celda" aria-hidden="true">
+                                                                </span>
+                                                                <span class="sr-only">Acciones de la celda</span>
+                                                            </button>
+                                                            <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Analisis de Evidencia</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </td>
                                        <td>' . $retro . '</td>
                                         </tr>';
