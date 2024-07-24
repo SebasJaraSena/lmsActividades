@@ -17,6 +17,28 @@ function log_error($replica, $type, $code, $description)
         echo "Error al insertar el registro: " . $e->getMessage();
     }
 }
+
+function ingreso($id_curso)
+{
+    global $replica, $errorPage, $conn;
+    try {
+        // Llamada a la función para obtener los parámetros de redirección a letras de calificación de la ficha en cuestión
+        $ingreso = $conn->prepare("SELECT obtenerIngreso(:curso)");
+        $ingreso->bindParam(':curso', $id_curso, PDO::PARAM_INT);
+        $ingreso->execute();
+        $ingre_query = "SELECT * FROM vista_ing";
+        $ingreso = $conn->prepare($ingre_query);
+        $ingreso->execute();
+        $ingre = $ingreso->fetchAll(PDO::FETCH_ASSOC);
+        return $ingre;
+    } catch (PDOException $e) {
+        echo "Error al ejecutar la consulta para obtener la escala de calificación : " . $e->getMessage() . "\n";
+        log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
+        echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+        exit();
+    }
+}
+
 function nombre_ficha($id_curso)
 {
     global $conn, $errorPage, $replica;
