@@ -20,7 +20,7 @@ function log_error($replica, $type, $code, $description)
 
 function nombre_ficha($id_curso)
 {
-    global $conn, $errorPage;
+    global $replica, $errorPage, $conn;
     try {
         $query = $conn->prepare("SELECT fullname FROM mdl_course WHERE id = :curso");
         $query->execute(['curso' => $id_curso]);
@@ -28,7 +28,7 @@ function nombre_ficha($id_curso)
         return $name;
     } catch (PDOException $e) {
         echo "Error al obtener el nombre de la ficha: " . $e->getMessage() . "\n";
-        log_error($conn, get_class($e), $e->getCode(), $e->getMessage());
+        log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
         echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
         exit();
     }
