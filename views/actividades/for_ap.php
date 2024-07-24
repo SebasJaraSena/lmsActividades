@@ -277,7 +277,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         //SI EL USUARIO NO PERTENECE AL CURSO SE REDIRIJE A UNA VISTA DE ERROR
     } else {
         echo "<script>
-    window.location.href = 'http://localhost/lmsActividades/error/error.php';
+    window.location.href = 'http://localhost/lmsActividades/error/error_acti.php';
     </script>";
     }
     // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 
