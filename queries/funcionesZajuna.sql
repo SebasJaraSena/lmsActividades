@@ -102,6 +102,43 @@ if ($navoptions->grades) {
 } */
 
 --
+----------------------FUNCION PARA OBTENER EL INGRESO AL CURSO EN CUESTION
+
+CREATE OR REPLACE FUNCTION obtenerIngreso(course BIGINT)
+RETURNS VOID AS
+$$
+BEGIN
+-- Crear la tabla temporal
+CREATE TEMPORARY TABLE tablaTempIng(
+id BIGINT,
+username VARCHAR,
+firstname VARCHAR,
+lastname VARCHAR,
+email VARCHAR,
+courseid BIGINT,
+shortname VARCHAR,
+idnumber VARCHAR
+);
+
+-- Insertar los datos en la tabla temporal
+INSERT INTO tablaTempIng(id, username, firstname, lastname, email, courseid, shortname, idnumber)
+SELECT u.id, u.username, u.firstname, u.lastname, u.email, e.courseid, r.shortname, mc.idnumber
+FROM mdl_user u
+JOIN mdl_user_enrolments ue ON ue.userid = u.id
+JOIN mdl_enrol e ON e.id = ue.enrolid
+JOIN mdl_role_assignments ra ON ra.userid = u.id
+JOIN mdl_course mc ON mc.id = e.courseid
+JOIN mdl_role r ON r.id = ra.roleid
+WHERE mc.id = 79;
+
+-- Crear la vista a partir de la tabla temporal
+CREATE OR REPLACE VIEW vista_ing AS
+SELECT * FROM tablaTempIng;
+END;
+$$
+LANGUAGE 'plpgsql';
+
+--
 ----------------------FUNCION PARA OBTENER LA SESSION DEL USUARIO LOGUEADO----------------
 
 CREATE OR REPLACE FUNCTION obtenerSession(curso BIGINT, iduser BIGINT)

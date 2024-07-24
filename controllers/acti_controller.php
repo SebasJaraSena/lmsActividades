@@ -18,6 +18,27 @@ function log_error($replica, $type, $code, $description)
     }
 }
 
+function ingreso($id_curso)
+{
+    global $replica, $errorPage, $conn;
+    try {
+        // Llamada a la función para obtener los parámetros de redirección a letras de calificación de la ficha en cuestión
+        $ingreso = $conn->prepare("SELECT obtenerIngreso(:curso)");
+        $ingreso->bindParam(':curso', $id_curso, PDO::PARAM_INT);
+        $ingreso->execute();
+        $ingre_query = "SELECT * FROM vista_ing";
+        $ingreso = $conn->prepare($ingre_query);
+        $ingreso->execute();
+        $ingre = $ingreso->fetchAll(PDO::FETCH_ASSOC);
+        return $ingre;
+    } catch (PDOException $e) {
+        echo "Error al ejecutar la consulta para obtener la escala de calificación : " . $e->getMessage() . "\n";
+        log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
+        echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+        exit();
+    }
+}
+
 function nombre_ficha($id_curso)
 {
     global $replica, $errorPage, $conn;
@@ -116,10 +137,10 @@ try {
 }
 
 // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DEL APRENDIZ EN MULTIPLES ACTIIDADES
-function obtenerNotas($conn, $id_user, $acti)
+function obtenerNotas($id_user, $acti)
 {
     $errorPage = 'http://localhost/lmsActividades/error_acti.php';
-    global $replica;
+    global $replica, $conn;
     try {
         $q_gradess = $conn->prepare("SELECT * FROM obtenerNotasActi(ARRAY[:acti]::BIGINT[], ARRAY[:id_user]::BIGINT[])");
         $q_gradess->bindParam(':acti', $acti, PDO::PARAM_INT);
@@ -137,10 +158,10 @@ function obtenerNotas($conn, $id_user, $acti)
 }
 
 // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION A REVISION DE ACTIVIDADES
-function obtenerParametros($conn, $id_user, $id_curso, $acti)
+function obtenerParametros($id_user, $id_curso, $acti)
 {
     $errorPage = 'http://localhost/lmsActividades/error_acti.php';
-    global $replica;
+    global $replica, $conn;
     try {
         $stmt = $conn->prepare("SELECT * FROM obtenerParametros(ARRAY[:id_user]::BIGINT[], :curso, ARRAY[:acti]::BIGINT[])");
         $stmt->bindParam(':id_user', $id_user, PDO::PARAM_INT);
@@ -159,10 +180,10 @@ function obtenerParametros($conn, $id_user, $id_curso, $acti)
 }
 
 // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION A REVISION DE APRENDICES PENDIENTES
-function obtenerParametrosPendientes($conn, $acti)
+function obtenerParametrosPendientes($acti)
 {
     $errorPage = 'http://localhost/lmsActividades/error_acti.php';
-    global $replica;
+    global $conn, $replica;
     try {
         $stmt = $conn->prepare("SELECT * FROM obtenerParametrosPend(ARRAY[:acti]::BIGINT[])");
         $stmt->bindParam(':acti', $acti, PDO::PARAM_STR);
