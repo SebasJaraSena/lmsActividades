@@ -229,9 +229,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
                                                                             <a class="dropdown-item" href="<?= $activityLink ?>">Análisis de
                                                                                 la Evidencia</a>
-                                                                            <?php if ($gradeLetter === 'X' || $gradeLetter === 'A' || $gradeLetter === 'P' || $gradeLetter === 'D') : ?>
-                                                                                <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
-                                                                            <?php endif; ?>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
