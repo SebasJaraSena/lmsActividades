@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           customize: function (xlsx) {
             var sheet = xlsx.xl.worksheets["sheet1.xml"];
             var d = new Date();
-            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " /";
             var time = d.toLocaleString('es-CO', {
               hour: 'numeric',
               minute: 'numeric',
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           },
           customize: function (csv) {
             var d = new Date();
-            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " /";
             var time = d.toLocaleString('es-CO', {
               hour: 'numeric',
               minute: 'numeric',
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           },
           customize: function (doc) {
             var d = new Date();
-            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+            var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " /";
             var time = d.toLocaleString('es-CO', {
               hour: 'numeric',
               minute: 'numeric',
