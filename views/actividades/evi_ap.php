@@ -229,7 +229,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
                                                                             <a class="dropdown-item" href="<?= $activityLink ?>">Análisis de
                                                                                 la Evidencia</a>
-
                                                                         </div>
                                                                     </div>
                                                                 </div>

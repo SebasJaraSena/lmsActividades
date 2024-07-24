@@ -415,21 +415,18 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
                                         echo
                                         '<tr>
-                                        <td id = "text-align-document">' . $id_evi . '</td>
-                                        <td id = "text-align-name">' . $itemname . '</td>';
-
+                                            <td id = "text-align-document">' . $id_evi . '</td>
+                                            <td id = "text-align-name">' . $itemname . '</td>';
+                                        // SE IMPRIME EL BOTON DE ACCIONES DE LA CELDA
                                         // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
                                         foreach ($userApr as $user) {
-                                            echo '<td>';
                                             $id_user = $user->id;
                                             $itemnumber = 0;
                                             $id_evi = $actividad->idacti;
 
                                             // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
                                             $params = obtenerParametros($conn, $id_curso, $id_evi);
-                                            foreach ($params as $param) {
-                                                $id = $param['id'];
-                                            }
+                                            $id = $params[0]['id'] ?? null;
 
                                             $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
                                             $participacion = null;
@@ -442,104 +439,30 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                                             // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
                                             $q_grades = obtenerNotas($conn, $id_user, $id_evi);
-                                            foreach ($q_grades as $q_grade) {
-                                                $grad = $q_grade['rawgrade'];
-                                                $retro = $q_grade['feedback'];
+                                            $grad = $q_grades[0]['rawgrade'] ?? null;
+                                            $retro = $q_grades[0]['feedback'] ?? '';
 
-                                                // SE REALIZA UNA CONDICION QUE VALIDE SI $GRAD TIENE VALORES EN LA BD.
-                                                if (!empty($grad)) {
-                                                    // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
-                                                    if ($grad >= 70.00000) {
-                                                        echo
-                                                        '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;"">
-                                                        <div class="col-8 mx-auto">
-                                                            <h6>A</h6>
-                                                        </div>
-                                                        <div>
-                                                            <div class="action-manu" data-collapse="menu">
-                                                                <div class="dropdown show">
-                                                                    <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                        <span class="" tittle ="Acciones de la celda" aria-hidden="true">
-                                                                        </span>
-                                                                        <span class="sr-only">Acciones de la celda</span>
-                                                                    </button>
-                                                                    <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Revisión de Evidencia</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
-                                                        // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
-                                                    } else {
-                                                        echo
-                                                        '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
-                                                        <div class="d-gitd gap-2 col-8 mx-auto">
-                                                            <h6>D</h6>
-                                                        </div>
-                                                        <div class="action-manu" data-collapse="menu">
-                                                            <div class="dropdown show">
-                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                    <span class="" tittle ="Acciones de la celda" aria-hidden="true">
-                                                                    </span>
-                                                                    <span class="sr-only">Acciones de la celda</span>
-                                                                </button>
-                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Revisión de Evidencia</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
-                                                    }
-                                                    //ESTUDIANTE CON NOTA / PENDIENTE
-                                                } elseif (!empty($participacion)) {
-                                                    echo '<div class="d-flex" style="background-color: #FCE059; padding: 10px; border-radius: 10px;">
-                                                        <div class="d-gitd gap-2 col-8 mx-auto">
-                                                            <h6>P</h6>
-                                                        </div>
-                                                        <div class="action-manu" data-collapse="menu">
-                                                            <div class="dropdown show">
-                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                    <span class="" title="Acciones de la celda" aria-hidden="true"></span>
-                                                                    <span class="sr-only">Acciones de la celda</span>
-                                                                </button>
-                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Revisión de Evidencia</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>';
-                                                    //ESTUDIANTE SIN NOTA / PENDIENTE
-                                                    // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                            // Determinar clase y color de la nota
+                                            if (!empty($grad)) {
+                                                if ($grad >= 70.00000) {
+                                                    $nota_class = 'A';
+                                                    $nota_color = '#BCE2A8';
                                                 } else {
-
-                                                    echo
-                                                    '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
-                                                    <div class="d-gitd gap-2 col-8 mx-auto">
-                                                        <h6>X</h6>
-                                                    </div>
-                                                    <div class="action-manu" data-collapse="menu">
-                                                        <div class="dropdown show">
-                                                            <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
-                                                                <span class="" tittle ="Acciones de la celda" aria-hidden="true">
-                                                                </span>
-                                                                <span class="sr-only">Acciones de la celda</span>
-                                                            </button>
-                                                            <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Realizar Evidencia</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>';
+                                                    $nota_class = 'D';
+                                                    $nota_color = '#DF5C73';
                                                 }
-                                                echo
-                                                '<td>' . $retro . '</td>';
+                                            } elseif (!empty($participacion)) {
+                                                $nota_class = 'P';
+                                                $nota_color = '#FCE059';
+                                            } else {
+                                                $nota_class = 'X';
+                                                $nota_color = '#b9b9b9';
                                             }
-                                            if (empty($q_grades)) {
-                                                echo
-                                                '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                            //ACCIONES DE LAS CELDAS PARA CADA NOTA
+                                            echo '<td>
+                                            <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                 <div class="d-gitd gap-2 col-8 mx-auto">
-                                                    <h6>X</h6>
+                                                    <h6>' . $nota_class . '</h6>
                                                 </div>
                                                 <div class="action-manu" data-collapse="menu">
                                                     <div class="dropdown show">
@@ -549,15 +472,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             <span class="sr-only">Acciones de la celda</span>
                                                         </button>
                                                         <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
-                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Realizar Evidencia</a>
+                                                            <a class="dropdown-item" href="http://localhost/zajuna/mod/assign/view.php?id=' . $id . '">Analisis de Evidencia</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>';
-                                            }
-                                            echo '</td>';
+                                            </div>
+                                            </td>
+                                       <td>' . $retro . '</td>
+                                        </tr>';
                                         }
-                                        echo '</tr>';
                                     } ?>
                             </tbody>
                         </table>
