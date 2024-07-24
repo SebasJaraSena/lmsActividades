@@ -18,6 +18,7 @@ function log_error($replica, $type, $code, $description)
     }
 }
 
+// FUNCION PARA PERMITIR EL INGRESO DEL USUARIO A UN CURSO EN CUESTION
 function ingreso($id_curso)
 {
     global $replica, $errorPage, $conn;
@@ -39,6 +40,7 @@ function ingreso($id_curso)
     }
 }
 
+// FUNCION PARA OBTENER EL NOMBRE DEL CURSO EN CUESTION 
 function nombre_ficha($id_curso)
 {
     global $replica, $errorPage, $conn;
