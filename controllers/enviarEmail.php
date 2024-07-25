@@ -15,13 +15,13 @@ $redireccion = $_POST['redireccion'] ?? '';
 $infoCorreos = $_POST['correosSeleccionados'] ?? [];
 $correosSeleccionados = json_decode($infoCorreos, true); 
 
-/*var_dump($id_curso);
+/* var_dump($id_curso);
 var_dump($id_rea);
 var_dump($redireccion);
 var_dump($infoCorreos.'<br>');
 var_dump($correosSeleccionados);
-exit();
- */
+exit(); */
+
 // Crea una instancia de PHPMailer
 $mail = new PHPMailer(true);
 $mail->isSMTP();
@@ -92,7 +92,7 @@ echo "<script>
  }
  window.location.href = 'http://localhost/lmsActividades/views/actividades/$redireccion?id=$id_curso&cat=$id_rea';
 </script>";
-
+/* var_dump("http://localhost/lmsActividades/views/actividades/$redireccion?id=$id_curso&cat=$id_rea"); */
 exit();
 
 /*  const urlParams = 'id=$id_curso&cat=$encoded_rea';
