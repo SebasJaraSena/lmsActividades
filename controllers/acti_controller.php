@@ -17,7 +17,7 @@ function log_error($replica, $type, $code, $description)
         echo "Error al insertar el registro: " . $e->getMessage();
     }
 }
-
+ 
 // FUNCION PARA PERMITIR EL INGRESO DEL USUARIO A UN CURSO EN CUESTION
 function ingreso($id_curso)
 {

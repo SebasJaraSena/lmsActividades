@@ -74,6 +74,22 @@ try {
 }
 
 try {
+    // LLAMADA A LA FUNCION PARA OBTENER LAS CATEGORIAS DE EVALUACION DE ACTIVIDADES REALIZADAS EN ZAJUNA
+    $titulosCat = $conn->prepare("SELECT obtenerCategorias(:curso)");
+    $titulosCat->bindParam(':curso', $id_curso, PDO::PARAM_INT);
+    $titulosCat->execute();
+    $cat_query = "SELECT * FROM vista_cat ORDER BY fullname ASC";
+    $titulosCat = $conn->prepare($cat_query);
+    $titulosCat->execute();
+    $categorias = $titulosCat->fetchAll(PDO::FETCH_OBJ);
+} catch (PDOException $e) {
+    echo "Error al ejecutar la consulta para obtener evaluaciones de zajuna : " . $e->getMessage() . "\n";
+    log_error($replica, get_class($e), $e->getCode(), $e->getMessage());
+    echo "<meta http-equiv='refresh' content='0;url=$errorPage'>";
+    exit();
+}
+
+try {
     // CONSULTA PARA OBTENER LOS FOROS REALIZADOS EN ZAJUNA 
     $titulos = $conn->prepare("SELECT obtenerForosAp(:curso, :rea)");
     $titulos->bindParam(':curso', $id_curso, PDO::PARAM_INT);
