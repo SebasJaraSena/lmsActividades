@@ -45,7 +45,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
     // SI EL USUARIO PERTENECE AL CURSO PUEDE VISUALIZAR LA VISTA
     if ($encontrado) {
-        ?>
+?>
         <main>
             <!--ESTILO PARA LA VENTANA EMERGENTE DE CARGANDO... -->
             <style>
@@ -82,16 +82,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="col-sm-2">
                                 <!-- boton regresar  -->
                                 <h6>
-                                    <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar"
-                                        style="margin-right: 5px;" onclick="redirectToZajuna('<?= $id_curso; ?>')">
+                                    <img src="../../public/assets/img/icno-de-regresar.svg" alt="Ícono de regresar" style="margin-right: 5px;" onclick="redirectToZajuna('<?= $id_curso; ?>')">
                                     <u id="titulo-regresar" onclick="redirectToZajuna('<?= $id_curso; ?>')">Regresar al
                                         Curso</u>
                                 </h6>
                             </div>
                             <div class="col-sm-8 d-flex justify-content-center">
                                 <!-- Mostrar ID de la competencia -->
-                                <h3 style="color: white;" class="my-2"><img id="titulo-img"
-                                        src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span>
+                                <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span>
                                     Ficha:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
                             </div>
                         </div>
@@ -110,10 +108,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="card p-3 p-md-5">
                         <div class="d-flex justify-content-between flex-wrap gap-3">
                             <div>
-                                <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    <img src="../../public/assets/img/codigoColor.svg" class="mr-3" alt="Ícono de evaluación"
-                                        width="52" height="52" id="icono-evaluacion">
+                                <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <img src="../../public/assets/img/codigoColor.svg" class="mr-3" alt="Ícono de evaluación" width="52" height="52" id="icono-evaluacion">
                                     <p>Código de colores</p>
                                 </button>
                             </div>
@@ -122,39 +118,33 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <?php
                                 // SI EL USUARIO QUE INGRESA TIENE ROL 3 (INSTRUCTOR) PODRA VISUALIZAR ESTE BOTON
                                 if ($rol_user == 3) {
-                                    ?>
+                                ?>
                                     <nav class="tertiary-navigation-selector">
                                         <div class="dropdown">
                                             <!--BOTON PARA REDIRECCIONAR AL APARTADO DE LETRAS DE CALIFICACION DE ZAJUNA -->
-                                            <button class="icono-con-texto" type="button" data-toggle="dropdown"
-                                                aria-expanded="false">
-                                                <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg"
-                                                    alt="Ícono de blogs" id="icono-blogs">
+                                            <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                <img src="http://localhost/lmsActividades/public/assets/img/blogs.svg" alt="Ícono de blogs" id="icono-blogs">
                                                 &nbsp; Informe Calificador
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item"
-                                                        href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">
+                                                <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">
                                                         Letras
                                                         de calificación</a></li>
-                                                <li><a class="dropdown-item"
-                                                        href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
+                                                <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
                                                         Configuración de calificaciones del curso</a></li>
                                             </ul>
                                         </div>
                                     </nav>
-                                    <?php
+                                <?php
                                 }
                                 ?>
                                 <!--BOTONES PARA REDIRECCIONAR A LAS DEMAS VISTAS DE FOROS Y EVIDENCIAS -->
                                 <button class="icono-con-texto" onclick="redirectToForos('<?= $id_curso; ?>')">
-                                    <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros"
-                                        id="icono-foros" class="mr-2">
+                                    <img src="http://localhost/lmsActividades/public/assets/img/foros.svg" alt="Ícono de foros" id="icono-foros" class="mr-2">
                                     <p>Foros</p>
                                 </button>
                                 <button class="icono-con-texto" onclick="redirectToEvidencias('<?= $id_curso; ?>')">
-                                    <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg"
-                                        alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
+                                    <img src="http://localhost/lmsActividades/public/assets/img/evidencias.svg" alt="Ícono de evidencias" id="icono-evidencias" class="mr-2">
                                     <p>Evidencias</p>
                                 </button>
                                 <!-- <button class="icono-con-texto" onclick="miFuncion()">
@@ -162,15 +152,13 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <p>Blogs</p>
                             </button> -->
                                 <button class="icono-con-texto" onclick="redirectToWikis('<?= $id_curso; ?>')">
-                                    <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis"
-                                        id="icono-wikis" class="mr-2">
+                                    <img src="http://localhost/lmsActividades/public/assets/img/wikis.svg" alt="Ícono de wikis" id="icono-wikis" class="mr-2">
                                     <p>Wikis</p>
                                 </button>
                             </div>
                         </div>
 
-                        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
 
                                 <div class="modal-content">
@@ -202,150 +190,210 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
 
                         <div class="card-body" id="actividades-card">
+                            <div class="table-responsive">
+                                <?php
+                                //INICION SESION ROL INSTRUCTOR (ROL 3)
+                                if ($rol_user == 3) { ?>
+                                    <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
+                                    <div id="spinner" class="loader" role="status" style="display: none; margin: 0 auto;">
+                                        <span class="visually-hidden">Cargando...</span>
+                                    </div>
 
-                            <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
-                                <div class="table-responsive">
-                                    <?php
-                                    //INICION SESION ROL INSTRUCTOR (ROL 3)
-                                    if ($rol_user == 3) { ?>
-                                        <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
-                                        <div id="spinner" class="loader" role="status" style="display: none; margin: 0 auto;">
-                                            <span class="visually-hidden">Cargando...</span>
-                                        </div>
-
-                                        <table id="tabla-act" class="display" style="width:100%; display: none;">
-                                            <thead>
-                                                <tr id="categorias-thead">
-                                                    <th rowspan="2">Documento</th>
-                                                    <th rowspan="2">Nombre Completo</th>
-                                                    <?php
-                                                    $actividadesCat = [];
-                                                    foreach ($actividades as $actividad) {
-                                                        $categoria = $actividad->fullname;
-                                                        $actividadesCat[$categoria][] = $actividad;
-                                                    }
-
-                                                    // Generar encabezados de columna para categorías
-                                                    foreach ($actividadesCat as $categoria => $actividades) {
-                                                        $colspan = count($actividades);
-                                                        echo '<th colspan="' . $colspan . '">' . $categoria . '</th>';
-                                                    }
-                                                    ?>
-                                                </tr>
-                                                <tr id="actividades-thead">
-                                                    <?php
-                                                    // Generar encabezados de columna para actividades
-                                                    foreach ($actividadesCat as $actividades) {
-                                                        foreach ($actividades as $actividad) {
-                                                            echo '<th><div class="text-center">' . $actividad->itemname . '</div></th>';
-                                                        }
-                                                    }
-                                                    ?>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <table id="tabla-act" class="display" style="width:100%; display: none;">
+                                        <thead>
+                                            <tr id="categorias-thead">
+                                                <th rowspan="2">Documento</th>
+                                                <th rowspan="2">Nombre Completo</th>
                                                 <?php
-                                                foreach ($users as $user) {
-                                                    $id_user = $user->id;
-                                                    $doc_user = $user->username;
-                                                    $firstname = $user->firstname;
-                                                    $lastname = $user->lastname;
-                                                    echo '<tr>';
-                                                    echo '<td id="text-align-document">' . $doc_user . '</td>';
-                                                    echo '<td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
+                                                $actividadesCat = [];
+                                                foreach ($actividades as $actividad) {
+                                                    $categoria = $actividad->fullname;
+                                                    $actividadesCat[$categoria][] = $actividad;
+                                                }
+                                                // Generar encabezados de columna para categorías
+                                                foreach ($actividadesCat as $categoria => $actividades) {
+                                                    $colspan = count($actividades);
 
-                                                    foreach ($actividadesCat as $categoria => $actividades) {
-                                                        foreach ($actividades as $actividad) {
-                                                            echo '<td>';
-                                                            $acti = $actividad->idacti;
-
-                                                            // Obtener los parámetros y notas
-                                                            $params = obtenerParametros($id_user, $id_curso, $acti);
-                                                            $q_grades = obtenerNotas($id_user, $acti);
-
-                                                            if (!empty($q_grades)) {
-                                                                foreach ($q_grades as $q_grade) {
-                                                                    $grad = $q_grade['grade'];
-                                                                    if ($grad >= 7.00000) {
-                                                                        echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">';
-                                                                        echo '<div class="col-8 mx-auto"><h6>A</h6></div>';
-                                                                        echo '</div>';
-                                                                    } else {
-                                                                        echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">';
-                                                                        echo '<div class="col-8 mx-auto"><h6>D</h6></div>';
-                                                                        echo '</div>';
-                                                                    }
-                                                                }
-                                                            } else {
-                                                                echo '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">';
-                                                                echo '<div class="col-8 mx-auto"><h6>X</h6></div>';
-                                                                echo '</div>';
-                                                            }
-
-                                                            echo '</td>';
-                                                        }
-                                                    }
-                                                    echo '</tr>';
+                                                    echo '<th colspan="' . $colspan . '" tittle="' . $categoria . '"><button class="icono-con-texto btn-success" onclick="redirectToActividadAp(\'' . $id_curso . '\', \'' . $categoria . '\')">';
+                                                    echo '<p class="ml-2">' . $categoria . '</p>';
+                                                    echo '</button></th>';
                                                 }
                                                 ?>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </form>
-                                <?php
-                                        //INICIO SESION DE APRENDIZ (ROL 5) 
-                                    } else if ($rol_user == 5) { ?>
-                                    <table id="tabla_ap" class="display" style="width:100%">
-                                        <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
-                                        <thead>
+                                            </tr>
                                             <tr id="actividades-thead">
-                                                <th>ID</th>
-                                                <th>PRUEBAS DE CONOCIMIENTO</th>
-                                                <th>NOTA</th>
+                                                <?php
+                                                // Generar encabezados de columna para actividades
+                                                foreach ($actividadesCat as $actividades) {
+                                                    foreach ($actividades as $actividad) {
+                                                        echo '<th><div class="text-center">' . $actividad->itemname . '</div></th>';
+                                                    }
+                                                }
+                                                ?>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
-                                            foreach ($actividades as $actividad) {
-                                                $acti = $actividad->idacti;
-                                                $name = $actividad->itemname;
+                                            foreach ($users as $user) {
+                                                $id_user = $user->id;
+                                                $doc_user = $user->username;
+                                                $firstname = $user->firstname;
+                                                $lastname = $user->lastname;
+                                                echo '<tr>';
+                                                echo '<td id="text-align-document">' . $doc_user . '</td>';
+                                                echo '<td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
 
-                                                // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
-                                                echo
-                                                    '<tr>
+                                                foreach ($actividadesCat as $categoria => $actividades) {
+                                                    foreach ($actividades as $actividad) {
+                                                        echo '<td>';
+                                                        $acti = $actividad->idacti;
+
+                                                        // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCION
+                                                        $params = obtenerParametros($id_user, $id_curso, $acti);
+                                                        foreach ($params as $param) {
+                                                            $gradeid = $param['gradeid'];
+                                                            $itemid = $param['itemid'];
+                                                            $id = $param['id'];
+                                                            $idAttemp = $param['idattemp'];
+                                                        }
+                                                        $q_grades = obtenerNotas($id_user, $acti);
+                                                        if (!empty($q_grades)) {
+                                                            foreach ($q_grades as $q_grade) {
+                                                                $grad = $q_grade['grade'];
+                                                                if ($grad >= 7.00000) {
+                                                                    echo '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
+                                                                <div class="col-8 mx-auto">
+                                                                    <h6 >A</h6>
+                                                                </div>
+                                                                <div>
+                                                                    <div class="action-manu" data-collapse="menu">
+                                                                        <div class="dropdown show">
+                                                                            <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                                <span class="" tittle="Acciones de la celda" aria-hidden="true">
+                                                                                </span>
+                                                                                <span class="sr-only">Acciones de la celda</span>
+                                                                            </button>
+                                                                            <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                                <a class="dropdown-item" href="http://localhost/zajuna/mod/quiz/review.php?attempt=' . $idAttemp . '&cmid=' . $id . '">Analisis de Actividad</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>';
+                                                                } else {
+                                                                    echo '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
+                                                                    <div class="d-gitd gap-2 col-8 mx-auto">
+                                                                        <h6>D</h6>
+                                                                    </div>
+                                                                        <div>
+                                                                            <div class="action-manu" data-collapse="menu">
+                                                                                <div class="dropdown show">
+                                                                                    <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                                        <span class="" tittle="Acciones de la celda" aria-hidden="true">
+                                                                                        </span>
+                                                                                        <span class="sr-only">Acciones de la celda</span>
+                                                                                    </button>
+                                                                                    <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                                        <a class="dropdown-item" href="http://localhost/zajuna/mod/quiz/review.php?attempt=' . $idAttemp . '&cmid=' . $id . '">Analisis de Actividad</a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>';
+                                                                }
+                                                            }
+                                                        } else {
+                                                            $acti = $actividad->idacti;
+
+                                                            // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN DE LAS ACTIVIDADES PENDIENTES POR LOS APRENDICES 
+                                                            $paramsPen = obtenerParametrosPendientes($acti);
+                                                            foreach ($paramsPen as $param) {
+                                                                $id = $param['id'];
+                                                            }
+                                                            echo '
+                                                                <div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                                    <div class="d-gitd gap-2 col-8 mx-auto">
+                                                                        <h6>X</h6>
+                                                                    </div>
+                                                                    <div>
+                                                                        <div class="action-manu" data-collapse="menu">
+                                                                            <div class="dropdown show">
+                                                                                <button class="btn btn-link btn-icon icon-size-3 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-type="grade" data-id="">
+                                                                                    <span class="" tittle="Acciones de la celda" aria-hidden="true">
+                                                                                    </span>
+                                                                                    <span class="sr-only">Acciones de la celda</span>
+                                                                                </button>
+                                                                                <div role="menu" class="dropdown-menu collapse" id="calificaciones-menu" style="position: absolute; transform: translate3d(0px, 35px, 0px); top: 0px; left: 0px;">
+                                                                                    <a class="dropdown-item" href="http://localhost/zajuna/mod/quiz/grade.php?id=' . $id . '&itemid&itemnumber&gradeid&userid">Analisis de Actividad</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>';
+                                                        }
+
+                                                        echo '</td>';
+                                                    }
+                                                }
+                                                echo '</tr>';
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+
+                            </div>
+                        <?php
+                                    //INICIO SESION DE APRENDIZ (ROL 5) 
+                                } else if ($rol_user == 5) { ?>
+                            <table id="tabla_ap" class="display" style="width:100%">
+                                <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
+                                <thead>
+                                    <tr id="actividades-thead">
+                                        <th>ID</th>
+                                        <th>PRUEBAS DE CONOCIMIENTO</th>
+                                        <th>NOTA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                    foreach ($actividades as $actividad) {
+                                        $acti = $actividad->idacti;
+                                        $name = $actividad->itemname;
+
+                                        // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
+                                        echo
+                                        '<tr>
                                     <td id = "text-align-document">' . $acti . '</td>
                                     <td id = "text-align-name">' . $name . '</td>';
 
-                                                // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
-                                                foreach ($userApr as $user) {
-                                                    $id_user = $user->id;
-                                                    echo '<td>';
-                                                    $itemnumber = 0;
-                                                    $acti = $actividad->idacti;
+                                        // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
+                                        foreach ($userApr as $user) {
+                                            $id_user = $user->id;
+                                            echo '<td>';
+                                            $itemnumber = 0;
+                                            $acti = $actividad->idacti;
 
-                                                    $params = obtenerParametros($id_user, $id_curso, $acti);
-                                                    foreach ($params as $param) {
-                                                        $idAttemp = $param['idattemp'];
-                                                    }
+                                            $params = obtenerParametros($id_user, $id_curso, $acti);
+                                            foreach ($params as $param) {
+                                                $idAttemp = $param['idattemp'];
+                                            }
 
-                                                    // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN DE ACTIVIDADES PENDIENTES 
-                                                    $paramsPen = obtenerParametrosPendientes($acti);
-                                                    foreach ($paramsPen as $param) {
-                                                        $id = $param['id'];
-                                                    }
+                                            // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN DE ACTIVIDADES PENDIENTES 
+                                            $paramsPen = obtenerParametrosPendientes($acti);
+                                            foreach ($paramsPen as $param) {
+                                                $id = $param['id'];
+                                            }
 
-                                                    // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
-                                                    $q_grades = obtenerNotas($id_user, $acti);
-                                                    // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA Q_GRADES TIENE VALORES EN LA BD.
-                                                    if (!empty($q_grades)) {
-                                                        foreach ($q_grades as $q_grade) {
-                                                            $grad = $q_grade['grade'];
-                                                            // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
-                                                            if ($grad >= 7.00000) {
-                                                                echo
-                                                                    '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
+                                            // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
+                                            $q_grades = obtenerNotas($id_user, $acti);
+                                            // SE REALIZA UNA CONDICION QUE VALIDE SI ESTA CONSULTA Q_GRADES TIENE VALORES EN LA BD.
+                                            if (!empty($q_grades)) {
+                                                foreach ($q_grades as $q_grade) {
+                                                    $grad = $q_grade['grade'];
+                                                    // SI LA COLUMNA GRADE ES MAYOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA A (APROBADO), INDICANDO UNA CASILLA VERDE.
+                                                    if ($grad >= 7.00000) {
+                                                        echo
+                                                        '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
                                                             <h6>A</h6>
                                                         </div>
@@ -361,10 +409,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>
                                                     </div>';
-                                                                // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
-                                                            } else {
-                                                                echo
-                                                                    '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
+                                                        // SI LA COLUMNA GRADE ES MANOR A 70 ENTRARA POR LA CONDICION QUE IMPRIME UNA NOTA N (NO APROBADO), INDICANDO UNA CASILLA ROJA.
+                                                    } else {
+                                                        echo
+                                                        '<div class="d-flex" style="background-color: #DF5C73; padding: 10px; border-radius: 10px;">
                                                         <div class="d-gitd gap-2 col-8 mx-auto">
                                                             <h6>D</h6>
                                                         </div>
@@ -380,12 +428,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             </div>
                                                         </div>
                                                     </div>';
-                                                            }
-                                                        }
-                                                        // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
-                                                    } else {
-                                                        echo
-                                                            '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
+                                                    }
+                                                }
+                                                // SI LA COLUMNA GRADE NO CONTIENE VALOR ENTRARÁ POR LA CONDICION QUE IMPRIME UNA NOTA X (PENDIENTE), INDICANDO UNA CASILLA AMARILLA.
+                                            } else {
+                                                echo
+                                                '<div class="d-flex" style="background-color: #b9b9b9; padding: 10px; border-radius: 10px;">
                                                 <div class="d-gitd gap-2 col-8 mx-auto">
                                                     <h6>X</h6>
                                                 </div>
@@ -401,20 +449,20 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </div>
                                                 </div>
                                             </div>';
-                                                    }
-                                                    echo '</td>';
-                                                }
-                                                echo '</tr>';
-                                            } ?>
-                                        </tbody>
-                                    </table>
-                            <?php } ?>
+                                            }
+                                            echo '</td>';
+                                        }
+                                        echo '</tr>';
+                                    } ?>
+                                </tbody>
+                            </table>
+                        <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
-        <?php
+<?php
         // LLAMADA AL FOOTER 
         include '../../footer.php';
         //SI EL USUARIO NO PERTENECE AL CURSO SE REDIRIJE A UNA VISTA DE ERROR

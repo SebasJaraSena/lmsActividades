@@ -171,78 +171,63 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </div>
                         </div>
                         <div class="card-body" id="actividades-card">
-                            <?php
-                            if ($rol_user == 3) {
-                            ?>
-                                <nav class="tertiary-navigation-selector mb-4">
-                                    <div class="dropdown">
-                                        <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
-                                        <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                            &nbsp;Categorías
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <?php foreach ($categorias as $categoria) {
-                                                $id_categoria =  $categoria->id;
-                                                $id_rea = $categoria->fullname;
-                                            ?>
-                                                <li>
-                                                    <a class="dropdown-item" onclick="redirectToEvidenciasAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
-                                                        <?php echo $categoria->fullname; ?>
-                                                    </a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
+                            <div class="table-responsive">
+                                <?php
+                                //INICIO SESION DE APRENDIZ (ROL 3)
+                                if ($rol_user == 3) { ?>
+                                    <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
+                                    <div id="spinner" class="loader" role="status" style="display: none; margin: 0 auto;">
+                                        <span class="visually-hidden">Cargando...</span>
                                     </div>
-                                </nav>
-                            <?php
-                            }
-                            ?>
 
-                            <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
-                                <div class="table-responsive">
-                                    <?php
-                                    //INICIO SESION DE APRENDIZ (ROL 3)
-                                    if ($rol_user == 3) { ?>
-                                        <!--VENTANA QUE INDICA CARGANDO MIENTRAS SE REESTRUCTURAN LOS DATOS DE LA TABLA -->
-                                        <div id="spinner" class="loader" role="status" style="display: none; margin: 0 auto;">
-                                            <span class="visually-hidden">Cargando...</span>
-                                        </div>
-
-                                        <table id="tabla-act" class="display" style="width:100%; display: none;">
-                                            <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
-                                            <thead>
-                                                <tr id="actividades-thead">
-                                                    <th>Documento</th>
-                                                    <th>Nombre Completo</th>
-                                                    <?php
-                                                    // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
-                                                    foreach ($actividades as $actividad) {
-                                                        $itemname = $actividad->itemname;
-                                                        $id_evi = $actividad->idacti;
-                                                        // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
-                                                        echo
-                                                        '<th>
-                                                <div class="text-center">' . $itemname . '</div>
-                                            </th>';
-                                                    }
-                                                    ?>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                                    <table id="tabla-act" class="display" style="width:100%; display: none;">
+                                        <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
+                                        <thead>
+                                            <tr id="categorias-thead">
+                                                <th rowspan="2">Documento</th>
+                                                <th rowspan="2">Nombre Completo</th>
                                                 <?php
-                                                // SE RECORRE LA CONSULTA DE USERS PARA ALMACENAR EN VARIABLES EL ID, EL DOCUMENTO, EL NOMBRE Y APELLIDO DE LOS APRENDICES MATRRICULADOS EN LA FICHA EN CUESTION.
-                                                foreach ($users as $user) {
-                                                    $id_user = $user->id;
-                                                    $doc_user = $user->username;
-                                                    $firstname = $user->firstname;
-                                                    $lastname = $user->lastname;
+                                                $actividadesCat = [];
+                                                foreach ($actividades as $actividad) {
+                                                    $categoria = $actividad->fullname;
+                                                    $actividadesCat[$categoria][] = $actividad;
+                                                }
+                                                // Generar encabezados de columna para categorías
+                                                foreach ($actividadesCat as $categoria => $actividades) {
+                                                    $colspan = count($actividades);
 
-                                                    echo
-                                                    '<tr>
-                                            <td id="text-align-document">' . $doc_user . '</td>
-                                            <td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
+                                                    echo '<th colspan="' . $colspan . '" tittle="' . $categoria . '"><button class="icono-con-texto btn-success" onclick="redirectToEvidenciasAp(\'' . $id_curso . '\', \'' . $categoria . '\')">';
+                                                    echo '<p class="ml-2">' . $categoria . '</p>';
+                                                    echo '</button></th>';
+                                                }
+                                                ?>
+                                            </tr>
+                                            <tr id="actividades-thead">
+                                                <?php
+                                                // Generar encabezados de columna para actividades
+                                                foreach ($actividadesCat as $actividades) {
+                                                    foreach ($actividades as $actividad) {
+                                                        echo '<th><div class="text-center">' . $actividad->itemname . '</div></th>';
+                                                    }
+                                                }
+                                                ?>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            // SE RECORRE LA CONSULTA DE USERS PARA ALMACENAR EN VARIABLES EL ID, EL DOCUMENTO, EL NOMBRE Y APELLIDO DE LOS APRENDICES MATRRICULADOS EN LA FICHA EN CUESTION.
+                                            foreach ($users as $user) {
+                                                $id_user = $user->id;
+                                                $doc_user = $user->username;
+                                                $firstname = $user->firstname;
+                                                $lastname = $user->lastname;
 
-                                                    // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
+                                                echo '<tr>';
+                                                echo '<td id="text-align-document">' . $doc_user . '</td>';
+                                                echo '<td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
+
+                                                // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
+                                                foreach ($actividadesCat as $categoria => $actividades) {
                                                     foreach ($actividades as $actividad) {
                                                         echo '<td>';
                                                         $itemnumber = 0;
@@ -402,15 +387,15 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         }
                                                         echo '</td>';
                                                     }
-                                                    echo '</tr>';
-                                                } ?>
-                                            </tbody>
-                                        </table>
-                                </div>
-                            </form>
+                                                }
+                                                echo '</tr>';
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                            </div>
                         <?php
-                                        //INICIO SESION DE APRENDIZ (rol 5)
-                                    } else if ($rol_user == 5) { ?>
+                                    //INICIO SESION DE APRENDIZ (rol 5)
+                                } else if ($rol_user == 5) { ?>
                             <table id="tabla_ap" class="display" style="width:100%">
                                 <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
                                 <thead>
@@ -423,59 +408,59 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                        // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
-                                        foreach ($actividades as $actividad) {
-                                            $itemname = $actividad->itemname;
-                                            $id_evi = $actividad->idacti;
+                                    // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                    foreach ($actividades as $actividad) {
+                                        $itemname = $actividad->itemname;
+                                        $id_evi = $actividad->idacti;
 
-                                            // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
-                                            echo
-                                            '<tr>
+                                        // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
+                                        echo
+                                        '<tr>
                                             <td id = "text-align-document">' . $id_evi . '</td>
                                             <td id = "text-align-name">' . $itemname . '</td>';
-                                            // SE IMPRIME EL BOTON DE ACCIONES DE LA CELDA
-                                            // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
-                                            foreach ($userApr as $user) {
-                                                $id_user = $user->id;
-                                                $itemnumber = 0;
-                                                $id_evi = $actividad->idacti;
+                                        // SE IMPRIME EL BOTON DE ACCIONES DE LA CELDA
+                                        // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
+                                        foreach ($userApr as $user) {
+                                            $id_user = $user->id;
+                                            $itemnumber = 0;
+                                            $id_evi = $actividad->idacti;
 
-                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
-                                                $params = obtenerParametros($conn, $id_curso, $id_evi);
-                                                $id = $params[0]['id'] ?? null;
+                                            // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
+                                            $params = obtenerParametros($conn, $id_curso, $id_evi);
+                                            $id = $params[0]['id'] ?? null;
 
-                                                $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
-                                                $participacion = null;
-                                                foreach ($parti as $part) {
-                                                    if (!empty($part['status'])) {
-                                                        $participacion = $part['status'];
-                                                        break;
-                                                    }
+                                            $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
+                                            $participacion = null;
+                                            foreach ($parti as $part) {
+                                                if (!empty($part['status'])) {
+                                                    $participacion = $part['status'];
+                                                    break;
                                                 }
+                                            }
 
-                                                // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
-                                                $q_grades = obtenerNotas($conn, $id_user, $id_evi);
-                                                $grad = $q_grades[0]['rawgrade'] ?? null;
-                                                $retro = $q_grades[0]['feedback'] ?? '';
+                                            // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
+                                            $q_grades = obtenerNotas($conn, $id_user, $id_evi);
+                                            $grad = $q_grades[0]['rawgrade'] ?? null;
+                                            $retro = $q_grades[0]['feedback'] ?? '';
 
-                                                // Determinar clase y color de la nota
-                                                if (!empty($grad)) {
-                                                    if ($grad >= 70.00000) {
-                                                        $nota_class = 'A';
-                                                        $nota_color = '#BCE2A8';
-                                                    } else {
-                                                        $nota_class = 'D';
-                                                        $nota_color = '#DF5C73';
-                                                    }
-                                                } elseif (!empty($participacion)) {
-                                                    $nota_class = 'P';
-                                                    $nota_color = '#FCE059';
+                                            // Determinar clase y color de la nota
+                                            if (!empty($grad)) {
+                                                if ($grad >= 70.00000) {
+                                                    $nota_class = 'A';
+                                                    $nota_color = '#BCE2A8';
                                                 } else {
-                                                    $nota_class = 'X';
-                                                    $nota_color = '#b9b9b9';
+                                                    $nota_class = 'D';
+                                                    $nota_color = '#DF5C73';
                                                 }
-                                                //ACCIONES DE LAS CELDAS PARA CADA NOTA
-                                                echo '<td>
+                                            } elseif (!empty($participacion)) {
+                                                $nota_class = 'P';
+                                                $nota_color = '#FCE059';
+                                            } else {
+                                                $nota_class = 'X';
+                                                $nota_color = '#b9b9b9';
+                                            }
+                                            //ACCIONES DE LAS CELDAS PARA CADA NOTA
+                                            echo '<td>
                                                 <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                     <div class="d-gitd gap-2 col-8 mx-auto">
                                                         <h6>' . $nota_class . '</h6>
@@ -496,8 +481,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             </td>
                                        <td>' . $retro . '</td>
                                         </tr>';
-                                            }
-                                        } ?>
+                                        }
+                                    } ?>
                                 </tbody>
                             </table>
                         <?php } ?>
