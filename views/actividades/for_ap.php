@@ -155,32 +155,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
 
                         <div class="card-body" id="actividades-card">
-                            <?php
-                            if ($rol_user == 3) {
-                            ?>
-                                <nav class="tertiary-navigation-selector mb-4">
-                                    <div class="dropdown">
-                                        <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
-                                        <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                            &nbsp;Categorías
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <?php foreach ($categorias as $categoria) {
-                                                $id_categoria =  $categoria->id;
-                                                $id_rea = $categoria->fullname;
-                                            ?>
-                                                <li>
-                                                    <a class="dropdown-item" onclick="redirectToForosAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
-                                                        <?php echo $categoria->fullname; ?>
-                                                    </a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            <?php
-                            }
-                            ?>
+
                             <div class="table-responsive">
                                 <?php
                                 // INICIO SESION DE INSTRUCTOR (ROL 3)

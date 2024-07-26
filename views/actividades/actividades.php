@@ -187,33 +187,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                         <div class="card-body" id="actividades-card">
 
-                            <?php
-                            if ($rol_user == 3) {
-                            ?>
-                                <nav class="tertiary-navigation-selector mb-4">
-                                    <div class="dropdown">
-                                        <!--BOTÓN PARA REDIRECCIONAR AL APARTADO DE CATEGORÍAS DE CALIFICACIÓN DE ZAJUNA -->
-                                        <button class="icono-con-texto" type="button" data-toggle="dropdown" aria-expanded="false">
-                                            &nbsp;Categorías
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <?php foreach ($categorias as $categoria) {
-                                                $id_categoria =  $categoria->id;
-                                                $id_rea = $categoria->fullname;
-                                            ?>
-                                                <li>
-                                                    <a class="dropdown-item" onclick="redirectToActividadAp(<?php echo $id_curso; ?>, <?php echo $id_rea; ?>)">
-                                                        <?php echo $categoria->fullname; ?>
-                                                    </a>
-                                                </li>
-                                            <?php } ?>
-                                        </ul>
-                                    </div>
-                                </nav>
-                            <?php
-                            }
-                            ?>
-
                             <form method="POST" name="edit_id" id="edit_id" action="actualizar_acti.php">
                                 <div class="table-responsive">
                                     <?php
@@ -227,17 +200,39 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         <table id="tabla-act" class="display" style="width:100%; display: none;">
                                             <!--CABECERA DE LA TABLA CON LAS ACTIVIDADES OBTENIDAS DE ZAJUNA -->
                                             <thead>
-                                                <tr id="actividades-thead">
-                                                    <th>Documento</th>
-                                                    <th>Nombre Completo</th>
+                                                <tr id="categorias-thead">
+                                                    <th rowspan="2">Documento</th>
+                                                    <th rowspan="2">Nombre Completo</th>
                                                     <?php
                                                     // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                                    $actividadesCat = [];
                                                     foreach ($actividades as $actividad) {
-                                                        $acti = $actividad->idacti;
-                                                        $name = $actividad->itemname;
-                                                        // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
+                                                        $categoria = $actividad->fullname;
+                                                        $actividadesCat[$categoria][] = $actividad;
+                                                    }
+
+                                                    //GENERAR FILA CON CATEGORIA
+                                                    foreach ($actividadesCat as $categoria => $actividades) {
+                                                        $colspan = count($actividades);
                                                         echo
-                                                        '<th>' . $name . ' </th>';
+                                                        '<th 
+                                                            colspan="' . $colspan . '">' . $categoria .
+                                                            '</th>';
+                                                    }
+                                                    ?>
+                                                </tr>
+                                                <tr id="actividades-thead">
+                                                    <?php
+                                                    //GENERAR FILA CON NOMBRES DE ACTIVIDADES
+                                                    foreach ($actividadesCat as $actividades) {
+                                                        foreach ($actividades as $actividad) {
+                                                            $acti = $actividad->idacti;
+                                                            // SE IMPRIMEN LAS ACTIVIDADES EN LA CABECERA DE LA TABLA
+                                                            echo
+                                                            '<th>
+                                                                <div class="text-center">' . $actividad->itemname . '</div>
+                                                            </th>';
+                                                        }
                                                     }
                                                     ?>
                                                 </tr>
@@ -488,7 +483,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         //SI EL USUARIO NO PERTENECE AL CURSO SE REDIRIJE A UNA VISTA DE ERROR
     } else {
         echo "<script>
-        window.location.href = 'http://localhost/lmsActividades/error/error_acti.php';
+        window.location.href = 'http://localhost/lmsActividades/error/error.php';
         </script>";
     }
 } else {

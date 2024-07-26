@@ -124,9 +124,9 @@ hr {
   margin: 0rem 0;
   color: #00324D;
   border: 0;
-    border-top-width: 0px;
-    border-top-style: none;
-    border-top-color: currentcolor;
+  border-top-width: 0px;
+  border-top-style: none;
+  border-top-color: currentcolor;
   border-top: 2.5px solid;
   opacity: 0.50;
 }
@@ -5013,32 +5013,38 @@ fieldset:disabled .btn {
 .card-title {
   margin-bottom: var(--bs-card-title-spacer-y);
 }
-.history-container{
-  display: flex; 
+
+.history-container {
+  display: flex;
   justify-content: center;
 }
+
 /* Ajuste tamaño icono del contenedor del encabezado */
-#titulo-img{
+#titulo-img {
   width: 35px;
   height: 40px;
   margin-left: 2em;
 }
+
 /* Color y ajuste de tamaño del div contenerdor */
-.container-hearder{
-  background-color: #04324d; 
+.container-hearder {
+  background-color: #04324d;
   padding-top: 6px;
-  border-radius: 15px; 
-}
-#img-banner{
-  margin-right: 5px; 
-  width:100%
+  border-radius: 15px;
 }
 
-#titulo-regresar{
-  color: white; 
-  font-weight:bolder; margin: 0;
+#img-banner {
+  margin-right: 5px;
+  width: 100%
 }
-#titulo-regresar:hover{
+
+#titulo-regresar {
+  color: white;
+  font-weight: bolder;
+  margin: 0;
+}
+
+#titulo-regresar:hover {
   color: #39a900;
 }
 
@@ -6381,21 +6387,26 @@ fieldset:disabled .btn {
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: #00324D; /* Azul oscuro para el texto */
+  color: #00324D;
+  /* Azul oscuro para el texto */
   pointer-events: auto;
-  background-color: #E2E2E2; /* Gris suave para el fondo */
+  background-color: #E2E2E2;
+  /* Gris suave para el fondo */
   background-clip: padding-box;
   border: var(--bs-modal-border-width) solid var(--bs-modal-border-color);
   border-radius: var(--bs-modal-border-radius);
   outline: 0;
-  align-items: center; /* Centrar el contenido del modal */
-  justify-content: center; /* Centrar el contenido del modal */
+  align-items: center;
+  /* Centrar el contenido del modal */
+  justify-content: center;
+  /* Centrar el contenido del modal */
   font-weight: bolder;
   padding: 2em;
 }
 
 .modal-header .modal-title {
-  color: #39a900; /* Color del título en formato hexadecimal */
+  color: #39a900;
+  /* Color del título en formato hexadecimal */
   font-weight: bolder;
 
 }
@@ -13469,6 +13480,23 @@ body {
 
 #resultados-thead,
 #vistaap-thead,
+#categorias-thead {
+  th {
+    text-align: center;
+    /* Centra el texto */
+    padding: 10px;
+    /* Ajusta el relleno */
+    background-color: #00324D;
+    /* Color de fondo azul */
+    color: #ffffff;
+    /* Color de letra blanco */
+    border-radius: 10px;
+    /* bordes redondeados */
+    border-spacing: 0 10px;
+  }
+
+}
+
 #actividades-thead {
   th {
     text-align: center;
