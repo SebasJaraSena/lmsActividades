@@ -108,7 +108,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="card p-3 p-md-5">
                         <div class="d-flex justify-content-between flex-wrap gap-3">
                             <div>
-                                <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button class="icono-con-texto ml-2"
+                                 name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <img src="../../public/assets/img/codigoColor.svg" class="mr-3" alt="Ícono de evaluación" width="52" height="52" id="icono-evaluacion">
                                     <p>Código de colores</p>
                                 </button>
@@ -173,12 +174,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
                                             colores:
                                         </p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO
+                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A: APROBADO
                                         <br>
-                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo:
-                                        DESAPROBADO
+                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo / Nota D:
+                                        NO APROBADO
                                         <br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE
+                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X: PENDIENTE
                                         </br>
                                         </p>
                                     </div>
@@ -225,7 +226,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 // Generar encabezados de columna para actividades
                                                 foreach ($actividadesCat as $actividades) {
                                                     foreach ($actividades as $actividad) {
-                                                        echo '<th><div class="text-center">' . $actividad->itemname . '</div></th>';
+                                                        echo '<th class="text-center" tittle="' . $actividad->itemname . '">' . $actividad->itemname . '</th>';
                                                     }
                                                 }
                                                 ?>

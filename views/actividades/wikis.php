@@ -169,10 +169,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
                                             colores:
                                         </p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde:
+                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A:
                                         PARTICIPÓ
                                         <br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE
+                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X: PENDIENTE
                                         DE PARTICIPAR
                                         </br>
                                         </p>
@@ -211,7 +211,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 <th>Documento</th>
                                                 <th>Nombre Completo</th>
                                                 <?php foreach ($actividades as $actividad) : ?>
-                                                    <th>
+                                                    <th tittle=<?= $actividad->nombre ?>>
                                                         <div class="text-center"><?= $actividad->nombre ?></div>
                                                     </th>
                                                 <?php endforeach; ?>

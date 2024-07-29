@@ -135,12 +135,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
                                             colores:
                                         </p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO
+                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A: APROBADO
                                         <br>
-                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo:
-                                        DESAPROBADO
+                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo / Nota D:
+                                        NO APROBADO
                                         <br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris:
+                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X:
                                         PENDIENTE
                                         </br>
                                         </p>
@@ -186,7 +186,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     <th>Documento</th>
                                                     <th>Nombre Completo</th>
                                                     <?php foreach ($actividades as $actividad) : ?>
-                                                        <th>
+                                                        <th tittle=<?= $actividad->itemname ?>>
                                                             <div class="text-center"><?= htmlspecialchars($actividad->itemname) ?></div>
                                                         </th>
                                                     <?php endforeach; ?>

@@ -149,10 +149,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                     <div class="modal-body">
                                         <hr />
                                         <p>Este Código de colores esta establecido para la facilidad de lectura de las calificaciones del centro de calificaciones, por favor tenga en cuenta los siguientes códigos de colores:</p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde: APROBADO<br>
-                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo: DESAPROBADO<br>
-                                        <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo: PENDIENTE DE CALIFICACIÓN<br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris: PENDIENTE DE REALIZAR FORO
+                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A: APROBADO<br>
+                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo / Nota D: NO APROBADO<br>
+                                        <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo / Nota P: PENDIENTE DE CALIFICACIÓN<br>
+                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X: PENDIENTE DE REALIZAR FORO
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Cerrar</button>
@@ -197,7 +197,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 // Generar encabezados de columna para actividades
                                                 foreach ($actividadesCat as $actividades) {
                                                     foreach ($actividades as $actividad) {
-                                                        echo '<th><div class="text-center">' . $actividad->itemname . '</div></th>';
+                                                        echo '<th class="text-center" tittle="' . $actividad->itemname . '">' . $actividad->itemname . '</th>';
                                                     }
                                                 }
                                                 ?>
