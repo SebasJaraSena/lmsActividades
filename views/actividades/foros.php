@@ -80,7 +80,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </div>
                             <div class="col-sm-8 d-flex justify-content-center">
                                 <!-- Mostrar ID de la competencia -->
-                                <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span> Ficha:<span id="color-titulo"> <?php echo ($ficha); ?> / <?php echo ($nombre_ficha); ?></span></h3>
+                                <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span> Ficha:<span id="color-titulo"> <?php echo ($ficha); ?> </span> - Nombre:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
                             </div>
                         </div>
                     </div>
@@ -115,7 +115,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/letter/index.php?id=<?= $id_esca ?>">Letras de Calificación</a></li>
                                                 <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
-                                                Configuración de calificaciones del curso</a></li>
+                                                        Configuración de calificaciones del curso</a></li>
                                             </ul>
                                         </div>
                                     </nav>
