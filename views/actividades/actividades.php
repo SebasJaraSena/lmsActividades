@@ -364,8 +364,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
                                         echo
                                         '<tr>
-                                    <td id = "text-align-document">' . $acti . '</td>
-                                    <td id = "text-align-name">' . $name . '</td>';
+                                            <td id = "text-align-document">' . $acti . '</td>
+                                            <td id = "text-align-name">' . $name . '</td>';
 
                                         // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
                                         foreach ($userApr as $user) {
