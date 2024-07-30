@@ -125,7 +125,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         Letras
                                                         calificación</a></li>
                                                 <li><a class="dropdown-item" href="http://localhost/zajuna/grade/edit/tree/index.php?id=<?= $id_curso ?>">
-                                                        Categorias</a></li>
+                                                        Configuración de calificaciones del curso</a></li>
                                             </ul>
                                         </div>
                                     </nav>
