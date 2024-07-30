@@ -28,6 +28,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $name = nombre_ficha($id_curso);
     foreach ($name as $nam) {
         $nombre_ficha = $nam->fullname;
+        $ficha = $nam->idnumber;
     }
 
     //SE OBTIENE EL ID DE LA PERSONA INGRESADA Y QUE PERTENEZCA AL CURSO
@@ -83,7 +84,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="col-sm-8 d-flex justify-content-center">
                                 <!-- Mostrar ID de la competencia -->
                                 <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span>
-                                    Ficha:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
+                                    Ficha:<span id="color-titulo"> <?php echo ($ficha); ?> / <?php echo ($nombre_ficha); ?></span></h3>
                             </div>
                         </div>
                     </div>
