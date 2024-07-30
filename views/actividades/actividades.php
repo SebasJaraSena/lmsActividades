@@ -30,6 +30,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     $name = nombre_ficha($id_curso);
     foreach ($name as $nam) {
         $nombre_ficha = $nam->fullname;
+        $ficha = $nam->idnumber;
     }
 
     //SE OBTIENE EL ID DE LA PERSONA INGRESADA Y QUE PERTENEZCA AL CURSO
@@ -90,7 +91,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="col-sm-8 d-flex justify-content-center">
                                 <!-- Mostrar ID de la competencia -->
                                 <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span>
-                                    Ficha:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
+                                    Ficha:<span id="color-titulo"> <?php echo ($ficha); ?> / <?php echo ($nombre_ficha); ?></span></h3>
                             </div>
                         </div>
                     </div>
@@ -108,8 +109,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                     <div class="card p-3 p-md-5">
                         <div class="d-flex justify-content-between flex-wrap gap-3">
                             <div>
-                                <button class="icono-con-texto ml-2"
-                                 name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button class="icono-con-texto ml-2" name="id_curso" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <img src="../../public/assets/img/codigoColor.svg" class="mr-3" alt="Ícono de evaluación" width="52" height="52" id="icono-evaluacion">
                                     <p>Código de colores</p>
                                 </button>

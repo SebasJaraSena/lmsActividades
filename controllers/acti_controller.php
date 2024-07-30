@@ -17,7 +17,7 @@ function log_error($replica, $type, $code, $description)
         echo "Error al insertar el registro: " . $e->getMessage();
     }
 }
- 
+
 // FUNCION PARA PERMITIR EL INGRESO DEL USUARIO A UN CURSO EN CUESTION
 function ingreso($id_curso)
 {
@@ -45,7 +45,7 @@ function nombre_ficha($id_curso)
 {
     global $replica, $errorPage, $conn;
     try {
-        $query = $conn->prepare("SELECT fullname FROM mdl_course WHERE id = :curso");
+        $query = $conn->prepare("SELECT fullname, idnumber FROM mdl_course WHERE id = :curso");
         $query->execute(['curso' => $id_curso]);
         $name = $query->fetchAll(PDO::FETCH_OBJ);
         return $name;

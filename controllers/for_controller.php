@@ -46,7 +46,7 @@ function nombre_ficha($id_curso)
 {
     global $conn, $errorPage, $replica;
     try {
-        $query = $conn->prepare("SELECT fullname FROM mdl_course WHERE id = :curso");
+        $query = $conn->prepare("SELECT fullname, idnumber FROM mdl_course WHERE id = :curso");
         $query->execute(['curso' => $id_curso]);
         $name = $query->fetchAll(PDO::FETCH_OBJ);
         return $name;
