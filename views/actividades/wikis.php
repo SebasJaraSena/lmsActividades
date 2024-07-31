@@ -156,37 +156,47 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
 
                         <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Código de colores</h5>
                                     </div>
+                                    <!-- Cuerpo del modal -->
                                     <div class="modal-body">
                                         <hr />
                                         <p>
-                                        <p>Este Código de colores esta establecido para la facilidad de lectura de las
-                                            calificaciones
-                                            del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
-                                            colores:
-                                        </p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A:
-                                        PARTICIPÓ
-                                        <br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X: PENDIENTE
-                                        DE PARTICIPAR
-                                        </br>
+                                        <p>Este Código de colores esta establecido para la facilidad de lectura de las calificaciones del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de colores:</p>
+                                        <table class="table table-hover mt-2">
+                                            <thead>
+                                                <tr id="vistaap-thead">
+                                                    <th class="text-center">Color</th>
+                                                    <th class="text-center">Nota</th>
+                                                    <th class="text-center">Estado</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #BCE2A8;"></span>Color Verde </td>
+                                                    <td>A</td>
+                                                    <td>PARTICIPÓ</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #b9b9b9;"></span>Color Amarillo</td>
+                                                    <td>X</td>
+                                                    <td>PENDIENTE DE PARTICIPAR</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         </p>
                                     </div>
+                                    <!-- Modal footer -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-body" id="actividades-card">
-
-
                             <div class="table-responsive">
                                 <?php
                                 //INICION SESION ROL INSTRUCTOR (ROL 3)
@@ -245,7 +255,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                             // Generar el contenido de la celda basado en la participación
                                                             if (!empty($participacion)) {
                                                                 $bgColor = '#BCE2A8';
-                                                                $gradeLetter = 'P';
+                                                                $gradeLetter = 'A';
                                                             } else {
                                                                 $bgColor = '#b9b9b9';
                                                                 $gradeLetter = 'X';
@@ -325,7 +335,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         echo
                                                         '<div class="d-flex" style="background-color: #BCE2A8; padding: 10px; border-radius: 10px;">
                                                             <div class="col-8 mx-auto">
-                                                                <h6 >P</h6>
+                                                                <h6>A</h6>
                                                             </div>
                                                         <div>
                                                             <div class="action-manu" data-collapse="menu">

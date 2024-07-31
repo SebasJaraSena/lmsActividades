@@ -121,42 +121,56 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                         </div>
                         <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
+                            <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Código de colores</h5>
                                     </div>
+                                    <!-- Cuerpo del modal -->
                                     <div class="modal-body">
                                         <hr />
                                         <p>
-                                        <p>Este Código de colores esta establecido para la facilidad de lectura de las
-                                            calificaciones
-                                            del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de
-                                            colores:
-                                        </p>
-                                        <span class="color-box" style="background-color: #BCE2A8;"></span> Color Verde / Nota A: APROBADO
-                                        <br>
-                                        <span class="color-box" style="background-color: #DF5C73;"></span> Color Rojo / Nota D:
-                                        NO APROBADO <br>
-                                        <span class="color-box" style="background-color: #FCE059;"></span> Color Amarillo / Nota P:
-                                        PENDIENTE DE CALIFICACIÓN<br>
-                                        <span class="color-box" style="background-color: #b9b9b9;"></span> Color Gris / Nota X: PENDIENTE
-                                        DE REALIZAR EVIDENCIA
-                                        </br>
+                                        <p>Este Código de colores esta establecido para la facilidad de lectura de las calificaciones del centro de calificaciones, por favor tenga en cuenta los siguientes codigos de colores:</p>
+                                        <table class="table table-hover mt-2">
+                                            <thead>
+                                                <tr id="vistaap-thead">
+                                                    <th class="text-center">Color</th>
+                                                    <th class="text-center">Nota</th>
+                                                    <th class="text-center">Estado</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #BCE2A8;"></span>Color Verde </td>
+                                                    <td>A</td>
+                                                    <td>APROBADO</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #DF5C73;"></span>Color Rojo</td>
+                                                    <td>D</td>
+                                                    <td>NO APROBADO </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #FCE059;"></span>Color Amarillo</td>
+                                                    <td>P</td>
+                                                    <td>PENDIENTE POR CALIFICACIÓN</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="color-box mr-2" style="background-color: #b9b9b9;"></span>Color Gris</td>
+                                                    <td>X</td>
+                                                    <td>PENDIENTE DE REALIZAR EVIDENCIA</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         </p>
                                     </div>
+                                    <!-- Modal footer -->
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="card-body" id="actividades-card">
-
-
-
                             <div class="table-responsive">
                                 <?php
                                 //INICIO SESION DE APRENDIZ (ROL 3)
