@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               second: 'numeric',
               hour12: true
             });
-            var dateTime = date + ' ' + time;
+            var dateTime = date + ' / ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
             var additionalData = "Calificaciones Centro de Actividades - CATEGORIA: " + categoria + " - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               second: 'numeric',
               hour12: true
             });
-            var dateTime = date + ' ' + time;
+            var dateTime = date + ' / ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
             var additionalData = "Calificaciones Centro de Actividades - CATEGORIA: " + categoria + " - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               second: 'numeric',
               hour12: true
             });
-            var dateTime = date + ' ' + time;
+            var dateTime = date + ' / ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
             var additionalData = "Calificaciones Centro de Actividades - CATEGORIA: " + categoria + " - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
