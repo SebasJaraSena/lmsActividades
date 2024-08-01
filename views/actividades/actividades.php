@@ -90,8 +90,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </div>
                             <div class="col-sm-8 d-flex justify-content-center">
                                 <!-- Mostrar ID de la competencia -->
-                                <h3 style="color: white;" class="my-2"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono"><span id="color-titulo"></span>
-                                    Ficha:<span id="color-titulo"> <?php echo ($ficha); ?> </span> - Nombre:<span id="color-titulo"> <?php echo ($nombre_ficha); ?></span></h3>
+                                <h3 style="color: white;" class="my-2">
+                                    <img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono">
+                                    <span id="color-titulo"></span>
+                                    Ficha: <span id="color-titulo-ficha"> <?php echo ($ficha); ?> </span> -
+                                    Nombre: <span id="color-titulo-nombre"> <?php echo ($nombre_ficha); ?></span>
+                                </h3>
                             </div>
                         </div>
                     </div>

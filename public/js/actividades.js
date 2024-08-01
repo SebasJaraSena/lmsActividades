@@ -57,6 +57,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   await obtenerDatosAsync(); // Obtener datos (simulado)
   mostrarTabla(); // Mostrar la tabla cuando los datos estén listos
 
+  // Obtener el codigo de la competencia
+  var elemento = document.getElementById("color-titulo-ficha");
+  var cod_compentencia = elemento.textContent || elemento.innerText;
+  // Obtener el nombre de la competencia
+  var name_comp = document.getElementById("color-titulo-nombre");
+  var name_compentencia = name_comp.textContent || name_comp.innerText;
+
   $(document).ready(function () {
     var table = new DataTable("#tabla-act", {
       language: {
@@ -75,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             var d = new Date();
             var date =
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            return 'Centro de Actividades ' + date;
+            return 'Centro de Actividades - FICHA NRO: ' + cod_compentencia + + date;
           },
           exportOptions: {
             columns: ":visible",
@@ -97,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             var dateTime = date + ' ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
-            var additionalData = "Calificaciones Centro de Actividades";
+            var additionalData = "Calificaciones Centro de Actividades - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
             // Crear una nueva fila con la fecha y el dato adicional
             var newRow = '<row r="1"><c t="inlineStr" r="A1"><is><t>' + formattedDate + ' - ' + additionalData + '</t></is></c></row>';
@@ -156,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             var dateTime = date + ' ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
-            var additionalData = "Calificaciones Centro de Actividades";
+            var additionalData = "Calificaciones Centro de Actividades - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
             // Agregar la fecha y el dato adicional como filas en el contenido CSV
             var newCsv = formattedDate + "\n" + additionalData + "\n" + csv;
@@ -193,7 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
             var dateTime = date + ' ' + time;
             var formattedDate = "Documento Generado: " + dateTime;
-            var additionalData = "Calificaciones Centro de Actividades";
+            var additionalData = "Calificaciones Centro de Actividades - FICHA NRO: " + cod_compentencia + '- NOMBRE FICHA: ' + name_compentencia;
 
             // Agregar la fecha y el dato adicional como una fila en el contenido del PDF
             doc.content.splice(1, 0, {
@@ -202,6 +209,13 @@ document.addEventListener('DOMContentLoaded', async () => {
               bold: true
             });
           },
+        },
+        {
+          extend: "excelHtml5",
+          text: '<i class="fas fa-eye"></i> &nbsp;Restaurar Columnas',
+          action: function (e, dt, node, config) {
+            restoreAllColumns(dt);
+          }
         },
       ],
 
@@ -226,14 +240,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             var header = $(column.header());
-            var span = header.find(".btn");
+            var span = header.find(".visibility-toggle");
 
             if (span.length === 0) {
-              span = $('<span class="btn  p-2" id="ojito"></span>');
+              span = $('<span class="btn ml-2 visibility-toggle" id="ojito"></span>');
               span.on("click", function () {
-                columnVisibility[columnIndex] = !columnVisibility[columnIndex];
-                api.column(columnIndex).visible(columnVisibility[columnIndex]);
+                var visible = !column.visible();
+                column.visible(visible);
+                // Cambiar estilo basado en visibilidad
+                if (visible) {
+                  span.removeClass("column-hidden").addClass("column-visible");
+                } else {
+                  span.removeClass("column-visible").addClass("column-hidden");
+                }
               });
+
+              // Aplicar clase inicial basada en la visibilidad actual de la columna
+              if (column.visible()) {
+                span.addClass("column-visible");
+              } else {
+                span.addClass("column-hidden");
+              }
+
               header.append(span);
             }
           });
@@ -245,16 +273,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Actualizar los botones de visibilidad después de la reordenación
         api.on('column-reorder', function () {
           // Limpiar y reconstruir los botones de visibilidad
-          $(".btn").remove();
+          $(".visibility-toggle").remove();
           updateVisibilityButtons();
 
           // Ajustar y redibujar la tabla después de la reordenación
           table.columns.adjust().draw();
         });
 
+        // Botón para restaurar todas las columnas
+        $('#restore-columns').on('click', function () {
+          restoreAllColumns(api);
+        });
+
         $("#container").css("display", "block");
         table.columns.adjust().draw();
-      }
+      },
     });
 
     // Función para extraer texto del nodo, eliminando elementos HTML y excluyendo dropdown-menu
@@ -268,6 +301,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
+function restoreAllColumns(tableApi) {
+  tableApi.columns().visible(true);
+
+  // Re-inicializar los botones de visibilidad
+  updateVisibilityButtons(tableApi);
+}
+
+function updateVisibilityButtons(tableApi) {
+  // Limpiar y reconstruir los botones de visibilidad
+  $(".visibility-toggle").remove(); // Remueve botones antiguos
+
+  tableApi.columns().every(function () {
+    var column = this;
+    var columnIndex = column.index();
+
+    var header = $(column.header());
+    var span = $('<span class="btn ml-2 visibility-toggle" id="ojito"></span>')
+      .on("click", function () {
+        var visible = !column.visible();
+        column.visible(visible);
+        // Cambiar estilo basado en visibilidad
+        if (visible) {
+          span.removeClass("column-hidden").addClass("column-visible");
+        } else {
+          span.removeClass("column-visible").addClass("column-hidden");
+        }
+      });
+
+    // Aplicar clase inicial basada en la visibilidad actual de la columna
+    if (column.visible()) {
+      span.addClass("column-visible");
+    } else {
+      span.addClass("column-hidden");
+    }
+
+    header.append(span);
+  });
+}
 
 function blockNavigation() {
   // Estado inicial

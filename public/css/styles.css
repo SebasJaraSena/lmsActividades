@@ -13637,7 +13637,10 @@ tr:nth-child(odd) td {
 
 }
 
-#color-titulo {
+#color-titulo,
+#color-titulo-ficha,
+#color-titulo-nombre,
+#color-titulo-categoria {
   color: #39a900;
 }
 
