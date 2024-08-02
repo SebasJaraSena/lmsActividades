@@ -81,14 +81,14 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <div class="row">
                             <div class="col-sm-2">
                             </div>
-                            <div class="col-sm-8 d-flex justify-content-center">
-                                <!-- Mostrar ID de la competencia -->
-                                <h3 style="color: white;" class="my-2">
-                                    <img id="titulo-img" src="../../public/assets/img/documento.svg" alt="icono">
-                                    <span id="color-titulo-categoria"></span>
+                            <div class="col-sm-7 d-flex">
+                                <h3 style="color: white;" class="my-2 text-start">
+                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
+                                <span id="color-titulo-categoria"></span>
+                            </div>
+                            <div class="col-sm-3 d-flex">
+                                <h3 style="color: white;" class="my-2 text-start"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="?">
                                     Ficha: <span id="color-titulo-ficha"><?php echo ($ficha); ?> </span>
-                                    - Nombre:<span id="color-titulo-nombre"> <?php echo ($nombre_ficha); ?></span>
-                                </h3>
                             </div>
                         </div>
                     </div>
@@ -201,7 +201,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
 
                         <div class="card-body" id="actividades-card">
-                            <div class="table-responsive">
+                            <div>
                                 <?php
                                 //INICION SESION ROL INSTRUCTOR (ROL 3)
                                 if ($rol_user == 3) {

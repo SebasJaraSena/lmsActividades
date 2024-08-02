@@ -11,9 +11,9 @@ require '../vendor/autoload.php';
 /* $encoded_ficha = $_POST['id_ficha'] ?? '';*/
 $id_curso = $_POST['id_curso'] ?? '';
 $id_rea = $_POST['id_rea'] ?? '';
-$redireccion = $_POST['redireccion'] ?? ''; 
+$redireccion = $_POST['redireccion'] ?? '';
 $infoCorreos = $_POST['correosSeleccionados'] ?? [];
-$correosSeleccionados = json_decode($infoCorreos, true); 
+$correosSeleccionados = json_decode($infoCorreos, true);
 
 /* var_dump($id_curso);
 var_dump($id_rea);

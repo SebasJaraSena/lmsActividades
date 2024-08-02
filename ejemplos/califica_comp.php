@@ -28,12 +28,14 @@ if (isset($_SESSION['user'])) {
                 background: linear-gradient(currentColor 0 0) 0 100%/0% 3px no-repeat;
                 animation: l2 2s linear infinite;
             }
+
             .loader:before {
                 content: "Cargando..."
             }
+
             @keyframes l2 {
                 to {
-                  background-size: 100% 3px
+                    background-size: 100% 3px
                 }
             }
         </style>
@@ -97,26 +99,22 @@ if (isset($_SESSION['user'])) {
                                         <?php
                                         if ($rea_evaluacion == 'A' && $estado_adr == 2) {
                                             $colorStyle = 'background-color:#BCE2A8; pointer-events: none;';
-                                           
                                         } elseif ($rea_evaluacion == 'D' && $estado_adr == 2) {
                                             $colorStyle = 'background-color: #DF5C73; pointer-events: none;';
-
                                         } elseif ($rea_evaluacion == 'A') {
                                             $colorStyle = 'background-color: #BCE2A8;';
-
                                         } elseif ($rea_evaluacion == 'D') {
                                             $colorStyle = 'background-color: #DF5C73;';
-
                                         } else {
                                             $colorStyle = 'background-color:#FCE059;';
                                         }
                                         ?>
                                         <td style="<?php echo $colorStyle ?>">
-                                        <select id="selectResultado" class="form-select" name="resultado[]" aria-label="Default select example">
-                                            <option selected><?php echo $rea_evaluacion?></option>
-                                            <option value="A">A</option>
-                                            <option value="D">D</option>
-                                        </select>
+                                            <select id="selectResultado" class="form-select" name="resultado[]" aria-label="Default select example">
+                                                <option selected><?php echo $rea_evaluacion ?></option>
+                                                <option value="A">A</option>
+                                                <option value="D">D</option>
+                                            </select>
                                         </td>
                                         <!-- pointer-events: none; -->
                                     </tr>
@@ -214,7 +212,9 @@ if (isset($_SESSION['user'])) {
                         text: 'Exportar Pdf'
                     },
                 ],
-                order: [[2, 'asc']],
+                order: [
+                    [2, 'asc']
+                ],
                 paging: true,
                 pageLength: 15,
             });
@@ -239,34 +239,33 @@ if (isset($_SESSION['user'])) {
         }
 
         function submitForm() {
-        // Desactivar la paginación temporalmente
-        var table = $('#resultados_table').DataTable();
-        var currentPage = table.page();
-        table.page('first').draw('page');
+            // Desactivar la paginación temporalmente
+            var table = $('#resultados_table').DataTable();
+            var currentPage = table.page();
+            table.page('first').draw('page');
 
-        // Recopilar manualmente todas las filas seleccionadas, incluso las que están en otras páginas
-        var selectedUsers = [];
-        var selectedResults = [];
-        $('#resultados_table').DataTable().$('input.rowCheckbox:checked').each(function() {
-            selectedUsers.push($(this).val());
-            // Obtener el resultado correspondiente a este usuario
-            var $row = $(this).closest('tr');
-            // Obtener el valor seleccionado del select
-            var result = $row.find('#selectResultado').val();
-            selectedResults.push(result);
-        });
+            // Recopilar manualmente todas las filas seleccionadas, incluso las que están en otras páginas
+            var selectedUsers = [];
+            var selectedResults = [];
+            $('#resultados_table').DataTable().$('input.rowCheckbox:checked').each(function() {
+                selectedUsers.push($(this).val());
+                // Obtener el resultado correspondiente a este usuario
+                var $row = $(this).closest('tr');
+                // Obtener el valor seleccionado del select
+                var result = $row.find('#selectResultado').val();
+                selectedResults.push(result);
+            });
 
-        // Agregar los datos al formulario antes de enviarlo
-        $('#actualizar_calif').append('<input type="hidden" name="selected_users" value="' + selectedUsers.join(',') + '">');
-        $('#actualizar_calif').append('<input type="hidden" name="selected_results" value="' + selectedResults.join(',') + '">');
+            // Agregar los datos al formulario antes de enviarlo
+            $('#actualizar_calif').append('<input type="hidden" name="selected_users" value="' + selectedUsers.join(',') + '">');
+            $('#actualizar_calif').append('<input type="hidden" name="selected_results" value="' + selectedResults.join(',') + '">');
 
-        // Reactivar la paginación y volver a la página original
-        table.page(currentPage).draw('page');
+            // Reactivar la paginación y volver a la página original
+            table.page(currentPage).draw('page');
 
-        // Enviar el formulario
-        document.getElementById("actualizar_calif").submit();
-    }
-        
+            // Enviar el formulario
+            document.getElementById("actualizar_calif").submit();
+        }
     </script>
     <!-- llamada Footer -->
 <?php include '../../footer.php';
