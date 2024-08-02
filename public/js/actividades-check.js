@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
       colReorder: false,
       scrollX: true,
-      dom: '<"row"<"col-md-4"B><"col-md-4"f><"col-md-4"l>rtip',
+      dom: '<"row"<"col-md-7"B><"col-md-3"f><"col-md-2"l>rtip',
       colReorder: true,
       ordering: false,
       paging: true,
