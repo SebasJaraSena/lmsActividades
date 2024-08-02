@@ -83,7 +83,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             </div>
                             <div class="col-sm-7 d-flex">
                                 <h3 style="color: white;" class="my-2 text-start">
-                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
+                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64); ?></span></h3>
                                 <span id="color-titulo-categoria"></span>
                             </div>
                             <div class="col-sm-3 d-flex">
