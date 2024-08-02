@@ -219,7 +219,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         <span class="visually-hidden">Cargando...</span>
                                     </div>
 
-                                    <table id="tabla-act" class="display" style="width:100%; display: none;">
+                                    <table id="tabla-act" style="width:100%; display: none;">
                                         <thead>
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
@@ -234,9 +234,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 foreach ($actividadesCat as $categoria => $actividades) {
                                                     $colspan = count($actividades);
 
-                                                    echo '<th colspan="' . $colspan . '" tittle="' . $categoria . '"><button class="icono-con-texto btn-success" onclick="redirectToActividadAp(\'' . $id_curso . '\', \'' . $categoria . '\')">';
-                                                    echo '<p class="ml-2">' . $categoria . '</p>';
-                                                    echo '</button></th>';
+                                                    echo '<th colspan="' . $colspan . '" tittle="' . $categoria . '">
+                                                            <button class="icono-con-texto btn-success" onclick="redirectToActividadAp(\'' . $id_curso . '\', \'' . $categoria . '\')">';
+                                                    echo    '<p class="ml-2">' . $categoria . '</p>';
+                                                    echo
+                                                    '</button>
+                                                        </th>';
                                                 }
                                                 ?>
                                             </tr>
@@ -245,7 +248,17 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 // Generar encabezados de columna para actividades
                                                 foreach ($actividadesCat as $actividades) {
                                                     foreach ($actividades as $actividad) {
-                                                        echo '<th class="text-center" tittle="' . $actividad->itemname . '">' . $actividad->itemname . '</th>';
+                                                        $nombre_acti = $actividad->itemname;
+                                                        // Mostrar solo los primeros 38 caracteres
+                                                        $short_name = substr($nombre_acti, 0, 38);
+                                                        // Nombre completo para uso en JavaScript
+                                                        $full_name = addslashes($nombre_acti);
+
+                                                        echo '<th>';
+                                                        echo '<p class="nombre_acti text-center" tittle="' . $short_name . '">' . $short_name . '...</p>';
+                                                        echo '<a href="javascript:void(0);" class="readmore-btn" onclick="showFullName(this, \'' . $full_name . '\', \'' . $short_name . '\')"> Leer más</a>';
+                                                        echo '<a href="javascript:void(0);" class="readless-btn" onclick="showShortName(this, \'' . $short_name . '\', \'' . $full_name . '\')" style="display:none;"> Leer menos</a>';
+                                                        echo '</th>';
                                                     }
                                                 }
                                                 ?>

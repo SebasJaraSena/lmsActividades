@@ -51,6 +51,36 @@ function obtenerDatosAsync() {
   });
 }
 
+// función para mostrar el nombre completo del resultado de aprendizaje
+function showFullName(element, fullName, shortName) {
+  // Encuentra el <th> contenedor
+  const th = element.parentElement;
+  // Encuentra el <p> con el nombre corto
+  const p = th.querySelector('.nombre_acti');
+  // Mostrar el nombre completo
+  p.textContent = fullName;
+  // Ocultar el botón "Leer más" y mostrar "Leer menos"
+  element.style.display = 'none';
+  th.querySelector('.readless-btn').style.display = 'inline';
+  // Agregar la clase que ajusta el tamaño
+  th.classList.add('expanded');
+}
+
+// función para ocultar el nombre completo y mostrar el nombre corto
+function showShortName(element, shortName, fullName) {
+  // Encuentra el <th> contenedor
+  const th = element.parentElement;
+  // Encuentra el <p> con el nombre corto
+  const p = th.querySelector('.nombre_acti');
+  // Mostrar el nombre corto con puntos suspensivos
+  p.textContent = shortName + '...';
+  // Ocultar el botón "Leer menos" y mostrar "Leer más"
+  element.style.display = 'none';
+  th.querySelector('.readmore-btn').style.display = 'inline';
+  // Remover la clase que ajusta el tamaño
+  th.classList.remove('expanded');
+}
+
 // Inicia el proceso de carga de datos
 document.addEventListener('DOMContentLoaded', async () => {
   mostrarSpinner(); // Muestra el spinner inmediatamente
@@ -181,6 +211,10 @@ document.addEventListener('DOMContentLoaded', async () => {
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             return 'Centro de Actividades' + date;
           },
+          // ajuste de pag pdf
+          orientation: 'landscape', // Orientación horizontal
+          pageSize: 'A4', // Tamaño de la página
+          autoWidth: false, // Ajustar automáticamente el ancho de las columnas
           exportOptions: {
             columns: ":visible",
             format: {

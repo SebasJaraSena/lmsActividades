@@ -202,6 +202,10 @@ document.addEventListener("DOMContentLoaded", async () => {
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
             return 'Centro de Actividades' + date;
           },
+          // ajuste de pag pdf
+          orientation: 'landscape', // Orientación horizontal
+          pageSize: 'A4', // Tamaño de la página
+          autoWidth: false, // Ajustar automáticamente el ancho de las columnas
           exportOptions: {
             columns: ":visible",
             format: {
