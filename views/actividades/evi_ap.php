@@ -30,7 +30,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     //SE OBTIENE NOMBRE DEL CURSO EN CUESTION
     $name = nombre_ficha($id_curso);
     foreach ($name as $nam) {
-        $nombre_ficha = $nam->fullname;
+        $nombre_ficha = ucfirst(mb_strtolower(($nam->fullname)));
         $ficha = $nam->idnumber;
     }
 
