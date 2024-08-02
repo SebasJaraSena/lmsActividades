@@ -88,10 +88,13 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         Evidencias Generales</u>
                                 </h6>
                             </div>
-                            <div class="col-sm-10 d-flex">
+                            <div class="col-sm-7 d-flex">
+                                <h3 style="color: white;" class="my-2 text-start">
+                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
+                            </div>
+                            <div class="col-sm-3 d-flex">
                                 <h3 style="color: white;" class="my-2 text-start"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="?">
                                     Ficha: <span id="color-titulo-ficha"><?php echo ($ficha); ?> </span>
-                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
                             </div>
                         </div>
                     </div>
@@ -169,7 +172,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
                         <div class="card-body" id="actividades-card">
                             <div>
-                                <h5 class="mb-2">Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span></h5>
+                                <h5 class="my-2">
+                                    Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span>
+                                    <span id="color-titulo-categoria"></span>
+                                </h5>
                                 <?php
                                 //INICIO SESION DE APRENDIZ (ROL 3)
                                 if ($rol_user == 3) {

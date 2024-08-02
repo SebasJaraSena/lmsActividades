@@ -90,10 +90,13 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         Generales</u>
                                 </h6>
                             </div>
-                            <div class="col-sm-10 d-flex">
+                            <div class="col-sm-7 d-flex">
+                                <h3 style="color: white;" class="my-2 text-start">
+                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
+                            </div>
+                            <div class="col-sm-3 d-flex">
                                 <h3 style="color: white;" class="my-2 text-start"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="?">
                                     Ficha: <span id="color-titulo-ficha"><?php echo ($ficha); ?> </span>
-                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
                             </div>
                         </div>
 
@@ -174,7 +177,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         <div class="card-body" id="actividades-card">
 
                             <div>
-                                <h5 class="mb-2">Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span></h5>
+                                <h5 class="my-2">
+                                    Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span>
+                                    <span id="color-titulo-categoria"></span>
+                                </h5>
 
                                 <?php
                                 // INICIO SESION DE INSTRUCTOR (ROL 3)
@@ -244,18 +250,18 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 if (!empty($grad)) {
                                                                     $gradeLetter = $grad >= 70.00000 ? 'A' : 'D';
                                                                     $bgColor = $grad >= 70.00000 ? '#BCE2A8' : '#DF5C73';
-                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/discuss.php?d={$param['id']}";
+                                                                    $activityLink = "http://localhost/zajuna/mod/forum/discuss.php?d={$param['id']}";
                                                                 } elseif (!empty($participacion)) {
                                                                     $gradeLetter = 'P';
                                                                     $bgColor = '#FCE059';
-                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/discuss.php?d={$param['id']}";
+                                                                    $activityLink = "http://localhost/zajuna/mod/forum/discuss.php?d={$param['id']}";
                                                                 } else {
                                                                     $gradeLetter = 'X';
                                                                     $bgColor = '#b9b9b9';
                                                                     $paramsPen = obtenerParametrosPendientes($conn, $id_for);
                                                                     $paramPen = reset($paramsPen);
                                                                     /*   $id = $paramPen['id'] ?? null; */
-                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/view.php?id={$paramPen['id']}";
+                                                                    $activityLink = "http://localhost/zajuna/mod/forum/view.php?id={$paramPen['id']}";
                                                                 }
                                                                 ?>
                                                                 <div class="d-flex" style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
@@ -271,7 +277,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                                 <a class="dropdown-item" href="<?= $activityLink ?>">Análisis
                                                                                     del Foro</a>
                                                                                 <?php if ($gradeLetter === 'A' || $gradeLetter === 'P' || $gradeLetter === 'D') : ?>
-                                                                                    <a class="dropdown-item" href="http://192.168.1.113/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
+                                                                                    <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
                                                                                 <?php endif; ?>
                                                                             </div>
                                                                         </div>
@@ -297,7 +303,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         //SI EL USUARIO NO PERTENECE AL CURSO SE REDIRIJE A UNA VISTA DE ERROR
     } else {
         echo "<script>
-    window.location.href = 'http://192.168.1.113/lmsActividades/error/error_ingre.php';
+    window.location.href = 'http://localhost/lmsActividades/error/error_ingre.php';
     </script>";
     }
     // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 
@@ -305,7 +311,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     // ALERTA DE SESION VENCIDA 
     $mensaje = "Ha caducado su sesión. Por favor ingrese nuevamente ";
     echo "<script>
-    window.location.href = 'http://192.168.1.113/lmsActividades/error/error.php';
+    window.location.href = 'http://localhost/lmsActividades/error/error.php';
     </script>";
 }
 ?>
