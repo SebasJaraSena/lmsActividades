@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return newCsv;
           },
         },
-        //  Boton para exportar archivos en formato PDF
+        // Boton para exportar archivos en formato PDF
         {
           extend: "pdfHtml5",
           text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar Pdf',
@@ -213,11 +213,18 @@ document.addEventListener('DOMContentLoaded', async () => {
           },
           // ajuste de pag pdf
           orientation: 'landscape', // Orientación horizontal
-          pageSize: 'A4', // Tamaño de la página
-          autoWidth: false, // Ajustar automáticamente el ancho de las columnas
+          pageSize: 'A2', // Tamaño de la página
+          autoWidth: true, // Ajustar automáticamente el ancho de las columnas
           exportOptions: {
             columns: ":visible",
+            row: ':all',
             format: {
+              header: function (data, columnIndex) {
+                // Limpiar etiquetas HTML y limitar a 25 caracteres
+                var maxLength = 25;
+                var cleanData = data.replace(/<\/?[^>]+(>|$)/g, ""); // Remueve etiquetas HTML
+                return cleanData.length > maxLength ? cleanData.substr(0, maxLength) + '...' : cleanData;
+              },
               body: function (data, row, column, node) {
                 return extractTextFromNode(node);
               }
@@ -242,8 +249,14 @@ document.addEventListener('DOMContentLoaded', async () => {
               margin: [0, 0, 0, 12],
               bold: true
             });
+            // Ajustar el tamaño de las celdas si hay problemas de ancho
+            doc.styles.tableHeader.fontSize = 10; // Tamaño de fuente más pequeño para el encabezado
+            doc.defaultStyle.fontSize = 9; // Tamaño de fuente más pequeño para el cuerpo
+            doc.pageMargins = [20, 60, 20, 30]; // Ajusta los márgenes de la página
           },
         },
+
+
         {
           extend: "excelHtml5",
           text: '<i class="fas fa-eye"></i> &nbsp;Restaurar Columnas',
