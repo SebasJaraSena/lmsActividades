@@ -210,7 +210,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                         </div>
 
                         <div class="card-body" id="actividades-card">
-                            <div class="table-responsive">
+                            <div>
                                 <?php
                                 //INICION SESION ROL INSTRUCTOR (ROL 3)
                                 if ($rol_user == 3) { ?>
