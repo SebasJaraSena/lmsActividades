@@ -124,7 +124,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h3 class="modal-title" id="exampleModalLabel">Código de colores</h3>
+                                        <h5 class="modal-title" id="exampleModalLabel">Código de colores</h5>
                                     </div>
                                     <!-- Cuerpo del modal -->
                                     <div class="modal-body">
@@ -244,18 +244,18 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                 if (!empty($grad)) {
                                                                     $gradeLetter = $grad >= 70.00000 ? 'A' : 'D';
                                                                     $bgColor = $grad >= 70.00000 ? '#BCE2A8' : '#DF5C73';
-                                                                    $activityLink = "http://localhost/zajuna/mod/forum/discuss.php?d={$param['id']}";
+                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/discuss.php?d={$param['id']}";
                                                                 } elseif (!empty($participacion)) {
                                                                     $gradeLetter = 'P';
                                                                     $bgColor = '#FCE059';
-                                                                    $activityLink = "http://localhost/zajuna/mod/forum/discuss.php?d={$param['id']}";
+                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/discuss.php?d={$param['id']}";
                                                                 } else {
                                                                     $gradeLetter = 'X';
                                                                     $bgColor = '#b9b9b9';
                                                                     $paramsPen = obtenerParametrosPendientes($conn, $id_for);
                                                                     $paramPen = reset($paramsPen);
                                                                     /*   $id = $paramPen['id'] ?? null; */
-                                                                    $activityLink = "http://localhost/zajuna/mod/forum/view.php?id={$paramPen['id']}";
+                                                                    $activityLink = "http://192.168.1.113/zajuna/mod/forum/view.php?id={$paramPen['id']}";
                                                                 }
                                                                 ?>
                                                                 <div class="d-flex" style="background-color: <?= $bgColor ?>; padding: 10px; border-radius: 10px;">
@@ -271,7 +271,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                                                 <a class="dropdown-item" href="<?= $activityLink ?>">Análisis
                                                                                     del Foro</a>
                                                                                 <?php if ($gradeLetter === 'A' || $gradeLetter === 'P' || $gradeLetter === 'D') : ?>
-                                                                                    <a class="dropdown-item" href="http://localhost/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
+                                                                                    <a class="dropdown-item" href="http://192.168.1.113/zajuna/grade/report/singleview/index.php?id=<?= $courseid ?>&item=grade&itemid=<?= $itemid ?>&gpr_type=report&gpr_plugin=grader&gpr_courseid=<?= $courseid ?>">Retroalimentación</a>
                                                                                 <?php endif; ?>
                                                                             </div>
                                                                         </div>
@@ -297,7 +297,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
         //SI EL USUARIO NO PERTENECE AL CURSO SE REDIRIJE A UNA VISTA DE ERROR
     } else {
         echo "<script>
-    window.location.href = 'http://localhost/lmsActividades/error/error_ingre.php';
+    window.location.href = 'http://192.168.1.113/lmsActividades/error/error_ingre.php';
     </script>";
     }
     // SI EL USUARIO TIENE MAS DE 30 MINUTOS DE INACTIVIDAD ENTRARA POR AQUI Y SE REDIRIGUE A LA PAGINA INICIAL DE ZAJUNA 
@@ -305,7 +305,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
     // ALERTA DE SESION VENCIDA 
     $mensaje = "Ha caducado su sesión. Por favor ingrese nuevamente ";
     echo "<script>
-    window.location.href = 'http://localhost/lmsActividades/error/error.php';
+    window.location.href = 'http://192.168.1.113/lmsActividades/error/error.php';
     </script>";
 }
 ?>

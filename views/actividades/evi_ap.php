@@ -121,7 +121,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h3 class="modal-title" id="exampleModalLabel">Código de colores</h3>
+                                        <h5 class="modal-title" id="exampleModalLabel">Código de colores</h5>
                                     </div>
                                     <!-- Cuerpo del modal -->
                                     <div class="modal-body">

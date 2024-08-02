@@ -167,10 +167,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                         <div class="card-body" id="actividades-card">
                             <div>
-                                <h3 class="my-2">
+                                <h5 class="my-2">
                                     Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span>
                                     <span id="color-titulo-categoria"></span>
-                                </h3>
+                                </h5>
                                 <?php
                                 //INICION SESION ROL INSTRUCTOR (ROL)
                                 if ($rol_user == 3) {
