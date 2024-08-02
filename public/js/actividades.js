@@ -106,7 +106,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         //  Boton para exportar archivos en formato Excel
         {
           extend: "excelHtml5",
-          text: '<i class="fas fa-file-excel"></i> &nbsp;Exportar Excel',
+          text: '<i class="fas fa-file-excel"></i>',
+          titleAttr: 'Exportar Excel',
           title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
@@ -166,7 +167,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         //  Boton para exportar archivos en formato CSV
         {
           extend: "csvHtml5",
-          text: '<i class="fas fa-file-csv"></i> &nbsp;Exportar Csv',
+          text: '<i class="fas fa-file-csv"></i>',
+          titleAttr: 'Exportar Csv',
           title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
@@ -203,7 +205,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Boton para exportar archivos en formato PDF
         {
           extend: "pdfHtml5",
-          text: '<i class="fas fa-file-pdf"></i> &nbsp;Exportar Pdf',
+          text: '<i class="fas fa-file-pdf"></i>',
+          titleAttr: 'Exportar Pdf',
           title: 'CENTRO DE ACTIVIDADES',
           filename: function () {
             var d = new Date();
