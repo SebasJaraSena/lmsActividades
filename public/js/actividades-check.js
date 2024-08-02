@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         //  Boton para envio de correos seleccionados
         {
           extend: "pdfHtml5",
-          text: '<i class="fas fa-paper-plane"></i> &nbsp;Enviar Emails',
+          text: '<i class="fas fa-paper-plane"></i> &nbsp;Enviar Recordatorio',
           action: function (e, dt, node, config) {
             enviarCorreosSeleccionados();
           },
