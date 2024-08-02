@@ -68,8 +68,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   await obtenerDatosAsyncCheck();
   mostrarTablaCheck();
 
-  var cat = document.getElementById("color-titulo-categoria");
-  var categoria = cat.textContent || cat.innerText;
+  
+
+  var categoria = document.getElementById("color-titulo-categoria").innerHTML;
   // Obtener el codigo de la competencia
   var elemento = document.getElementById("color-titulo-ficha");
   var cod_compentencia = elemento.textContent || elemento.innerText;

@@ -77,7 +77,6 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                 mostrar_historial();
                 ?>
             </div>
-
             <div class="container-fluid px-4">
                 <div class="card p-3 p-md-5">
                     <div class="container-fluid container-hearder">
@@ -90,14 +89,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                         Actividades Generales</u>
                                 </h6>
                             </div>
-                            <div class="col-sm-7 d-flex">
-                                <h3 style="color: white;" class="my-2 text-start">
-                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
-                                <span id="color-titulo-categoria"></span>
-                            </div>
-                            <div class="col-sm-3 d-flex">
+                            <div class="col-sm-10 d-flex">
                                 <h3 style="color: white;" class="my-2 text-start"><img id="titulo-img" src="../../public/assets/img/documento.svg" alt="?">
                                     Ficha: <span id="color-titulo-ficha"><?php echo ($ficha); ?> </span>
+                                    Nombre: <span title="<?php echo $nombre_ficha; ?>" id="color-titulo-nombre"><?php echo substr($nombre_ficha, 0, 64) . '...'; ?></span></h3>
                             </div>
                         </div>
                     </div>
@@ -172,7 +167,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
 
                         <div class="card-body" id="actividades-card">
                             <div>
-                                <h5 class="mb-2">Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span></h5>
+                                <h3 class="my-2">
+                                    Categoria:&nbsp; <span id="color-titulo-categoria"> <?php echo ($id_rea); ?></span>
+                                    <span id="color-titulo-categoria"></span>
+                                </h3>
                                 <?php
                                 //INICION SESION ROL INSTRUCTOR (ROL)
                                 if ($rol_user == 3) {
