@@ -201,6 +201,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </th>
                                                     <th>Documento</th>
                                                     <th>Nombre Completo</th>
+                                                    <th>Correo</th>
                                                     <?php foreach ($actividades as $actividad) : ?>
                                                         <th tittle=<?= $actividad->itemname ?>>
                                                             <div class="text-center"><?= htmlspecialchars($actividad->itemname) ?></div>
@@ -215,6 +216,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         <td id="text-align-document"><?= htmlspecialchars($user->username) ?></td>
                                                         <td id="text-align-name">
                                                             <?= htmlspecialchars($user->firstname . ' ' . $user->lastname) ?>
+                                                        </td>
+                                                        <td id="text-align-name">
+                                                            <?= htmlspecialchars($user->email) ?>
                                                         </td>
                                                         <?php foreach ($actividades as $actividad) : ?>
                                                             <td>

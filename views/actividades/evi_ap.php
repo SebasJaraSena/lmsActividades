@@ -201,6 +201,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </th>
                                                     <th>Documento</th>
                                                     <th>Nombre Completo</th>
+                                                    <th>Correo</th>
                                                     <?php foreach ($actividades as $actividad) : ?>
                                                         <th tittle=<?= $actividad->itemname ?>>
                                                             <div class="text-center"><?= $actividad->itemname ?></div>
@@ -214,6 +215,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         <td><input type="checkbox" name="correo[]" class="CheckedAK" value="<?= htmlspecialchars($user->email) ?>" /></td>
                                                         <td id="text-align-document"><?= $user->id ?></td>
                                                         <td id="text-align-name"><?= $user->firstname . ' ' . $user->lastname ?></td>
+                                                        <td id="text-align-name"><?= $user->email ?></td>
                                                         <?php foreach ($actividades as $actividad) : ?>
                                                             <td>
                                                                 <?php

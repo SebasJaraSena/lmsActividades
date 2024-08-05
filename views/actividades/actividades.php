@@ -224,6 +224,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
                                                 <th rowspan="2">Nombre Completo</th>
+                                                <th rowspan="2">Correo</th>
                                                 <?php
                                                 $actividadesCat = [];
                                                 foreach ($actividades as $actividad) {
@@ -271,9 +272,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $doc_user = $user->username;
                                                 $firstname = $user->firstname;
                                                 $lastname = $user->lastname;
+                                                $correo = $user->email;
+
                                                 echo '<tr>';
                                                 echo '<td id="text-align-document">' . $doc_user . '</td>';
                                                 echo '<td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
+                                                echo '<td id="text-align-name">' . $correo . '</td>';
 
                                                 foreach ($actividadesCat as $categoria => $actividades) {
                                                     foreach ($actividades as $actividad) {
