@@ -38,26 +38,33 @@ $mail->isHTML(true);
 $destinatarios = implode(', ', $correosSeleccionados);
 $asunto = "Zajuna recordatorio";
 $cuerpo = '
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recordatorio</title>
-    </head>
-    <body>
-        <div class="contenedor">
-        <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
-            <tr>
-                <td style="background-color: #ffffff;">
-                    <div class="misection">
-                        <p style="margin: 2px; font-size: 18px">Practicante recuerde realizar sus actividades</p>
-                        <p>Destinatarios: ' . $destinatarios . '</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #ffffff; color: #000000; margin: 0; padding: 0;">
+    <div style="max-width: 600px; margin: 20px auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;">
+        <div style="text-align: center; background-color: #39a900; color: #ffffff; padding: 2px;display: flex;  align-items: center; justify-content: center; flex-direction: column;">
+            <h1 style="margin: 0;">Recordatorio</h1>
+            <img src="https://imgs.search.brave.com/-LGD7JvfVu2AbmTsxSTAhB5qGaHl_ocj5dz1kQNn28o/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90cmFt/aXRlaW5mb3JtYXRp/dm8uY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDIyLzA4L0xv/Z28tc2VuYS1ibGFu/Y28tc2luLWZvbmRv/LnBuZw" alt="Logo" style="margin-top: 10px; height: 50px;">
         </div>
-    </body>
-    </html>';
+        <div style="padding: 20px;">
+            <p>Estimado aprendiz: ' . $destinatarios . '</p>
+            <p>Te recordamos que tienes actividades pendientes en la plataforma Zajuna. Por favor, revisa y completa las tareas a la brevedad.</p>
+            <p>Si ya has completado todas tus actividades, puedes ignorar este mensaje.</p>
+            <p>Saludos cordiales.</p>
+        </div>
+        <div style="background-color: #f8f8f8; color: #777777; padding: 10px; text-align: center;">
+            <p>Este es un mensaje automatizado, por favor no respondas a este correo.</p>
+            <p>&copy; 2024 Zajuna</p>
+        </div>
+    </div>
+</body>
+</html>
+';
 
 // Agrega todos los destinatarios al correo
 foreach ($correosSeleccionados as $infocorreo) {
