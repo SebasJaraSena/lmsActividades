@@ -224,7 +224,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
                                                 <th rowspan="2">Nombre Completo</th>
-                                                <th rowspan="2">Correo</th>
+                                                <th rowspan="2">Correo Electrónico</th>
                                                 <?php
                                                 $actividadesCat = [];
                                                 foreach ($actividades as $actividad) {
