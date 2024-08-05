@@ -446,58 +446,74 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <tbody>
                                     <?php
                                     // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                    $actividadesCat = [];
                                     foreach ($actividades as $actividad) {
-                                        $itemname = $actividad->itemname;
-                                        $id_evi = $actividad->idacti;
+                                        $categoria = $actividad->fullname;
+                                        $actividadesCat[$categoria][] = $actividad;
+                                    }
 
-                                        // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
-                                        echo
-                                        '<tr>
-                                            <td id = "text-align-document">' . $id_evi . '</td>
-                                            <td id = "text-align-name">' . $itemname . '</td>';
-                                        // SE IMPRIME EL BOTON DE ACCIONES DE LA CELDA
-                                        // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
-                                        foreach ($userApr as $user) {
-                                            $id_user = $user->id;
-                                            $itemnumber = 0;
-                                            $id_evi = $actividad->idacti;
+                                    // Print the categories and related activities
+                                    foreach ($actividadesCat as $categoria => $actividades) {
+                                        // Print the category row
+                                        echo '<tr style="background-color: #d9d9d9;">';
+                                        echo '<td></td>';
+                                        echo '<td style="font-weight: bold;">' . $categoria . '</td>';
+                                        echo '<td></td>';
+                                        echo '<td></td>';
+                                        echo '</tr>';
 
-                                            // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
-                                            $params = obtenerParametros($conn, $id_curso, $id_evi);
-                                            $id = $params[0]['id'] ?? null;
+                                        // Iterate over each activity within the category
+                                        foreach ($actividades as $actividad) {
+                                            $acti = $actividad->idacti;
+                                            $name = $actividad->itemname;
 
-                                            $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
-                                            $participacion = null;
-                                            foreach ($parti as $part) {
-                                                if (!empty($part['status'])) {
-                                                    $participacion = $part['status'];
-                                                    break;
+                                            // Print the activity ID and name
+                                            echo '<tr>';
+                                            echo '<td id="text-align-document">' . $acti . '</td>';
+                                            echo '<td id="text-align-name">' . $name . '</td>';
+                                            // SE IMPRIME EL BOTON DE ACCIONES DE LA CELDA
+                                            // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO
+                                            foreach ($userApr as $user) {
+                                                $id_user = $user->id;
+                                                $itemnumber = 0;
+                                                $id_evi = $actividad->idacti;
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
+                                                $params = obtenerParametros($conn, $id_curso, $id_evi);
+                                                $id = $params[0]['id'] ?? null;
+
+                                                $parti = obtenerParticipacionEvi($conn, $id_evi, $id_user);
+                                                $participacion = null;
+                                                foreach ($parti as $part) {
+                                                    if (!empty($part['status'])) {
+                                                        $participacion = $part['status'];
+                                                        break;
+                                                    }
                                                 }
-                                            }
 
-                                            // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
-                                            $q_grades = obtenerNotas($conn, $id_user, $id_evi);
-                                            $grad = $q_grades[0]['rawgrade'] ?? null;
-                                            $retro = $q_grades[0]['feedback'] ?? '';
+                                                // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
+                                                $q_grades = obtenerNotas($conn, $id_user, $id_evi);
+                                                $grad = $q_grades[0]['rawgrade'] ?? null;
+                                                $retro = $q_grades[0]['feedback'] ?? '';
 
-                                            // Determinar clase y color de la nota
-                                            if (!empty($grad)) {
-                                                if ($grad >= 70.00000) {
-                                                    $nota_class = 'A';
-                                                    $nota_color = '#BCE2A8';
+                                                // Determinar clase y color de la nota
+                                                if (!empty($grad)) {
+                                                    if ($grad >= 70.00000) {
+                                                        $nota_class = 'A';
+                                                        $nota_color = '#BCE2A8';
+                                                    } else {
+                                                        $nota_class = 'D';
+                                                        $nota_color = '#DF5C73';
+                                                    }
+                                                } elseif (!empty($participacion)) {
+                                                    $nota_class = 'P';
+                                                    $nota_color = '#FCE059';
                                                 } else {
-                                                    $nota_class = 'D';
-                                                    $nota_color = '#DF5C73';
+                                                    $nota_class = 'X';
+                                                    $nota_color = '#b9b9b9';
                                                 }
-                                            } elseif (!empty($participacion)) {
-                                                $nota_class = 'P';
-                                                $nota_color = '#FCE059';
-                                            } else {
-                                                $nota_class = 'X';
-                                                $nota_color = '#b9b9b9';
-                                            }
-                                            //ACCIONES DE LAS CELDAS PARA CADA NOTA
-                                            echo '<td>
+                                                //ACCIONES DE LAS CELDAS PARA CADA NOTA
+                                                echo '<td>
                                                 <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                     <div class="d-gitd gap-2 col-8 mx-auto">
                                                         <h6>' . $nota_class . '</h6>
@@ -515,11 +531,13 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </td>
-                                       <td>' . $retro . '</td>
-                                        </tr>';
+                                                </td>
+                                                <td>' . $retro . '</td>';
+                                            }
+                                            echo '</tr>';
                                         }
-                                    } ?>
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         <?php } ?>

@@ -395,54 +395,74 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 </thead>
                                 <tbody>
                                     <?php
+
+                                    $actividadesCat = [];
                                     foreach ($actividades as $actividad) {
-                                        $id_for = $actividad->idacti;
-                                        $name_for = $actividad->itemname;
-                                        echo '<tr>
-                                                <td id="text-align-document">' . $id_for . '</td>
-                                                <td id="text-align-name">' . $name_for . '</td>';
+                                        $categoria = $actividad->fullname;
+                                        $actividadesCat[$categoria][] = $actividad;
+                                    }
 
-                                        // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO                                                
-                                        foreach ($userApr as $user) {
-                                            $id_user = $user->id;
+                                    // Print the categories and related activities
+                                    foreach ($actividadesCat as $categoria => $actividades) {
+                                        // Print the category row
+                                        echo '<tr style="background-color: #d9d9d9;">';
+                                        echo '<td></td>';
+                                        echo '<td style="font-weight: bold;">' . $categoria . '</td>';
+                                        echo '<td></td>';
+                                        echo '<td></td>';
+                                        echo '</tr>';
 
-                                            // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
-                                            $params = obtenerParametros($conn, $id_for);
-                                            $id = $params[0]['id'] ?? null;
+                                        // Iterate over each activity within the category
+                                        foreach ($actividades as $actividad) {
+                                            $id_for = $actividad->idacti;
+                                            $name = $actividad->itemname;
 
-                                            // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
-                                            $parti = obtenerParticipacion($conn, $id_for, $id_user);
-                                            $participacion = null;
-                                            foreach ($parti as $part) {
-                                                if (!empty($part['mensaje'])) {
-                                                    $participacion = $part['mensaje'];
-                                                    break;
+                                            // Print the activity ID and name
+                                            echo '<tr>';
+                                            echo '<td id="text-align-document">' . $id_for . '</td>';
+                                            echo '<td id="text-align-name">' . $name . '</td>';
+
+                                            // SE RECORRE LA CONSULTA DE USUARIO POR APRENDIZ PARA TRAER AL USUARIO LOGUEADO                                                
+                                            foreach ($userApr as $user) {
+                                                $id_user = $user->id;
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER LOS PARAMETROS DE REDIRECCIÓN
+                                                $params = obtenerParametros($conn, $id_for);
+                                                $id = $params[0]['id'] ?? null;
+
+                                                // LLAMADA A LA FUNCION PARA OBTENER LAS PARTICIPACIONES DE UN FORO
+                                                $parti = obtenerParticipacion($conn, $id_for, $id_user);
+                                                $participacion = null;
+                                                foreach ($parti as $part) {
+                                                    if (!empty($part['mensaje'])) {
+                                                        $participacion = $part['mensaje'];
+                                                        break;
+                                                    }
                                                 }
-                                            }
 
-                                            // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
-                                            $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
-                                            $grad = $q_grades[0]['rawgrade'] ?? null;
-                                            $retro = $q_grades[0]['feedback'] ?? '';
+                                                // LLAMADA A LA FUNCION PARA OBTENER LAS NOTAS DE LOS APRENDICES 
+                                                $q_grades = obtenerNotas($conn, $id_user, $id_curso, $id_for);
+                                                $grad = $q_grades[0]['rawgrade'] ?? null;
+                                                $retro = $q_grades[0]['feedback'] ?? '';
 
-                                            // Determinar clase y color de la nota
-                                            if (!empty($grad)) {
-                                                if ($grad >= 70.00000) {
-                                                    $nota_class = 'A';
-                                                    $nota_color = '#BCE2A8';
+                                                // Determinar clase y color de la nota
+                                                if (!empty($grad)) {
+                                                    if ($grad >= 70.00000) {
+                                                        $nota_class = 'A';
+                                                        $nota_color = '#BCE2A8';
+                                                    } else {
+                                                        $nota_class = 'D';
+                                                        $nota_color = '#DF5C73';
+                                                    }
+                                                } elseif (!empty($participacion)) {
+                                                    $nota_class = 'P';
+                                                    $nota_color = '#FCE059';
                                                 } else {
-                                                    $nota_class = 'D';
-                                                    $nota_color = '#DF5C73';
+                                                    $nota_class = 'X';
+                                                    $nota_color = '#b9b9b9';
                                                 }
-                                            } elseif (!empty($participacion)) {
-                                                $nota_class = 'P';
-                                                $nota_color = '#FCE059';
-                                            } else {
-                                                $nota_class = 'X';
-                                                $nota_color = '#b9b9b9';
-                                            }
-                                            //ACCIONES DE LAS CELDAS PARA CADA NOTA
-                                            echo '<td>
+                                                //ACCIONES DE LAS CELDAS PARA CADA NOTA
+                                                echo '<td>
                                                     <div class="d-flex" style="background-color: ' . $nota_color . '; padding: 10px; border-radius: 10px;">
                                                         <div class="col-8 mx-auto">
                                                             <h6>' . $nota_class . '</h6>
@@ -460,8 +480,9 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>' . $retro . '</td>
-                                            </tr>';
+                                                <td>' . $retro . '</td>';
+                                            }
+                                            echo '</tr>';
                                         }
                                     }
                                     ?>
