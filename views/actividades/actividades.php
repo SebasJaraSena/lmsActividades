@@ -389,9 +389,12 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                 <tbody>
                                     <?php
                                     // SE RECORRE LA CONSULTA DE ACTIVIDADES PARA ALMACENAR EN VARIABLES EL ID DE LA ACTIVIDAD Y EL NOMBRE.
+                                    $actividadesCat = [];
                                     foreach ($actividades as $actividad) {
                                         $acti = $actividad->idacti;
                                         $name = $actividad->itemname;
+                                        $categoria = $actividad->fullname;
+                                        $actividadesCat[$categoria][] = $actividad;
 
                                         // SE IMPRIMEN EL ID Y NOMBRE DE LAS ACTIVIDADES
                                         echo

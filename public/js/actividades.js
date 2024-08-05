@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             var d = new Date();
             var date =
               d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            return 'Centro de Actividades - FICHA NRO: ' + cod_compentencia + + date;
+            return 'Centro de Actividades - FICHA NRO: ' + cod_compentencia + date;
           },
           exportOptions: {
             columns: ":visible",
