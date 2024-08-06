@@ -10,7 +10,7 @@ if (!isset($_SESSION['last_page'])) {
 }
 
 // Define la URL de la página especial que causa el reseteo del historial
-$reset_page_url = 'http://localhost/lmsActividades/views/actividades.php?idnumber=Mjk2NjY1Ng=='; // Ajusta esto según tu configuración
+$reset_page_url = 'http://localhost/lmsActividades/'; // Ajusta esto según tu configuración
 
 // Resetea el historial si se vuelve a la página especial
 $current_page = $_SERVER['PHP_SELF'];
