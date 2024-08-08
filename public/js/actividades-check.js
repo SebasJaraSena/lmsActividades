@@ -68,8 +68,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await obtenerDatosAsyncCheck();
   mostrarTablaCheck();
 
-  
-
   var categoria = document.getElementById("color-titulo-categoria").innerHTML;
   // Obtener el codigo de la competencia
   var elemento = document.getElementById("color-titulo-ficha");
@@ -83,11 +81,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       language: {
         url: "https://cdn.datatables.net/plug-ins/2.0.3/i18n/es-ES.json",
       },
-      colReorder: false,
       scrollX: true,
       dom: '<"row"<"col-md-7"B><"col-md-3"f><"col-md-2"l>rtip',
       colReorder: true,
-      ordering: false,
+      ordering: true,
       paging: true,
       pageLength: 10,
       lengthMenu: [
