@@ -193,7 +193,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     <td>NO APROBADO </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><span class="color-box mr-2" style="background-color: #b9b9b9;"></span>Color Amarillo</td>
+                                                    <td><span class="color-box mr-2" style="background-color: #b9b9b9;"></span>Color Gris</td>
                                                     <td>X</td>
                                                     <td>PENDIENTE DE REALIZAR</td>
                                                 </tr>
