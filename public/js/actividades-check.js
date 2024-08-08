@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       paging: true,
       pageLength: 10,
       lengthMenu: [
-        [10, 15, 25, 50, -1],
-        ["10", "15", "25", "50", "Mostrar todo"],
+        [10, 15, 25, 50, 80, -1],
+        ["10", "15", "25", "50", "80", "Mostrar todo"],
       ], // Opciones de número de filas a mostrar
       buttons: [
         //  Boton para exportar archivos en formato Excel
