@@ -213,8 +213,8 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
                                                 <th rowspan="2">Nombre Completo</th>
-                                                <th rowspan="2">Estado</th>
                                                 <th rowspan="2">Correo Electrónico</th>
+                                                <th rowspan="2">Estado</th>
                                                 <?php
                                                 $actividadesCat = [];
                                                 foreach ($actividades as $actividad) {
@@ -263,10 +263,10 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 <tr class="<?= $rowClass ?>">
                                                     <td id="text-align-document"><?php echo $doc_user; ?></td>
                                                     <td id="text-align-name"><?php echo $firstname . ' ' . $lastname; ?></td>
+                                                    <td id="text-align-name"><?php echo $correo ?></td>
                                                     <td id="text-align-name">
                                                         <div class="<?= $estadoColorClass ?>"><?= $estadoTexto ?></div>
                                                     </td>
-                                                    <td id="text-align-name"><?php echo $correo ?></td>
 
                                                     <?php
                                                     // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        
