@@ -390,12 +390,15 @@ lastname VARCHAR,
 email VARCHAR,
 courseid BIGINT,
 shortname VARCHAR,
-idnumber VARCHAR
+idnumber VARCHAR,
+estado BIGINT
 );
 
 -- Insertar los datos en la tabla temporal
-INSERT INTO tablaTempUsr(id, username, firstname, lastname, email, courseid, shortname, idnumber)
-SELECT u.id, u.username, u.firstname, u.lastname, u.email, e.courseid, r.shortname, mc.idnumber
+INSERT INTO tablaTempUsr(id, username, firstname, lastname, email, courseid, shortname, idnumber, estado)
+
+SELECT u.id, u.username, u.firstname, u.lastname, u.email, e.courseid, r.shortname, mc.idnumber, ue.status as estado
+
 FROM mdl_user u
 JOIN mdl_user_enrolments ue ON ue.userid = u.id
 JOIN mdl_enrol e ON e.id = ue.enrolid

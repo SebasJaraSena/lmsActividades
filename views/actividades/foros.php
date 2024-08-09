@@ -213,6 +213,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
                                                 <th rowspan="2">Nombre Completo</th>
+                                                <th rowspan="2">Estado</th>
                                                 <th rowspan="2">Correo Electrónico</th>
                                                 <?php
                                                 $actividadesCat = [];
@@ -250,10 +251,21 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $firstname = $user->firstname;
                                                 $lastname = $user->lastname;
                                                 $correo = $user->email;
+                                                $estado = $user->estado;
+
+                                                // Evaluar el estado y determinar la clase de la fila
+                                                $rowClass = ($estado == 1) ? 'disabled-row' : '';
+
+                                                // Evaluar el estado y asignar texto y clase de estado
+                                                $estadoTexto = ($estado == 0) ? 'Activo' : 'Suspendido';
+                                                $estadoColorClass = ($estado == 0) ? 'estado-activo' : 'estado-suspendido';
                                             ?>
-                                                <tr>
+                                                <tr class="<?= $rowClass ?>">
                                                     <td id="text-align-document"><?php echo $doc_user; ?></td>
                                                     <td id="text-align-name"><?php echo $firstname . ' ' . $lastname; ?></td>
+                                                    <td id="text-align-name">
+                                                        <div class="<?= $estadoColorClass ?>"><?= $estadoTexto ?></div>
+                                                    </td>
                                                     <td id="text-align-name"><?php echo $correo ?></td>
 
                                                     <?php

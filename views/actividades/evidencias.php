@@ -220,6 +220,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                             <tr id="categorias-thead">
                                                 <th rowspan="2">Documento</th>
                                                 <th rowspan="2">Nombre Completo</th>
+                                                <th rowspan="2">Estado</th>
                                                 <th rowspan="2">Correo Electrónico</th>
                                                 <?php
                                                 $actividadesCat = [];
@@ -257,10 +258,19 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 $firstname = $user->firstname;
                                                 $lastname = $user->lastname;
                                                 $correo = $user->email;
+                                                $estado = $user->estado;
 
-                                                echo '<tr>';
+                                                // Evaluar el estado y determinar la clase de la fila
+                                                $rowClass = ($estado == 1) ? 'disabled-row' : '';
+
+                                                // Evaluar el estado y asignar texto y clase de estado
+                                                $estadoTexto = ($estado == 0) ? 'Activo' : 'Suspendido';
+                                                $estadoColorClass = ($estado == 0) ? 'estado-activo' : 'estado-suspendido';
+
+                                                echo '<tr class="' . $rowClass . '">';
                                                 echo '<td id="text-align-document">' . $doc_user . '</td>';
                                                 echo '<td id="text-align-name">' . $firstname . ' ' . $lastname . '</td>';
+                                                echo '<td id="text-align-name"><div class="' . $estadoColorClass . '">' . $estadoTexto . '</div></td>';
                                                 echo '<td id="text-align-name">' . $correo . '</td>';
 
                                                 // ITERAMOS NUEVAMENTE LA CONSULTA DE ACTIVIDADES PARA RELACIONAR ACTIVIDADES CON LA NUEVA CONSULTA DE NOTAS Y ASI ORDENAR ACTIVIDADES POR NOTA DE CADA ESTUDIANTE EN LA TABLA.        

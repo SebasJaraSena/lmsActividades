@@ -201,6 +201,7 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                     </th>
                                                     <th>Documento</th>
                                                     <th>Nombre Completo</th>
+                                                    <th>Estado</th>
                                                     <th>Correo</th>
                                                     <?php foreach ($actividades as $actividad) : ?>
                                                         <th tittle=<?= $actividad->itemname ?>>
@@ -210,11 +211,24 @@ if (isset($_SESSION['user']) && checkSessionTimeout()) {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach ($users as $user) : ?>
-                                                    <tr>
+                                                <?php foreach ($users as $user) :
+                                                    $estado = $user->estado;
+
+                                                    // Evaluar el estado y determinar la clase de la fila
+                                                    $rowClass = ($estado == 1) ? 'disabled-row' : '';
+
+                                                    // Evaluar el estado y asignar texto y clase de estado
+                                                    $estadoTexto = ($estado == 0) ? 'Activo' : 'Suspendido';
+                                                    $estadoColorClass = ($estado == 0) ? 'estado-activo' : 'estado-suspendido';
+                                                ?>
+
+                                                    <tr class="<?= $rowClass ?>">
                                                         <td><input type="checkbox" name="correo[]" class="CheckedAK" value="<?= htmlspecialchars($user->email) ?>" /></td>
                                                         <td id="text-align-document"><?= $user->id ?></td>
                                                         <td id="text-align-name"><?= $user->firstname . ' ' . $user->lastname ?></td>
+                                                        <td id="text-align-name">
+                                                            <div class="<?= $estadoColorClass ?>"><?= $estadoTexto ?></div>
+                                                        </td>
                                                         <td id="text-align-name"><?= $user->email ?></td>
                                                         <?php foreach ($actividades as $actividad) : ?>
                                                             <td>
